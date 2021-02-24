@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconSocialMediaTwitter.module.css';
 
 const IconSocialMediaTwitter = props => {
@@ -10,9 +9,9 @@ const IconSocialMediaTwitter = props => {
   return (
     <svg
       className={classes}
-      width="16"
       height="14"
       viewBox="0 0 16 14"
+      width="16"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

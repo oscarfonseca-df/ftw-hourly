@@ -11,8 +11,7 @@ import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import { START_DATE, END_DATE } from '../../util/dates';
 import { propTypes } from '../../util/types';
-import { ValidationError } from '../../components';
-
+import { ValidationError } from "..";
 import DateRangeInput from './DateRangeInput';
 import css from './FieldDateRangeInput.module.css';
 
@@ -85,7 +84,7 @@ class FieldDateRangeInputComponent extends Component {
     // If startDate is valid label changes color and bottom border changes color too
     const startDateIsValid = value && value.startDate instanceof Date;
     const startDateLabelClasses = classNames(css.startDateLabel, {
-      [css.labelSuccess]: false, //startDateIsValid,
+      [css.labelSuccess]: false, // startDateIsValid,
     });
     const startDateBorderClasses = classNames(css.input, {
       [css.inputSuccess]: startDateIsValid,
@@ -96,7 +95,7 @@ class FieldDateRangeInputComponent extends Component {
     // If endDate is valid label changes color and bottom border changes color too
     const endDateIsValid = value && value.endDate instanceof Date;
     const endDateLabelClasses = classNames(css.endDateLabel, {
-      [css.labelSuccess]: false, //endDateIsValid,
+      [css.labelSuccess]: false, // endDateIsValid,
     });
     const endDateBorderClasses = classNames(css.input, {
       [css.inputSuccess]: endDateIsValid,
@@ -184,9 +183,7 @@ FieldDateRangeInputComponent.propTypes = {
   onFocusedInputChange: func,
 };
 
-const FieldDateRangeInput = props => {
-  return <Field component={FieldDateRangeInputComponent} {...props} />;
-};
+const FieldDateRangeInput = props => <Field component={FieldDateRangeInputComponent} {...props} />;
 
 export { DateRangeInput };
 export default FieldDateRangeInput;

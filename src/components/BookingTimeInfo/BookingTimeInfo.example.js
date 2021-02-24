@@ -1,4 +1,3 @@
-import BookingTimeInfo from './BookingTimeInfo';
 import {
   fakeIntl,
   createBooking,
@@ -7,6 +6,7 @@ import {
   createListing,
 } from '../../util/test-data';
 import { LINE_ITEM_DAY, LINE_ITEM_NIGHT, LINE_ITEM_UNITS } from '../../util/types';
+import BookingTimeInfo from './BookingTimeInfo';
 
 export const DateAndTimeSingleDay = {
   component: BookingTimeInfo,

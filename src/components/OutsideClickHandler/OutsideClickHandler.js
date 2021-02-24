@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { func, node, string } from 'prop-types';
 import classNames from 'classnames';
-
 import css from './OutsideClickHandler.module.css';
 
 export default class OutsideClickHandler extends Component {
@@ -30,7 +29,7 @@ export default class OutsideClickHandler extends Component {
     const classes = classNames(rootClassName || css.root, className);
 
     return (
-      <div className={classes} ref={node => (this.node = node)}>
+      <div ref={node => (this.node = node)} className={classes}>
         {children}
       </div>
     );

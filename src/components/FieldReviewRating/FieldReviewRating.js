@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from '../../util/reactIntl';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { IconReviewStar, ValidationError } from '../../components';
-
+import { intlShape, injectIntl } from '../../util/reactIntl';
+import { IconReviewStar, ValidationError } from "..";
 import css from './FieldReviewRating.module.css';
 
 class FieldReviewRatingComponent extends Component {
@@ -43,7 +42,7 @@ class FieldReviewRatingComponent extends Component {
     const classes = classNames(rootClassName || css.root, className);
 
     const createStarRating = starCount => {
-      let inputsAndLabels = [];
+      const inputsAndLabels = [];
 
       // Star inpu order: reverse order expected (5 -> 1) and also input before label
       // This is due to CSS selectors.
@@ -56,10 +55,10 @@ class FieldReviewRatingComponent extends Component {
         inputsAndLabels.push(
           <input
             key={inputId}
-            id={inputId}
-            className={css.rateInput}
-            value={inputValue}
             checked={value === inputValue}
+            className={css.rateInput}
+            id={inputId}
+            value={inputValue}
             {...inputProps}
           />
         );
@@ -81,10 +80,10 @@ class FieldReviewRatingComponent extends Component {
     return (
       <div className={classes}>
         <fieldset
-          className={css.ratingFieldSet}
           ref={c => {
             this.ratingFieldSet = c;
           }}
+          className={css.ratingFieldSet}
         >
           {label ? <legend>{label}</legend> : null}
           <div className={css.rating}>{createStarRating(5)}</div>
@@ -124,8 +123,6 @@ FieldReviewRatingComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const FieldReviewRating = props => {
-  return <Field component={FieldReviewRatingComponent} {...props} />;
-};
+const FieldReviewRating = props => <Field component={FieldReviewRatingComponent} {...props} />;
 
 export default injectIntl(FieldReviewRating);

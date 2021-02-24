@@ -50,8 +50,7 @@ const RedirectToLandingPage = () => <NamedRedirect name="LandingPage" />;
 
 // Our routes are exact by default.
 // See behaviour from Routes.js where Route is created.
-const routeConfiguration = () => {
-  return [
+const routeConfiguration = () => [
     {
       path: '/',
       name: 'LandingPage',
@@ -342,6 +341,5 @@ const routeConfiguration = () => {
       loadData: EmailVerificationPage.loadData,
     },
   ];
-};
 
 export default routeConfiguration;

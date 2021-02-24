@@ -1,9 +1,7 @@
 import React from 'react';
 import { string, bool } from 'prop-types';
 import { intlShape, injectIntl } from '../../util/reactIntl';
-
 import config from '../../config';
-
 import SortByPlain from './SortByPlain';
 import SortByPopup from './SortByPopup';
 

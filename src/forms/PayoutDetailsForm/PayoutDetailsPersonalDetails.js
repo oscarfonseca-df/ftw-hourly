@@ -3,7 +3,6 @@ import { bool, node, object, oneOf, string } from 'prop-types';
 import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { FieldBirthdayInput, FieldCheckbox, FieldTextInput } from '../../components';
-
 import * as normalizePhoneNumberUS from './normalizePhoneNumberUS';
 import css from './PayoutDetailsForm.module.css';
 
@@ -35,9 +34,7 @@ const PayoutDetailsPersonalDetails = props => {
     id: 'PayoutDetailsForm.organizationTitlePlaceholder',
   });
 
-  const personalDetailsTitle = sectionTitle
-    ? sectionTitle
-    : intl.formatMessage({ id: 'PayoutDetailsForm.personalDetailsTitle' });
+  const personalDetailsTitle = sectionTitle || intl.formatMessage({ id: 'PayoutDetailsForm.personalDetailsTitle' });
 
   const firstNameLabel = intl.formatMessage({ id: 'PayoutDetailsForm.firstNameLabel' });
   const firstNamePlaceholder = intl.formatMessage({
@@ -153,7 +150,7 @@ const PayoutDetailsPersonalDetails = props => {
     const pattern = /^\d{0,3}(?:\.\d{1,2})?$/;
     const hasCorrectFormat = value.match(pattern);
     const floatValue = Number.parseFloat(value);
-    const isInRange = 0 <= floatValue && floatValue <= 100;
+    const isInRange = floatValue >= 0 && floatValue <= 100;
 
     return hasCorrectFormat && isInRange
       ? value
@@ -170,25 +167,25 @@ const PayoutDetailsPersonalDetails = props => {
       <h3 className={css.subTitle}>{personalDetailsTitle}</h3>
       <div className={css.formRow}>
         <FieldTextInput
-          id={`${fieldId}.firstName`}
-          name={`${fieldId}.fname`}
-          disabled={disabled}
-          className={css.firstName}
-          type="text"
           autoComplete="given-name"
+          className={css.firstName}
+          disabled={disabled}
+          id={`${fieldId}.firstName`}
           label={firstNameLabel}
+          name={`${fieldId}.fname`}
           placeholder={firstNamePlaceholder}
+          type="text"
           validate={firstNameRequired}
         />
         <FieldTextInput
-          id={`${fieldId}.lastName`}
-          name={`${fieldId}.lname`}
-          disabled={disabled}
-          className={css.lastName}
-          type="text"
           autoComplete="family-name"
+          className={css.lastName}
+          disabled={disabled}
+          id={`${fieldId}.lastName`}
           label={lastNameLabel}
+          name={`${fieldId}.lname`}
           placeholder={lastNamePlaceholder}
+          type="text"
           validate={lastNameRequired}
         />
       </div>
@@ -199,10 +196,10 @@ const PayoutDetailsPersonalDetails = props => {
             <FormattedMessage id="PayoutDetailsForm.role" />
           </legend>
           <FieldCheckbox
-            id={`${fieldId}.owner`}
             className={css.textInputRow}
-            name={`${fieldId}.role`}
+            id={`${fieldId}.owner`}
             label={intl.formatMessage({ id: 'PayoutDetailsForm.owner' })}
+            name={`${fieldId}.role`}
             value="owner"
           />
         </fieldset>
@@ -210,30 +207,30 @@ const PayoutDetailsPersonalDetails = props => {
 
       {showOwnershipPercentageField ? (
         <FieldTextInput
-          id={`${fieldId}.ownershipPercentage`}
-          name={`${fieldId}.ownershipPercentage`}
           className={css.ownershipPercentage}
           disabled={disabled}
+          id={`${fieldId}.ownershipPercentage`}
           label={intl.formatMessage({ id: 'PayoutDetailsForm.ownershipPercentageLabel' })}
+          max={100}
+          min={0}
+          name={`${fieldId}.ownershipPercentage`}
+          parse={parseOwnershipPercentage}
           placeholder={intl.formatMessage({
             id: 'PayoutDetailsForm.ownershipPercentagePlaceholder',
           })}
-          type="number"
-          min={0}
-          max={100}
           step="0.01"
-          parse={parseOwnershipPercentage}
+          type="number"
         />
       ) : null}
 
       {showOrganizationTitleField ? (
         <FieldTextInput
-          id={`${fieldId}.title`}
-          name={`${fieldId}.title`}
-          className={css.textInputRow}
           autoComplete="organization-title"
+          className={css.textInputRow}
           disabled={disabled}
+          id={`${fieldId}.title`}
           label={organizationTitleLabel}
+          name={`${fieldId}.title`}
           placeholder={organizationTitlePlaceholder}
           type="text"
         />
@@ -241,42 +238,42 @@ const PayoutDetailsPersonalDetails = props => {
 
       <div className={css.formRow}>
         <FieldBirthdayInput
-          id={`${fieldId}.birthDate`}
-          name={`${fieldId}.birthDate`}
-          disabled={disabled}
           className={css.field}
+          disabled={disabled}
+          format={identity}
+          id={`${fieldId}.birthDate`}
           label={birthdayLabel}
           labelForMonth={birthdayLabelMonth}
           labelForYear={birthdayLabelYear}
-          format={identity}
-          valueFromForm={values.birthDate}
+          name={`${fieldId}.birthDate`}
           validate={validators.composeValidators(birthdayRequired, birthdayMinAge)}
+          valueFromForm={values.birthDate}
         />
       </div>
 
       {showPersonalIdNumberField ? (
         <FieldTextInput
-          id={`${fieldId}.personalIdNumber`}
-          name={`${fieldId}.personalIdNumber`}
-          disabled={disabled}
           className={css.textInputRow}
-          type="text"
+          disabled={disabled}
+          id={`${fieldId}.personalIdNumber`}
           label={personalIdNumberLabel}
-          placeholder={personalIdNumberPlaceholder}
-          validate={personalIdNumberValid}
+          name={`${fieldId}.personalIdNumber`}
           onUnmount={() => form.change(`${fieldId}.personalIdNumber`, undefined)}
+          placeholder={personalIdNumberPlaceholder}
+          type="text"
+          validate={personalIdNumberValid}
         />
       ) : null}
 
       {showPhoneNumberField ? (
         <FieldTextInput
-          id={`${fieldId}.phone`}
-          name={`${fieldId}.phone`}
-          className={css.textInputRow}
           autoComplete="tel-national"
+          className={css.textInputRow}
           disabled={disabled}
           format={normalizePhoneNumberUS.format}
+          id={`${fieldId}.phone`}
           label={phoneLabel}
+          name={`${fieldId}.phone`}
           parse={normalizePhoneNumberUS.parse}
           placeholder={phonePlaceholder}
           type="text"
@@ -285,12 +282,12 @@ const PayoutDetailsPersonalDetails = props => {
       ) : null}
       {showEmailField ? (
         <FieldTextInput
-          id={`${fieldId}.email`}
-          name={`${fieldId}.email`}
-          className={css.textInputRow}
           autoComplete="email"
+          className={css.textInputRow}
           disabled={disabled}
+          id={`${fieldId}.email`}
           label={emailLabel}
+          name={`${fieldId}.email`}
           placeholder={emailPlaceholder}
           type="text"
           validate={emailRequired}

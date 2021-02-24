@@ -1,8 +1,7 @@
 import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { PrimaryButton, SecondaryButton } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { PrimaryButton, SecondaryButton } from "..";
 import css from './TransactionPanel.module.css';
 
 // Functional component as a helper to build ActionButtons for
@@ -43,15 +42,15 @@ const SaleActionButtonsMaybe = props => {
       </div>
       <div className={css.actionButtonWrapper}>
         <SecondaryButton
-          inProgress={declineInProgress}
           disabled={buttonsDisabled}
+          inProgress={declineInProgress}
           onClick={onDeclineSale}
         >
           <FormattedMessage id="TransactionPanel.declineButton" />
         </SecondaryButton>
         <PrimaryButton
-          inProgress={acceptInProgress}
           disabled={buttonsDisabled}
+          inProgress={acceptInProgress}
           onClick={onAcceptSale}
         >
           <FormattedMessage id="TransactionPanel.acceptButton" />

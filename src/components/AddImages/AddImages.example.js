@@ -8,9 +8,7 @@ import css from './AddImagesExample.module.css';
 
 const { UUID } = sdkTypes;
 
-const getId = () => {
-  return uniqueId();
-};
+const getId = () => uniqueId();
 
 class AddImagesTest extends Component {
   constructor(props, state) {
@@ -54,8 +52,8 @@ class AddImagesTest extends Component {
       <div>
         <AddImages
           images={this.state.images}
-          savedImageAltText="Saved image"
           onRemoveImage={imageId => console.log('remove image:', imageId)}
+          savedImageAltText="Saved image"
         >
           <div className={css.addImageWrapper}>
             <div className={css.aspectRatioWrapper}>
@@ -63,11 +61,11 @@ class AddImagesTest extends Component {
                 + Add image
               </label>
               <input
-                id="addImageExampleInput"
-                type="file"
                 accept="images/*"
-                onChange={this.onChange}
                 className={css.addImageInput}
+                id="addImageExampleInput"
+                onChange={this.onChange}
+                type="file"
               />
             </div>
           </div>

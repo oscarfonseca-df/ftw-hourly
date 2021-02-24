@@ -5,22 +5,22 @@ import { NotFoundPageComponent } from './NotFoundPage';
 
 const noop = () => null;
 
-describe('NotFoundPageComponent', () => {
+describe('notFoundPageComponent', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <NotFoundPageComponent
-        params={{ displayName: 'my-shop' }}
-        history={{ push: noop }}
-        location={{ search: '' }}
-        scrollingDisabled={false}
         authInProgress={false}
         currentUserHasListings={false}
+        history={{ push: noop }}
+        intl={fakeIntl}
         isAuthenticated={false}
+        location={{ search: '' }}
         onLogout={noop}
         onManageDisableScrolling={noop}
-        sendVerificationEmailInProgress={false}
         onResendVerificationEmail={noop}
-        intl={fakeIntl}
+        params={{ displayName: 'my-shop' }}
+        scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
       />
     );
     expect(tree).toMatchSnapshot();

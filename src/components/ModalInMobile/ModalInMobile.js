@@ -14,9 +14,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Modal } from '../../components';
+import { Modal } from "..";
 import { withViewport } from '../../util/contextHelpers';
-
 import css from './ModalInMobile.module.css';
 
 class ModalInMobileComponent extends Component {
@@ -92,13 +91,13 @@ class ModalInMobileComponent extends Component {
     return (
       <Modal
         className={classes}
+        closeButtonMessage={closeButtonMessage}
         containerClassName={containerClassName || css.modalContainer}
         contentClassName={css.modalContent}
         id={id}
-        isOpen={isOpen}
         isClosedClassName={closedClassName}
+        isOpen={isOpen}
         onClose={this.handleClose}
-        closeButtonMessage={closeButtonMessage}
         onManageDisableScrolling={onManageDisableScrolling}
       >
         {children}

@@ -1,8 +1,7 @@
 import React from 'react';
 import { string, arrayOf, shape, node, object, oneOf, oneOfType } from 'prop-types';
 import classNames from 'classnames';
-import { ExternalLink, NamedLink } from '../../components';
-
+import { ExternalLink, NamedLink } from "..";
 import css from './SectionThumbnailLinks.module.css';
 
 const ThumbnailLink = props => {
@@ -30,7 +29,7 @@ const ThumbnailLink = props => {
     <LinkComponent {...LinkComponentProps} className={classes}>
       <div className={imageWrapperClasses}>
         <div className={css.aspectWrapper}>
-          <img src={imageUrl} alt={imageAltText} className={css.image} />
+          <img alt={imageAltText} className={css.image} src={imageUrl} />
         </div>
       </div>
       <div className={css.text}>{text}</div>
@@ -63,10 +62,10 @@ const SectionThumbnailLinks = props => {
         {links.map((link, i) => (
           <ThumbnailLink
             key={i}
-            linksPerRow={linksPerRow}
-            linkRootClassName={linkRootClassName}
             className={linkClassName}
             imageWrapperClassName={imageWrapperClassName}
+            linkRootClassName={linkRootClassName}
+            linksPerRow={linksPerRow}
             {...link}
           />
         ))}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { IconCheckmark } from '../../components';
+import { IconCheckmark } from "..";
 import Button, { PrimaryButton, SecondaryButton, InlineTextButton } from './Button';
-
 import css from './ButtonExample.module.css';
 
 const preventDefault = e => {
@@ -16,10 +15,12 @@ class InteractiveButton extends Component {
     this.readyTimeoutId = null;
     this.state = { inProgress: false, disabled: false, ready: false };
   }
+
   componentWillUnmount() {
     window.clearTimeout(this.inProgressTimeoutId);
     window.clearTimeout(this.readyTimeoutId);
   }
+
   render() {
     const handleClick = () => {
       window.clearTimeout(this.inProgressTimeoutId);
@@ -41,8 +42,7 @@ class InteractiveButton extends Component {
   }
 }
 
-const ButtonsComponent = () => {
-  return (
+const ButtonsComponent = () => (
     <div>
       <h3>Interactive button:</h3>
       <InteractiveButton />
@@ -160,7 +160,6 @@ const ButtonsComponent = () => {
       <Button rootClassName={css.customButton}>Click me</Button>
     </div>
   );
-};
 
 export const Buttons = {
   component: ButtonsComponent,

@@ -9,13 +9,13 @@ const RemoveImageButton = props => {
   return (
     <button className={classes} onClick={onClick}>
       <svg
-        width="10px"
         height="10px"
-        viewBox="0 0 10 10"
         version="1.1"
+        viewBox="0 0 10 10"
+        width="10px"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g strokeWidth="1" fillRule="evenodd">
+        <g fillRule="evenodd" strokeWidth="1">
           <g transform="translate(-821.000000, -311.000000)">
             <g transform="translate(809.000000, 299.000000)">
               <path

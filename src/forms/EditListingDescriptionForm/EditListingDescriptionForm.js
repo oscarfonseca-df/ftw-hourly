@@ -2,13 +2,12 @@ import React from 'react';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm } from 'react-final-form';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators } from '../../util/validators';
 import { Form, Button, FieldTextInput } from '../../components';
 import CustomCertificateSelectFieldMaybe from './CustomCertificateSelectFieldMaybe';
-
 import css from './EditListingDescriptionForm.module.css';
 
 const TITLE_MAX_LENGTH = 60;
@@ -88,40 +87,40 @@ const EditListingDescriptionFormComponent = props => (
           {errorMessageUpdateListing}
           {errorMessageShowListing}
           <FieldTextInput
-            id="title"
-            name="title"
-            className={css.title}
-            type="text"
-            label={titleMessage}
-            placeholder={titlePlaceholderMessage}
-            maxLength={TITLE_MAX_LENGTH}
-            validate={composeValidators(required(titleRequiredMessage), maxLength60Message)}
             autoFocus
+            className={css.title}
+            id="title"
+            label={titleMessage}
+            maxLength={TITLE_MAX_LENGTH}
+            name="title"
+            placeholder={titlePlaceholderMessage}
+            type="text"
+            validate={composeValidators(required(titleRequiredMessage), maxLength60Message)}
           />
 
           <FieldTextInput
-            id="description"
-            name="description"
             className={css.description}
-            type="textarea"
+            id="description"
             label={descriptionMessage}
+            name="description"
             placeholder={descriptionPlaceholderMessage}
+            type="textarea"
             validate={composeValidators(required(descriptionRequiredMessage))}
           />
 
           <CustomCertificateSelectFieldMaybe
-            id="certificate"
-            name="certificate"
             certificateOptions={certificateOptions}
+            id="certificate"
             intl={intl}
+            name="certificate"
           />
 
           <Button
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
             ready={submitReady}
+            type="submit"
           >
             {saveActionMsg}
           </Button>

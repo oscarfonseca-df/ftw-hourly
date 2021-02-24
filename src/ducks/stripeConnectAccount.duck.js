@@ -278,10 +278,10 @@ export const getStripeConnectAccountLink = params => (dispatch, getState, sdk) =
       type,
       collect: 'currently_due',
     })
-    .then(response => {
+    .then(response => 
       // Return the account link
-      return response.data.data.attributes.url;
-    })
+       response.data.data.attributes.url
+    )
     .catch(err => {
       const e = storableError(err);
       dispatch(getAccountLinkError(e));

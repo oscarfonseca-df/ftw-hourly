@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconReviewUser.module.css';
 
 const IconReviewUser = props => {
@@ -11,13 +10,13 @@ const IconReviewUser = props => {
   return (
     <svg
       className={classes}
-      width="46"
       height="47"
       viewBox="0 0 46 47"
+      width="46"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-        <path strokeWidth="2.75" d="M8 45h32V2H8z" />
+        <path d="M8 45h32V2H8z" strokeWidth="2.75" />
         <path d="M8 2H4c-1.1 0-2 .84-2 1.87v39.26C2 44.16 2.9 45 4 45h4" strokeWidth="2.5" />
         <path
           d="M26.35 24v2.77l4.822 1.34c1.005.278 1.828 1.336 1.828 2.352V36H14v-5.538c0-1.016.823-2.074 1.826-2.352l4.824-1.34V24M29 18c0 3.315-2.464 6-5.5 6-3.038 0-5.5-2.685-5.5-6 0-3.313 2.462-6 5.5-6 3.036 0 5.5 2.687 5.5 6z"

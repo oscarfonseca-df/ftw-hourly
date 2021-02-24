@@ -3,7 +3,6 @@ import { bool, string } from 'prop-types';
 import { FormattedMessage } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { StripeBankAccountTokenInputField } from '../../components';
-
 import { stripeCountryConfigs } from './PayoutDetailsForm';
 import css from './PayoutDetailsForm.module.css';
 
@@ -27,11 +26,11 @@ const PayoutDetailsBankDetails = props => {
       </h3>
       <StripeBankAccountTokenInputField
         className={css.bankDetailsStripeField}
-        disabled={disabled}
-        name={`${fieldId}.bankAccountToken`}
-        formName="PayoutDetailsForm"
         country={country}
         currency={countryCurrency(country)}
+        disabled={disabled}
+        formName="PayoutDetailsForm"
+        name={`${fieldId}.bankAccountToken`}
         validate={bankAccountRequired}
       />
     </div>

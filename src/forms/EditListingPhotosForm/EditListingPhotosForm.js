@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { array, bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { nonEmptyArray, composeValidators } from '../../util/validators';
 import { isUploadImageOverLimitError } from '../../util/errors';
 import { AddImages, Button, Form, ValidationError } from '../../components';
-
 import css from './EditListingPhotosForm.module.css';
 
 const ACCEPT_IMAGES = 'image/*';
@@ -40,9 +39,9 @@ export class EditListingPhotosFormComponent extends Component {
     return (
       <FinalForm
         {...this.props}
-        onImageUploadHandler={this.onImageUploadHandler}
         imageUploadRequested={this.state.imageUploadRequested}
         initialValues={{ images: this.props.images }}
+        onImageUploadHandler={this.onImageUploadHandler}
         render={formRenderProps => {
           const {
             form,
@@ -143,20 +142,20 @@ export class EditListingPhotosFormComponent extends Component {
               <AddImages
                 className={css.imagesField}
                 images={images}
-                thumbnailClassName={css.thumbnail}
+                onRemoveImage={onRemoveImage}
                 savedImageAltText={intl.formatMessage({
                   id: 'EditListingPhotosForm.savedImageAltText',
                 })}
-                onRemoveImage={onRemoveImage}
+                thumbnailClassName={css.thumbnail}
               >
                 <Field
-                  id="addImage"
-                  name="addImage"
                   accept={ACCEPT_IMAGES}
-                  form={null}
-                  label={chooseImageText}
-                  type="file"
                   disabled={imageUploadRequested}
+                  form={null}
+                  id="addImage"
+                  label={chooseImageText}
+                  name="addImage"
+                  type="file"
                 >
                   {fieldprops => {
                     const { accept, input, label, disabled: fieldDisabled } = fieldprops;
@@ -174,7 +173,7 @@ export class EditListingPhotosFormComponent extends Component {
                           {fieldDisabled ? null : (
                             <input {...inputProps} className={css.addImageInput} />
                           )}
-                          <label htmlFor={name} className={css.addImage}>
+                          <label className={css.addImage} htmlFor={name}>
                             {label}
                           </label>
                         </div>
@@ -208,10 +207,10 @@ export class EditListingPhotosFormComponent extends Component {
 
               <Button
                 className={css.submitButton}
-                type="submit"
-                inProgress={submitInProgress}
                 disabled={submitDisabled}
+                inProgress={submitInProgress}
                 ready={submitReady}
+                type="submit"
               >
                 {saveActionMsg}
               </Button>

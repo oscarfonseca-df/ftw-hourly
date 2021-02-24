@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { string, func, oneOfType } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import truncate from 'lodash/truncate';
 import classNames from 'classnames';
-import { AvatarLarge, NamedLink, InlineTextButton } from '../../components';
+import { FormattedMessage } from '../../util/reactIntl';
+import { AvatarLarge, NamedLink, InlineTextButton } from "..";
 import { ensureUser, ensureCurrentUser } from '../../util/data';
 import { propTypes } from '../../util/types';
-
 import css from './UserCard.module.css';
 
 // Approximated collapsed size so that there are ~three lines of text
 // in the desktop layout in the host section of the ListingPage.
 const BIO_COLLAPSED_LENGTH = 170;
 
-const truncated = s => {
-  return truncate(s, {
+const truncated = s => truncate(s, {
     length: BIO_COLLAPSED_LENGTH,
 
     // Allow truncated text end only in specific characters. This will
@@ -26,13 +24,13 @@ const truncated = s => {
     separator: /\s|,|\.|:|;/,
     omission: '…',
   });
-};
 
 class ExpandableBio extends Component {
   constructor(props) {
     super(props);
     this.state = { expand: false };
   }
+
   render() {
     const { expand } = this.state;
     const { className, bio } = this.props;
@@ -42,7 +40,7 @@ class ExpandableBio extends Component {
       this.setState({ expand: true });
     };
     const showMore = (
-      <InlineTextButton rootClassName={css.showMore} onClick={handleShowMoreClick}>
+      <InlineTextButton onClick={handleShowMoreClick} rootClassName={css.showMore}>
         <FormattedMessage id="UserCard.showFullBioLink" />
       </InlineTextButton>
     );
@@ -86,7 +84,7 @@ const UserCard = props => {
   const separator = isCurrentUser ? null : <span className={css.linkSeparator}>•</span>;
 
   const contact = (
-    <InlineTextButton rootClassName={css.contact} onClick={handleContactUserClick}>
+    <InlineTextButton onClick={handleContactUserClick} rootClassName={css.contact}>
       <FormattedMessage id="UserCard.contactUser" />
     </InlineTextButton>
   );
@@ -127,11 +125,11 @@ const UserCard = props => {
             </h3>
             {editProfileDesktop}
           </div>
-          {hasBio ? <ExpandableBio className={css.desktopBio} bio={bio} /> : null}
+          {hasBio ? <ExpandableBio bio={bio} className={css.desktopBio} /> : null}
           {links}
         </div>
       </div>
-      {hasBio ? <ExpandableBio className={css.mobileBio} bio={bio} /> : null}
+      {hasBio ? <ExpandableBio bio={bio} className={css.mobileBio} /> : null}
     </div>
   );
 };

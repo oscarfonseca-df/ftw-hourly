@@ -104,7 +104,7 @@ class StaticGoogleMap extends Component {
     });
 
     return (
-      <img src={`https://maps.googleapis.com/maps/api/staticmap?${srcParams}`} alt={address} />
+      <img alt={address} src={`https://maps.googleapis.com/maps/api/staticmap?${srcParams}`} />
     );
   }
 }

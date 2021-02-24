@@ -5,15 +5,14 @@
  * that are passed to the input field.
  */
 import React from 'react';
-
-import { FieldTextInput } from '../../components';
+import { FieldTextInput } from "..";
 import { format, parse } from './fiFormatter';
 
 const FieldPhoneNumberInput = props => {
   const inputProps = {
     type: 'text',
-    format: format,
-    parse: parse,
+    format,
+    parse,
     ...props,
   };
 

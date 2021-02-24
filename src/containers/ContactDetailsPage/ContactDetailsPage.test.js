@@ -5,26 +5,26 @@ import { ContactDetailsPageComponent } from './ContactDetailsPage';
 
 const noop = () => null;
 
-describe('ContactDetailsPage', () => {
+describe('contactDetailsPage', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <ContactDetailsPageComponent
-        params={{ displayName: 'my-shop' }}
-        history={{ push: noop }}
-        location={{ search: '' }}
-        scrollingDisabled={false}
         authInProgress={false}
+        contactDetailsChanged={false}
         currentUserHasListings={false}
+        history={{ push: noop }}
+        intl={fakeIntl}
         isAuthenticated={false}
+        location={{ search: '' }}
         onChange={noop}
         onLogout={noop}
         onManageDisableScrolling={noop}
-        sendVerificationEmailInProgress={false}
         onResendVerificationEmail={noop}
         onSubmitContactDetails={noop}
+        params={{ displayName: 'my-shop' }}
         saveContactDetailsInProgress={false}
-        contactDetailsChanged={false}
-        intl={fakeIntl}
+        scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
       />
     );
     expect(tree).toMatchSnapshot();

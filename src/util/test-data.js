@@ -1,15 +1,15 @@
 import Decimal from 'decimal.js';
 import moment from 'moment';
-import { types as sdkTypes } from './sdkLoader';
-import { nightsBetween } from '../util/dates';
+import { nightsBetween } from "./dates";
 import {
   TRANSITION_ACCEPT,
   TRANSITION_CONFIRM_PAYMENT,
   TRANSITION_REQUEST_PAYMENT,
   TX_TRANSITION_ACTOR_CUSTOMER,
   TX_TRANSITION_ACTOR_PROVIDER,
-} from '../util/transaction';
-import { LISTING_STATE_PUBLISHED, TIME_SLOT_DAY } from '../util/types';
+} from "./transaction";
+import { LISTING_STATE_PUBLISHED, TIME_SLOT_DAY } from "./types";
+import { types as sdkTypes } from './sdkLoader';
 
 const { UUID, LatLng, Money } = sdkTypes;
 
@@ -140,14 +140,12 @@ export const createOwnListing = (id, attributes = {}, includes = {}) => ({
   ...includes,
 });
 
-export const createTxTransition = options => {
-  return {
+export const createTxTransition = options => ({
     createdAt: new Date(Date.UTC(2017, 4, 1)),
     by: TX_TRANSITION_ACTOR_CUSTOMER,
     transition: TRANSITION_REQUEST_PAYMENT,
     ...options,
-  };
-};
+  });
 
 export const createTransaction = options => {
   const {
@@ -216,8 +214,7 @@ export const createTransaction = options => {
   };
 };
 
-export const createMessage = (id, attributes = {}, includes = {}) => {
-  return {
+export const createMessage = (id, attributes = {}, includes = {}) => ({
     id: new UUID(id),
     type: 'message',
     attributes: {
@@ -226,11 +223,9 @@ export const createMessage = (id, attributes = {}, includes = {}) => {
       ...attributes,
     },
     ...includes,
-  };
-};
+  });
 
-export const createReview = (id, attributes = {}, includes = {}) => {
-  return {
+export const createReview = (id, attributes = {}, includes = {}) => ({
     id: new UUID(id),
     attributes: {
       createdAt: new Date(),
@@ -242,8 +237,7 @@ export const createReview = (id, attributes = {}, includes = {}) => {
       ...attributes,
     },
     ...includes,
-  };
-};
+  });
 
 /**
  * Creates an array of time slot objects.
@@ -256,8 +250,7 @@ export const createReview = (id, attributes = {}, includes = {}) => {
 export const createTimeSlots = (startDate, numberOfDays) => {
   const startTime = moment.utc(startDate).startOf('day');
 
-  return Array.from({ length: numberOfDays }, (v, i) => i).map(i => {
-    return {
+  return Array.from({ length: numberOfDays }, (v, i) => i).map(i => ({
       id: new UUID(i),
       type: 'timeSlot',
       attributes: {
@@ -269,8 +262,7 @@ export const createTimeSlots = (startDate, numberOfDays) => {
           .toDate(),
         type: TIME_SLOT_DAY,
       },
-    };
-  });
+    }));
 };
 
 // Default config for currency formatting in tests and examples.
@@ -283,9 +275,7 @@ export const currencyConfig = {
   maximumFractionDigits: 2,
 };
 
-const pad = num => {
-  return num >= 0 && num < 10 ? `0${num}` : `${num}`;
-};
+const pad = num => num >= 0 && num < 10 ? `0${num}` : `${num}`;
 
 // Create fake Internalization object to help with shallow rendering.
 export const fakeIntl = {

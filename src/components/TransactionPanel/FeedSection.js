@@ -1,8 +1,7 @@
 import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { ActivityFeed } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { ActivityFeed } from "..";
 import css from './TransactionPanel.module.css';
 
 // Functional component as a helper to build ActivityFeed section
@@ -49,13 +48,13 @@ const FeedSection = props => {
       ) : null}
       <ActivityFeed
         className={css.feed}
-        messages={messages}
-        transaction={currentTransaction}
         currentUser={currentUser}
+        fetchMessagesInProgress={fetchMessagesInProgress}
         hasOlderMessages={hasOlderMessages && !fetchMessagesInProgress}
+        messages={messages}
         onOpenReviewModal={onOpenReviewModal}
         onShowOlderMessages={onShowMoreMessages}
-        fetchMessagesInProgress={fetchMessagesInProgress}
+        transaction={currentTransaction}
       />
     </div>
   ) : null;

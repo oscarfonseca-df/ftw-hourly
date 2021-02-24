@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconSocialMediaFacebook.module.css';
 
 const IconSocialMediaFacebook = props => {
@@ -10,9 +9,9 @@ const IconSocialMediaFacebook = props => {
   return (
     <svg
       className={classes}
-      width="10"
       height="17"
       viewBox="0 0 10 17"
+      width="10"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

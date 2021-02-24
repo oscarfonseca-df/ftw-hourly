@@ -18,25 +18,19 @@ const UserDisplayName = props => {
   const userHasProfile = hasAttributes && user.attributes.profile;
   const userDisplayName = userHasProfile && user.attributes.profile.displayName;
 
-  const deletedUserDisplayNameInUse = deletedUserDisplayName
-    ? deletedUserDisplayName
-    : intl.formatMessage({
+  const deletedUserDisplayNameInUse = deletedUserDisplayName || intl.formatMessage({
         id: 'UserDisplayName.deleted',
       });
 
-  const bannedUserDisplayNameInUse = bannedUserDisplayName
-    ? bannedUserDisplayName
-    : intl.formatMessage({
+  const bannedUserDisplayNameInUse = bannedUserDisplayName || intl.formatMessage({
         id: 'UserDisplayName.banned',
       });
 
-  const displayName = userDisplayName
-    ? userDisplayName
-    : userIsDeleted
+  const displayName = userDisplayName || (userIsDeleted
     ? deletedUserDisplayNameInUse
     : userIsBanned
     ? bannedUserDisplayNameInUse
-    : null;
+    : null);
 
   const classes = classNames(rootClassName, className);
   return <span className={classes}>{displayName}</span>;

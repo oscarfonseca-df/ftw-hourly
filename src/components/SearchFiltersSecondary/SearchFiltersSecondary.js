@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { func, object, string } from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
-
-import { InlineTextButton } from '../../components';
+import { InlineTextButton } from "..";
 import css from './SearchFiltersSecondary.module.css';
 
 class SearchFiltersSecondaryComponent extends Component {
@@ -64,14 +63,14 @@ class SearchFiltersSecondaryComponent extends Component {
       <div className={classes}>
         <div className={css.filtersWrapper}>{children}</div>
         <div className={css.footer}>
-          <InlineTextButton rootClassName={css.resetAllButton} onClick={this.resetAll}>
-            <FormattedMessage id={'SearchFiltersSecondary.resetAll'} />
+          <InlineTextButton onClick={this.resetAll} rootClassName={css.resetAllButton}>
+            <FormattedMessage id="SearchFiltersSecondary.resetAll" />
           </InlineTextButton>
-          <InlineTextButton rootClassName={css.cancelButton} onClick={this.cancelFilters}>
-            <FormattedMessage id={'SearchFiltersSecondary.cancel'} />
+          <InlineTextButton onClick={this.cancelFilters} rootClassName={css.cancelButton}>
+            <FormattedMessage id="SearchFiltersSecondary.cancel" />
           </InlineTextButton>
-          <InlineTextButton rootClassName={css.applyButton} onClick={this.applyFilters}>
-            <FormattedMessage id={'SearchFiltersSecondary.apply'} />
+          <InlineTextButton onClick={this.applyFilters} rootClassName={css.applyButton}>
+            <FormattedMessage id="SearchFiltersSecondary.apply" />
           </InlineTextButton>
         </div>
       </div>

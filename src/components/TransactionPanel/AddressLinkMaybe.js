@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { ExternalLink } from '../../components';
-
+import { ExternalLink } from "..";
 import css from './TransactionPanel.module.css';
 
 // Functional component as a helper to build AddressLinkMaybe

@@ -110,9 +110,7 @@ const initialState = {
 // const b = [{ id: : { uuid: 2 } }, { id: : { uuid: 1 } }];
 // mergeEntityArrays(a, b)
 // => [{ id: { uuid: 3 } }, { id: : { uuid: 2 } }, { id: : { uuid: 1 } }]
-const mergeEntityArrays = (a, b) => {
-  return a.filter(aEntity => !b.find(bEntity => aEntity.id.uuid === bEntity.id.uuid)).concat(b);
-};
+const mergeEntityArrays = (a, b) => a.filter(aEntity => !b.find(bEntity => aEntity.id.uuid === bEntity.id.uuid)).concat(b);
 
 export default function checkoutPageReducer(state = initialState, action = {}) {
   const { type, payload } = action;
@@ -240,9 +238,7 @@ export default function checkoutPageReducer(state = initialState, action = {}) {
 
 // ================ Selectors ================ //
 
-export const acceptOrDeclineInProgress = state => {
-  return state.TransactionPage.acceptInProgress || state.TransactionPage.declineInProgress;
-};
+export const acceptOrDeclineInProgress = state => state.TransactionPage.acceptInProgress || state.TransactionPage.declineInProgress;
 
 // ================ Action creators ================ //
 export const setInitialValues = initialValues => ({
@@ -314,11 +310,7 @@ export const fetchLineItemsError = error => ({
 
 // ================ Thunks ================ //
 
-const timeSlotsRequest = params => (dispatch, getState, sdk) => {
-  return sdk.timeslots.query(params).then(response => {
-    return denormalisedResponseEntities(response);
-  });
-};
+const timeSlotsRequest = params => (dispatch, getState, sdk) => sdk.timeslots.query(params).then(response => denormalisedResponseEntities(response));
 
 export const fetchTimeSlots = (listingId, start, end, timeZone) => (dispatch, getState, sdk) => {
   const monthId = monthIdStringInTimeZone(start, timeZone);
@@ -366,9 +358,7 @@ const fetchMonthlyTimeSlots = (dispatch, listing) => {
   return Promise.all([]);
 };
 
-const listingRelationship = txResponse => {
-  return txResponse.data.data.relationships.listing.data;
-};
+const listingRelationship = txResponse => txResponse.data.data.relationships.listing.data;
 
 export const fetchTransaction = (id, txRole) => (dispatch, getState, sdk) => {
   dispatch(fetchTransactionRequest());
@@ -642,9 +632,7 @@ export const sendReview = (role, tx, reviewRating, reviewContent) => (dispatch, 
     : sendReviewAsFirst(tx.id, params, role, dispatch, sdk);
 };
 
-const isNonEmpty = value => {
-  return typeof value === 'object' || Array.isArray(value) ? !isEmpty(value) : !!value;
-};
+const isNonEmpty = value => typeof value === 'object' || Array.isArray(value) ? !isEmpty(value) : !!value;
 
 export const fetchNextTransitions = id => (dispatch, getState, sdk) => {
   dispatch(fetchTransitionsRequest());
@@ -670,7 +658,7 @@ export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing
       dispatch(fetchLineItemsError(storableError(e)));
       log.error(e, 'fetching-line-items-failed', {
         listingId: listingId.uuid,
-        bookingData: bookingData,
+        bookingData,
       });
     });
 };

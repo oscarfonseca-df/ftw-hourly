@@ -34,8 +34,7 @@ ColorCard.propTypes = {
   usage: string.isRequired,
 };
 
-const MarketplaceColors = () => {
-  return (
+const MarketplaceColors = () => (
     <div className={css.content}>
       <p className={css.spacing2x}>
         Marketplace colors have three groups: branding color and its variations, action colors, and
@@ -106,7 +105,6 @@ const MarketplaceColors = () => {
       </div>
     </div>
   );
-};
 
 export const Colors = {
   component: MarketplaceColors,

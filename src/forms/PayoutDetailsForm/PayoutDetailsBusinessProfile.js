@@ -3,7 +3,6 @@ import { bool, string } from 'prop-types';
 import { intlShape } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { FieldSelect, FieldTextInput } from '../../components';
-
 import merchantCategoryCodesUS from './merchantCategoryCodesUS';
 import css from './PayoutDetailsForm.module.css';
 
@@ -36,12 +35,12 @@ const PayoutDetailsBusinessProfile = props => {
     <React.Fragment>
       {showMCCForUSField ? (
         <FieldSelect
-          id={`${fieldId}.mcc`}
-          name={`${fieldId}.mcc`}
-          className={css.selectMCC}
           autoComplete="mcc"
+          className={css.selectMCC}
           disabled={disabled}
+          id={`${fieldId}.mcc`}
           label={mccLabel}
+          name={`${fieldId}.mcc`}
           validate={mccRequired}
         >
           <option disabled value="">
@@ -57,12 +56,12 @@ const PayoutDetailsBusinessProfile = props => {
 
       {showBusinessURLField ? (
         <FieldTextInput
-          id={`${fieldId}.url`}
-          name={`${fieldId}.url`}
-          className={css.textInputRow}
           autoComplete="url"
+          className={css.textInputRow}
           disabled={disabled}
+          id={`${fieldId}.url`}
           label={businessUrlLabel}
+          name={`${fieldId}.url`}
           placeholder={businessUrlPlaceholder}
           type="text"
           validate={businessUrlRequired}

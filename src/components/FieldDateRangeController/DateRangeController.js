@@ -9,8 +9,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { START_DATE } from '../../util/dates';
 import config from '../../config';
-
-import { IconArrowHead } from '../../components';
+import { IconArrowHead } from "..";
 import css from './DateRangeController.module.css';
 
 export const HORIZONTAL_ORIENTATION = 'horizontal';
@@ -52,9 +51,7 @@ const defaultProps = {
 
   renderCalendarDay: undefined, // If undefined, renders react-dates/lib/components/CalendarDay
   // day presentation and interaction related props
-  renderDayContents: day => {
-    return <span className="renderedDay">{day.format('D')}</span>;
-  },
+  renderDayContents: day => <span className="renderedDay">{day.format('D')}</span>,
   minimumNights: config.bookingUnitType === 'line-item/night' ? 1 : 0,
   enableOutsideDays: false,
   isDayBlocked: () => false,
@@ -163,11 +160,11 @@ class DateRangeController extends Component {
       <div className={classes}>
         <DayPickerRangeController
           {...controllerProps}
-          startDate={startDate}
           endDate={endDate}
-          onDatesChange={this.onDatesChange}
           focusedInput={this.state.focusedInput}
+          onDatesChange={this.onDatesChange}
           onFocusChange={this.onFocusChange}
+          startDate={startDate}
         />
       </div>
     );

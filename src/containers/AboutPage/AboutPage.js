@@ -1,7 +1,7 @@
 import React from 'react';
 import config from '../../config';
 import { twitterPageURL } from '../../util/urlHelpers';
-import { StaticPage, TopbarContainer } from '../../containers';
+import { StaticPage, TopbarContainer } from "..";
 import {
   LayoutSingleColumn,
   LayoutWrapperTopbar,
@@ -10,7 +10,6 @@ import {
   Footer,
   ExternalLink,
 } from '../../components';
-
 import css from './AboutPage.module.css';
 import image from './about-us-1056.jpg';
 
@@ -21,13 +20,13 @@ const AboutPage = () => {
   // prettier-ignore
   return (
     <StaticPage
-      title="About Us"
       schema={{
         '@context': 'http://schema.org',
         '@type': 'AboutPage',
         description: 'About Yogatime',
         name: 'About page',
       }}
+      title="About Us"
     >
       <LayoutSingleColumn>
         <LayoutWrapperTopbar>
@@ -36,7 +35,7 @@ const AboutPage = () => {
 
         <LayoutWrapperMain className={css.staticPageWrapper}>
           <h1 className={css.pageTitle}>Find new depths in your yoga practice</h1>
-          <img className={css.coverImage} src={image} alt="My first ice cream." />
+          <img alt="My first ice cream." className={css.coverImage} src={image} />
 
           <div className={css.contentWrapper}>
             <div className={css.contentSide}>
@@ -66,7 +65,7 @@ const AboutPage = () => {
                 regular classes.
               </p>
 
-              <h3 id="contact" className={css.subtitle}>
+              <h3 className={css.subtitle} id="contact">
                 Create your own marketplace like Yogatime
               </h3>
               <p>

@@ -5,25 +5,25 @@ import { ManageListingsPageComponent } from './ManageListingsPage';
 
 const noop = () => null;
 
-describe('ContactDetailsPage', () => {
+describe('contactDetailsPage', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <ManageListingsPageComponent
-        params={{ displayName: 'my-shop' }}
-        history={{ push: noop }}
-        location={{ search: '' }}
-        scrollingDisabled={false}
         authInProgress={false}
-        queryInProgress={false}
         currentUserHasListings={false}
+        history={{ push: noop }}
+        intl={fakeIntl}
         isAuthenticated={false}
+        location={{ search: '' }}
+        onCloseListing={noop}
         onLogout={noop}
         onManageDisableScrolling={noop}
-        onCloseListing={noop}
         onOpenListing={noop}
-        sendVerificationEmailInProgress={false}
         onResendVerificationEmail={noop}
-        intl={fakeIntl}
+        params={{ displayName: 'my-shop' }}
+        queryInProgress={false}
+        scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
       />
     );
     expect(tree).toMatchSnapshot();

@@ -19,8 +19,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-import { MenuContent, MenuLabel } from '../../components';
+import { MenuContent, MenuLabel } from "..";
 import css from './Menu.module.css';
 
 const KEY_CODE_ESCAPE = 27;
@@ -29,9 +28,7 @@ const CONTENT_TO_LEFT = 'left';
 const CONTENT_TO_RIGHT = 'right';
 const MAX_MOBILE_SCREEN_WIDTH = 768;
 
-const isControlledMenu = (isOpenProp, onToggleActiveProp) => {
-  return isOpenProp !== null && onToggleActiveProp !== null;
-};
+const isControlledMenu = (isOpenProp, onToggleActiveProp) => isOpenProp !== null && onToggleActiveProp !== null;
 
 class Menu extends Component {
   constructor(props) {
@@ -59,6 +56,7 @@ class Menu extends Component {
     this.menu = null;
     this.menuContent = null;
   }
+
   componentDidMount() {
     // Menu needs to know about DOM before it can calculate it's size proberly.
     this.setState({ ready: true });
@@ -191,13 +189,13 @@ class Menu extends Component {
 
     return (
       <div
-        className={classes}
-        onBlur={this.onBlur}
-        tabIndex={0}
-        onKeyDown={this.onKeyDown}
         ref={c => {
           this.menu = c;
         }}
+        className={classes}
+        onBlur={this.onBlur}
+        onKeyDown={this.onKeyDown}
+        tabIndex={0}
       >
         {menuChildren}
       </div>

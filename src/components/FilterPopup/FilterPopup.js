@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { bool, func, node, number, object, string } from 'prop-types';
 import classNames from 'classnames';
 import { injectIntl, intlShape } from '../../util/reactIntl';
-
-import { OutsideClickHandler } from '../../components';
+import { OutsideClickHandler } from "..";
 import { FilterForm } from '../../forms';
 import css from './FilterPopup.module.css';
 
@@ -130,39 +129,39 @@ class FilterPopup extends Component {
     return (
       <OutsideClickHandler onOutsideClick={this.handleBlur}>
         <div
-          className={classes}
-          onKeyDown={this.handleKeyDown}
           ref={node => {
             this.filter = node;
           }}
+          className={classes}
+          onKeyDown={this.handleKeyDown}
         >
           <button
             className={classNames(labelStyles, labelMaxWidthStyles)}
-            style={labelMaxWidthMaybe}
             onClick={() => this.toggleOpen()}
+            style={labelMaxWidthMaybe}
           >
             {label}
           </button>
           <div
-            id={id}
-            className={popupClasses}
             ref={node => {
               this.filterContent = node;
             }}
+            className={popupClasses}
+            id={id}
             style={contentStyle}
           >
             {this.state.isOpen ? (
               <FilterForm
-                id={`${id}.form`}
-                paddingClasses={popupSizeClasses}
-                showAsPopup
                 contentPlacementOffset={contentPlacementOffset}
+                id={`${id}.form`}
                 initialValues={initialValues}
                 keepDirtyOnReinitialize={keepDirtyOnReinitialize}
-                onSubmit={this.handleSubmit}
-                onChange={this.handleChange}
                 onCancel={this.handleCancel}
+                onChange={this.handleChange}
                 onClear={this.handleClear}
+                onSubmit={this.handleSubmit}
+                paddingClasses={popupSizeClasses}
+                showAsPopup
               >
                 {children}
               </FilterForm>

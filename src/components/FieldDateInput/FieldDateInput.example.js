@@ -5,8 +5,7 @@ import moment from 'moment';
 import { isDayMomentInsideRange } from '../../util/dates';
 import { required, bookingDateRequired, composeValidators } from '../../util/validators';
 import { createTimeSlots } from '../../util/test-data';
-import { Button } from '../../components';
-
+import { Button } from "..";
 import FieldDateInput from './FieldDateInput';
 
 const identity = v => v;
@@ -20,14 +19,12 @@ const createAvailableTimeSlots = (dayCount, availableDayCount) => {
   return availableSlotIndices.sort().map(i => slots[i]);
 };
 
-const isDayBlocked = (timeSlots, timeZone) => {
-  return timeSlots
+const isDayBlocked = (timeSlots, timeZone) => timeSlots
     ? day =>
         !timeSlots.find(timeSlot =>
           isDayMomentInsideRange(day, timeSlot.attributes.start, timeSlot.attributes.end, timeZone)
         )
     : () => false;
-};
 
 const FormComponent = props => (
   <FinalForm
@@ -50,15 +47,15 @@ const FormComponent = props => (
 
       return (
         <form
-          style={style}
           onSubmit={e => {
             e.preventDefault();
             handleSubmit(e);
           }}
+          style={style}
         >
           <FormSpy onChange={onChange} />
           <FieldDateInput {...dateInputProps} />
-          <Button type="submit" disabled={submitDisabled} style={{ marginTop: '24px' }}>
+          <Button disabled={submitDisabled} style={{ marginTop: '24px' }} type="submit">
             Select
           </Button>
         </form>

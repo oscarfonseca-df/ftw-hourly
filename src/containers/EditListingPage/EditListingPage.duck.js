@@ -399,7 +399,7 @@ export function requestCreateListingDraft(data) {
     return sdk.ownListings
       .createDraft(data, queryParams)
       .then(response => {
-        //const id = response.data.data.id.uuid;
+        // const id = response.data.data.id.uuid;
 
         // Add the created listing to the marketplace data
         dispatch(addMarketplaceEntities(response));
@@ -514,9 +514,7 @@ export const requestFetchAvailabilityExceptions = fetchParams => (dispatch, getS
       const availabilityExceptions = denormalisedResponseEntities(response);
       return dispatch(fetchAvailabilityExceptionsSuccess({ data: availabilityExceptions }));
     })
-    .catch(e => {
-      return dispatch(fetchAvailabilityExceptionsError({ error: storableError(e) }));
-    });
+    .catch(e => dispatch(fetchAvailabilityExceptionsError({ error: storableError(e) })));
 };
 
 export const savePayoutDetails = (values, isUpdateCall) => (dispatch, getState, sdk) => {

@@ -5,19 +5,19 @@ import EditListingDescriptionForm from './EditListingDescriptionForm';
 
 const noop = () => null;
 
-describe('EditListingDescriptionForm', () => {
+describe('editListingDescriptionForm', () => {
   it('matches snapshot', () => {
     const tree = renderDeep(
       <EditListingDescriptionForm
-        intl={fakeIntl}
+        categories={[{ key: 'cat1', label: 'Cat 1' }, { key: 'cat2', label: 'Cat 2' }]}
+        disabled={false}
         dispatch={noop}
+        intl={fakeIntl}
         onSubmit={v => v}
+        ready={false}
         saveActionMsg="Save description"
         updated={false}
         updateInProgress={false}
-        disabled={false}
-        ready={false}
-        categories={[{ key: 'cat1', label: 'Cat 1' }, { key: 'cat2', label: 'Cat 2' }]}
       />
     );
     expect(tree).toMatchSnapshot();

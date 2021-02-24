@@ -2,8 +2,7 @@ import React from 'react';
 import { string } from 'prop-types';
 import { txIsEnquired } from '../../util/transaction';
 import { propTypes } from '../../util/types';
-
-import { TimeRange } from '../../components';
+import { TimeRange } from "..";
 
 const bookingData = tx => {
   // Attributes: displayStart and displayEnd can be used to differentiate shown time range
@@ -29,9 +28,9 @@ const BookingTimeInfo = props => {
   return (
     <TimeRange
       className={bookingClassName}
-      startDate={bookingStart}
-      endDate={bookingEnd}
       dateType={dateType}
+      endDate={bookingEnd}
+      startDate={bookingStart}
       timeZone={timeZone}
     />
   );

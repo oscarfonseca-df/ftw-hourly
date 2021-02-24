@@ -1,9 +1,8 @@
 import React from 'react';
-import { intlShape } from '../../util/reactIntl';
 import { bool, object, string } from 'prop-types';
+import { intlShape } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { FieldSelect, FieldTextInput } from '../../components';
-
 import { stripeCountryConfigs } from './PayoutDetailsForm';
 import { CA_PROVINCES, US_STATES, AU_STATES } from './statesAndProvinces';
 import css from './PayoutDetailsForm.module.css';
@@ -12,9 +11,7 @@ const PayoutDetailsAddress = props => {
   const { className, country, intl, disabled, form, fieldId } = props;
   const countryConfig = country ? stripeCountryConfigs(country).addressConfig : null;
 
-  const isRequired = (countryConfig, field) => {
-    return countryConfig[field];
-  };
+  const isRequired = (countryConfig, field) => countryConfig[field];
 
   const showTitle =
     fieldId === 'company.address' ||
@@ -100,62 +97,62 @@ const PayoutDetailsAddress = props => {
       );
 
   return (
-    <div className={className ? className : css.sectionContainer}>
+    <div className={className || css.sectionContainer}>
       {showTitle ? <h3 className={css.subTitle}>{addressTitle}</h3> : null}
 
       {showAddressLine ? (
         <FieldTextInput
-          id={`${fieldId}.streetAddress`}
-          name={`${fieldId}.streetAddress`}
-          disabled={disabled}
-          className={css.field}
-          type="text"
           autoComplete="street-address"
+          className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.streetAddress`}
           label={streetAddressLabel}
-          placeholder={streetAddressPlaceholder}
-          validate={streetAddressRequired}
+          name={`${fieldId}.streetAddress`}
           onUnmount={() => form.change(`${fieldId}.streetAddress`, undefined)}
+          placeholder={streetAddressPlaceholder}
+          type="text"
+          validate={streetAddressRequired}
         />
       ) : null}
       <div className={css.formRow}>
         {showPostalCode ? (
           <FieldTextInput
-            id={`${fieldId}.postalCode`}
-            name={`${fieldId}.postalCode`}
-            disabled={disabled}
-            className={css.postalCode}
-            type="text"
             autoComplete="postal-code"
+            className={css.postalCode}
+            disabled={disabled}
+            id={`${fieldId}.postalCode`}
             label={postalCodeLabel}
-            placeholder={postalCodePlaceholder}
-            validate={postalCodeRequired}
+            name={`${fieldId}.postalCode`}
             onUnmount={() => form.change(`${fieldId}.postalCode`, undefined)}
+            placeholder={postalCodePlaceholder}
+            type="text"
+            validate={postalCodeRequired}
           />
         ) : null}
         {showCity ? (
           <FieldTextInput
-            id={`${fieldId}.city`}
-            name={`${fieldId}.city`}
-            disabled={disabled}
-            className={css.city}
-            type="text"
             autoComplete="address-level2"
+            className={css.city}
+            disabled={disabled}
+            id={`${fieldId}.city`}
             label={cityLabel}
-            placeholder={cityPlaceholder}
-            validate={cityRequired}
+            name={`${fieldId}.city`}
             onUnmount={() => form.change(`${fieldId}.city`, undefined)}
+            placeholder={cityPlaceholder}
+            type="text"
+            validate={cityRequired}
           />
         ) : null}
       </div>
 
       {states.length > 0 ? (
         <FieldSelect
-          id={`${fieldId}.state`}
-          name={`${fieldId}.state`}
-          disabled={disabled}
-          className={css.selectCountry}
           autoComplete="address-level1"
+          className={css.selectCountry}
+          disabled={disabled}
+          id={`${fieldId}.state`}
           label={stateLabel}
+          name={`${fieldId}.state`}
           validate={stateRequired}
         >
           <option disabled value="">

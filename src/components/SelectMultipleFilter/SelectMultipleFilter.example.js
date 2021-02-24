@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import SelectMultipleFilter from './SelectMultipleFilter';
 import { stringify, parse } from '../../util/urlHelpers';
+import SelectMultipleFilter from './SelectMultipleFilter';
 
 const URL_PARAM = 'pub_yogaStyles';
 
@@ -25,20 +25,20 @@ const YogaStylesFilterPopup = withRouter(props => {
 
   const params = parse(location.search);
   const yogaStyles = params[URL_PARAM];
-  const initialValues = { [URL_PARAM]: !!yogaStyles ? yogaStyles : null };
+  const initialValues = { [URL_PARAM]: yogaStyles || null };
 
   return (
     <SelectMultipleFilter
-      id="SelectMultipleFilterPopupExample"
-      name="yogaStyles"
-      queryParamNames={[URL_PARAM]}
-      label="yogaStyles"
-      onSubmit={values => handleSubmit(values, history)}
-      showAsPopup={true}
-      liveEdit={false}
-      options={options}
-      initialValues={initialValues}
       contentPlacementOffset={-14}
+      id="SelectMultipleFilterPopupExample"
+      initialValues={initialValues}
+      label="yogaStyles"
+      liveEdit={false}
+      name="yogaStyles"
+      onSubmit={values => handleSubmit(values, history)}
+      options={options}
+      queryParamNames={[URL_PARAM]}
+      showAsPopup
     />
   );
 });
@@ -54,21 +54,21 @@ const YogaStylesFilterPlain = withRouter(props => {
 
   const params = parse(location.search);
   const yogaStyles = params[URL_PARAM];
-  const initialValues = { [URL_PARAM]: !!yogaStyles ? yogaStyles : null };
+  const initialValues = { [URL_PARAM]: yogaStyles || null };
 
   return (
     <SelectMultipleFilter
       id="SelectMultipleFilterPlainExample"
-      name="yogaStyles"
-      queryParamNames={[URL_PARAM]}
+      initialValues={initialValues}
       label="yogaStyles"
+      liveEdit
+      name="yogaStyles"
       onSubmit={values => {
         handleSubmit(values, history);
       }}
-      showAsPopup={false}
-      liveEdit={true}
       options={options}
-      initialValues={initialValues}
+      queryParamNames={[URL_PARAM]}
+      showAsPopup={false}
     />
   );
 });

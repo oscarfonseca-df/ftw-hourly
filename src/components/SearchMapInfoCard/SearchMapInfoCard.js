@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { arrayOf, bool, func, string } from 'prop-types';
 import { compose } from 'redux';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import { propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
 import { ensureListing } from '../../util/data';
-import { ResponsiveImage } from '../../components';
-
+import { ResponsiveImage } from "..";
 import css from './SearchMapInfoCard.module.css';
 
 // ListingCard is the listing info without overlayview or carousel controls
@@ -47,12 +46,12 @@ const ListingCard = props => {
         <div className={classNames(css.threeToTwoWrapper, css.borderRadiusInheritTop)}>
           <div className={classNames(css.aspectWrapper, css.borderRadiusInheritTop)}>
             <ResponsiveImage
-              rootClassName={classNames(css.rootForImage, css.borderRadiusInheritTop)}
               alt={title}
-              noImageMessage={intl.formatMessage({ id: 'SearchMapInfoCard.noImage' })}
               image={firstImage}
-              variants={['landscape-crop', 'landscape-crop2x']}
+              noImageMessage={intl.formatMessage({ id: 'SearchMapInfoCard.noImage' })}
+              rootClassName={classNames(css.rootForImage, css.borderRadiusInheritTop)}
               sizes="250px"
+              variants={['landscape-crop', 'landscape-crop2x']}
             />
           </div>
         </div>
@@ -133,10 +132,10 @@ class SearchMapInfoCard extends Component {
         <div className={css.caretShadow} />
         <ListingCard
           clickHandler={onListingInfoCardClicked}
-          urlToListing={createURLToListing(currentListing)}
-          listing={currentListing}
           intl={intl}
           isInCarousel={hasCarousel}
+          listing={currentListing}
+          urlToListing={createURLToListing(currentListing)}
         />
         {pagination}
         <div className={caretClass} />

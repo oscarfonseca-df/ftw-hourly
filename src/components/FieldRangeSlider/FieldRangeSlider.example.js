@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldRangeSlider from './FieldRangeSlider';
 
 const formName = 'Styleguide.FieldRangeSlider.Form';
@@ -35,16 +35,16 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} />
 
           <FieldRangeSlider
-            id={`${formId}.range`}
-            name="range"
-            label="Select range"
-            min={min}
-            max={max}
-            step={step}
             handles={handles}
+            id={`${formId}.range`}
+            label="Select range"
+            max={max}
+            min={min}
+            name="range"
+            step={step}
           />
 
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

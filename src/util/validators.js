@@ -1,15 +1,13 @@
 import moment from 'moment';
-import { types as sdkTypes } from './sdkLoader';
 import toPairs from 'lodash/toPairs';
+import { types as sdkTypes } from './sdkLoader';
 
 const { LatLng, Money } = sdkTypes;
 
 export const PASSWORD_MIN_LENGTH = 8;
 export const PASSWORD_MAX_LENGTH = 256;
 
-const isNonEmptyString = val => {
-  return typeof val === 'string' && val.trim().length > 0;
-};
+const isNonEmptyString = val => typeof val === 'string' && val.trim().length > 0;
 
 /**
  * Validator functions and helpers for Final Forms
@@ -30,19 +28,13 @@ export const required = message => value => {
   return VALID;
 };
 
-export const requiredStringNoTrim = message => value => {
-  return typeof value === 'string' && value.length > 0 ? VALID : message;
-};
+export const requiredStringNoTrim = message => value => typeof value === 'string' && value.length > 0 ? VALID : message;
 
 // DEPRECATED in favor of required
-export const requiredBoolean = message => value => {
-  return typeof value === 'boolean' ? VALID : message;
-};
+export const requiredBoolean = message => value => typeof value === 'boolean' ? VALID : message;
 
 // DEPRECATED in favor of required
-export const requiredAndNonEmptyString = message => value => {
-  return isNonEmptyString(value) ? VALID : message;
-};
+export const requiredAndNonEmptyString = message => value => isNonEmptyString(value) ? VALID : message;
 
 export const requiredFieldArrayCheckbox = message => value => {
   if (!value) {
@@ -67,13 +59,9 @@ export const maxLength = (message, maximumLength) => value => {
   return hasLength && value.length <= maximumLength ? VALID : message;
 };
 
-export const nonEmptyArray = message => value => {
-  return value && Array.isArray(value) && value.length > 0 ? VALID : message;
-};
+export const nonEmptyArray = message => value => value && Array.isArray(value) && value.length > 0 ? VALID : message;
 
-export const autocompleteSearchRequired = message => value => {
-  return value && value.search ? VALID : message;
-};
+export const autocompleteSearchRequired = message => value => value && value.search ? VALID : message;
 
 export const autocompletePlaceSelected = message => value => {
   const selectedPlaceIsValid =
@@ -106,13 +94,9 @@ export const bookingDatesRequired = (inValidStartDateMessage, inValidEndDateMess
 // See the link above for an explanation of the tradeoffs.
 const EMAIL_RE = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-export const emailFormatValid = message => value => {
-  return value && EMAIL_RE.test(value) ? VALID : message;
-};
+export const emailFormatValid = message => value => value && EMAIL_RE.test(value) ? VALID : message;
 
-export const moneySubUnitAmountAtLeast = (message, minValue) => value => {
-  return value instanceof Money && value.amount >= minValue ? VALID : message;
-};
+export const moneySubUnitAmountAtLeast = (message, minValue) => value => value instanceof Money && value.amount >= minValue ? VALID : message;
 
 const parseNum = str => {
   const num = Number.parseInt(str, 10);
@@ -154,9 +138,7 @@ export const validBusinessURL = message => value => {
   return invalidCharacters || invalidProtocol || isExampleDotCom || isLocalhost ? message : VALID;
 };
 
-export const validSsnLast4 = message => value => {
-  return value.length === 4 ? VALID : message;
-};
+export const validSsnLast4 = message => value => value.length === 4 ? VALID : message;
 
 export const validHKID = message => value => {
   // Accept value 000000000 for testing Stripe
@@ -219,9 +201,7 @@ export const validHKID = message => value => {
   return isValid ? VALID : message;
 };
 
-export const validSGID = message => value => {
-  return value.length === 9 ? VALID : message;
-};
+export const validSGID = message => value => value.length === 9 ? VALID : message;
 
 export const composeValidators = (...validators) => value =>
   validators.reduce((error, validator) => error || validator(value), VALID);

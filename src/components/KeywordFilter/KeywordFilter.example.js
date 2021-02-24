@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import KeywordFilter from './KeywordFilter';
 import { stringify, parse } from '../../util/urlHelpers';
+import KeywordFilter from './KeywordFilter';
 
 const URL_PARAM = 'keywords';
 
@@ -16,19 +16,19 @@ const KeywordFilterPopup = withRouter(props => {
 
   const params = parse(location.search);
   const keyword = params[URL_PARAM];
-  const initialValues = !!keyword ? { [URL_PARAM]: keyword } : { [URL_PARAM]: null };
+  const initialValues = keyword ? { [URL_PARAM]: keyword } : { [URL_PARAM]: null };
 
   return (
     <KeywordFilter
-      id="KeywordFilterPopupExample"
-      name="keyword"
-      queryParamNames={[URL_PARAM]}
-      label="Keyword"
-      onSubmit={values => handleSubmit(values, history)}
-      showAsPopup={true}
-      liveEdit={false}
-      initialValues={initialValues}
       contentPlacementOffset={-14}
+      id="KeywordFilterPopupExample"
+      initialValues={initialValues}
+      label="Keyword"
+      liveEdit={false}
+      name="keyword"
+      onSubmit={values => handleSubmit(values, history)}
+      queryParamNames={[URL_PARAM]}
+      showAsPopup
     />
   );
 });
@@ -44,20 +44,20 @@ const KeywordFilterPlain = withRouter(props => {
 
   const params = parse(location.search);
   const keyword = params[URL_PARAM];
-  const initialValues = !!keyword ? { [URL_PARAM]: keyword } : { [URL_PARAM]: null };
+  const initialValues = keyword ? { [URL_PARAM]: keyword } : { [URL_PARAM]: null };
 
   return (
     <KeywordFilter
       id="KeywordFilterPlainExample"
-      name="keyword"
-      queryParamNames={[URL_PARAM]}
+      initialValues={initialValues}
       label="Keyword"
+      liveEdit
+      name="keyword"
       onSubmit={values => {
         handleSubmit(values, history);
       }}
+      queryParamNames={[URL_PARAM]}
       showAsPopup={false}
-      liveEdit={true}
-      initialValues={initialValues}
     />
   );
 });

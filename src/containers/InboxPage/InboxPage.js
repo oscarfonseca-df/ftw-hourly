@@ -2,8 +2,8 @@ import React from 'react';
 import { arrayOf, bool, number, oneOf, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import {
   txIsAccepted,
   txIsCanceled,
@@ -36,21 +36,18 @@ import {
   IconSpinner,
   UserDisplayName,
 } from '../../components';
-import { TopbarContainer, NotFoundPage } from '../../containers';
+import { TopbarContainer, NotFoundPage } from "..";
 import config from '../../config';
-
 import { loadData } from './InboxPage.duck';
 import css from './InboxPage.module.css';
 
-const formatDate = (intl, date) => {
-  return {
+const formatDate = (intl, date) => ({
     short: intl.formatDate(date, {
       month: 'short',
       day: 'numeric',
     }),
     long: `${intl.formatDate(date)} ${intl.formatTime(date)}`,
-  };
-};
+  });
 
 // Translated name of the state of the given transaction
 export const txState = (intl, tx, type) => {
@@ -181,12 +178,12 @@ const BookingInfoMaybe = props => {
     <div className={classNames(css.bookingInfoWrapper, bookingClassName)}>
       <BookingTimeInfo
         bookingClassName={bookingClassName}
-        isOrder={isOrder}
+        dateType={DATE_TYPE_DATETIME}
         intl={intl}
+        isOrder={isOrder}
+        timeZone={timeZone}
         tx={tx}
         unitType={unitType}
-        dateType={DATE_TYPE_DATETIME}
-        timeZone={timeZone}
       />
     </div>
   );
@@ -209,7 +206,7 @@ const createListingLink = (listing, otherUser, searchParams = {}, className = ''
     const to = { search: stringify(searchParams) };
     return (
       <NamedLink className={className} name="ListingPage" params={params} to={to}>
-        <Avatar user={otherUser} disableProfileLink />
+        <Avatar disableProfileLink user={otherUser} />
       </NamedLink>
     );
   } else {
@@ -223,7 +220,7 @@ export const InboxItem = props => {
   const isOrder = type === 'order';
 
   const otherUser = isOrder ? provider : customer;
-  const otherUserDisplayName = <UserDisplayName user={otherUser} intl={intl} />;
+  const otherUserDisplayName = <UserDisplayName intl={intl} user={otherUser} />;
   const isOtherUserBanned = otherUser.attributes.banned;
 
   const isSaleNotification = !isOrder && txIsRequested(tx);
@@ -317,7 +314,7 @@ export const InboxPageComponent = props => {
     // Render InboxItem only if the latest transition of the transaction is handled in the `txState` function.
     return stateData ? (
       <li key={tx.id.uuid} className={css.listItem}>
-        <InboxItem unitType={unitType} type={type} tx={tx} intl={intl} stateData={stateData} />
+        <InboxItem intl={intl} stateData={stateData} tx={tx} type={type} unitType={unitType} />
       </li>
     ) : null;
   };
@@ -335,11 +332,9 @@ export const InboxPageComponent = props => {
       </li>
     ) : null;
 
-  const hasOrderOrSaleTransactions = (tx, isOrdersTab, user) => {
-    return isOrdersTab
+  const hasOrderOrSaleTransactions = (tx, isOrdersTab, user) => isOrdersTab
       ? user.id && tx && tx.length > 0 && tx[0].customer.id.uuid === user.id.uuid
       : user.id && tx && tx.length > 0 && tx[0].provider.id.uuid === user.id.uuid;
-  };
   const hasTransactions =
     !fetchInProgress && hasOrderOrSaleTransactions(transactions, isOrders, ensuredCurrentUser);
   const pagingLinks =
@@ -385,14 +380,14 @@ export const InboxPageComponent = props => {
   const nav = <TabNav rootClassName={css.tabs} tabRootClassName={css.tab} tabs={tabs} />;
 
   return (
-    <Page title={title} scrollingDisabled={scrollingDisabled}>
+    <Page scrollingDisabled={scrollingDisabled} title={title}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
           <TopbarContainer
             className={css.topbar}
-            mobileRootClassName={css.mobileTopbar}
-            desktopClassName={css.desktopTopbar}
             currentPage="InboxPage"
+            desktopClassName={css.desktopTopbar}
+            mobileRootClassName={css.mobileTopbar}
           />
         </LayoutWrapperTopbar>
         <LayoutWrapperSideNav className={css.navigation}>

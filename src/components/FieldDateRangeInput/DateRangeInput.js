@@ -7,12 +7,13 @@
 import React, { Component } from 'react';
 import { bool, func, instanceOf, oneOf, shape, string, arrayOf } from 'prop-types';
 import { DateRangePicker, isInclusivelyAfterDay, isInclusivelyBeforeDay } from 'react-dates';
-import { intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
 import moment from 'moment';
+import { intlShape, injectIntl } from '../../util/reactIntl';
 import { START_DATE, END_DATE } from '../../util/dates';
 import { LINE_ITEM_DAY, propTypes } from '../../util/types';
 import config from '../../config';
+import { IconArrowHead } from "..";
 import {
   isDayBlockedFn,
   isOutsideRangeFn,
@@ -20,8 +21,6 @@ import {
   apiEndDateToPickerDate,
   pickerEndDateToApiDate,
 } from './DateRangeInput.helpers';
-
-import { IconArrowHead } from '../../components';
 import css from './DateRangeInput.module.css';
 
 export const HORIZONTAL_ORIENTATION = 'horizontal';
@@ -95,9 +94,7 @@ const defaultProps = {
 
   renderCalendarDay: undefined, // If undefined, renders react-dates/lib/components/CalendarDay
   // day presentation and interaction related props
-  renderDayContents: day => {
-    return <span className="renderedDay">{day.format('D')}</span>;
-  },
+  renderDayContents: day => <span className="renderedDay">{day.format('D')}</span>,
   minimumNights: 1,
   enableOutsideDays: false,
   isDayBlocked: () => false,
@@ -228,7 +225,7 @@ class DateRangeInputComponent extends Component {
     const endDate =
       apiEndDateToPickerDate(unitType, value ? value.endDate : null) || initialEndMoment;
 
-    let isDayBlocked = isDayBlockedFn(
+    const isDayBlocked = isDayBlockedFn(
       timeSlots,
       startDate,
       endDate,
@@ -236,7 +233,7 @@ class DateRangeInputComponent extends Component {
       unitType
     );
 
-    let isOutsideRange = isOutsideRangeFn(
+    const isOutsideRange = isOutsideRangeFn(
       timeSlots,
       startDate,
       endDate,
@@ -268,18 +265,18 @@ class DateRangeInputComponent extends Component {
       <div className={classes}>
         <DateRangePicker
           {...datePickerProps}
-          focusedInput={this.state.focusedInput}
-          onFocusChange={this.onFocusChange}
-          startDate={startDate}
           endDate={endDate}
-          minimumNights={isDaily ? 0 : 1}
-          onDatesChange={this.onDatesChange}
-          startDatePlaceholderText={startDatePlaceholderTxt}
           endDatePlaceholderText={endDatePlaceholderTxt}
-          screenReaderInputMessage={screenReaderInputText}
-          phrases={{ closeDatePicker: closeDatePickerText, clearDate: clearDateText }}
+          focusedInput={this.state.focusedInput}
           isDayBlocked={isDayBlocked}
           isOutsideRange={isOutsideRange}
+          minimumNights={isDaily ? 0 : 1}
+          onDatesChange={this.onDatesChange}
+          onFocusChange={this.onFocusChange}
+          phrases={{ closeDatePicker: closeDatePickerText, clearDate: clearDateText }}
+          screenReaderInputMessage={screenReaderInputText}
+          startDate={startDate}
+          startDatePlaceholderText={startDatePlaceholderTxt}
         />
       </div>
     );

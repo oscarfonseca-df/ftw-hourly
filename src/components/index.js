@@ -56,9 +56,9 @@ export { default as ValidationError } from './ValidationError/ValidationError';
  * These components include other components
  */
 
-//////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////
 // First components that include only atomic components //
-//////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////
 
 export { default as Button, PrimaryButton, SecondaryButton, InlineTextButton, SocialLoginButton } from './Button/Button';
 export { default as CookieConsent } from './CookieConsent/CookieConsent';
@@ -112,9 +112,9 @@ export { LinkTabNavHorizontal, ButtonTabNavHorizontal } from './TabNavHorizontal
 export { default as Tabs } from './Tabs/Tabs';
 export { default as UserNav } from './UserNav/UserNav';
 
-///////////////////////////////////////////////
+// /////////////////////////////////////////////
 // These components include other components //
-///////////////////////////////////////////////
+// /////////////////////////////////////////////
 
 export { default as ActivityFeed } from './ActivityFeed/ActivityFeed';
 export { default as AddImages } from './AddImages/AddImages';
@@ -152,9 +152,9 @@ export { default as StripeConnectAccountStatusBox } from './StripeConnectAccount
 export { default as StripePaymentAddress } from './StripePaymentAddress/StripePaymentAddress';
 export { default as UserCard } from './UserCard/UserCard';
 
-//////////////////////////////////////////////
+// ////////////////////////////////////////////
 // Page sections and modal content wrappers //
-//////////////////////////////////////////////
+// ////////////////////////////////////////////
 
 export { default as LayoutWrapperAccountSettingsSideNav } from './LayoutWrapperAccountSettingsSideNav/LayoutWrapperAccountSettingsSideNav';
 export { default as ModalMissingInformation } from './ModalMissingInformation/ModalMissingInformation';

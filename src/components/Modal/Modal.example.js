@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { Button } from '../../components';
+import { Button } from "..";
 import Modal from './Modal';
 
 const onManageDisableScrolling = (componentId, scrollingDisabled = true) => {

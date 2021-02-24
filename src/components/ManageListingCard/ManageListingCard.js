@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import routeConfiguration from '../../routeConfiguration';
 import {
   LINE_ITEM_NIGHT,
@@ -33,8 +33,7 @@ import {
   NamedLink,
   IconSpinner,
   ResponsiveImage,
-} from '../../components';
-
+} from "..";
 import MenuIcon from './MenuIcon';
 import Overlay from './Overlay';
 import css from './ManageListingCard.module.css';
@@ -97,15 +96,13 @@ const createListingURL = (routes, listing) => {
 // 2. Then we break long words by adding a '<span>' with word-break: 'break-all';
 const formatTitle = (title, maxLength) => {
   const nonWhiteSpaceSequence = /([^\s]+)/gi;
-  return title.split(nonWhiteSpaceSequence).map((word, index) => {
-    return word.length > maxLength ? (
+  return title.split(nonWhiteSpaceSequence).map((word, index) => word.length > maxLength ? (
       <span key={index} style={{ wordBreak: 'break-all' }}>
         {word}
       </span>
     ) : (
       word
-    );
-  });
+    ));
 };
 
 export const ManageListingCardComponent = props => {
@@ -169,7 +166,6 @@ export const ManageListingCardComponent = props => {
     <div className={classes}>
       <div
         className={css.threeToTwoWrapper}
-        tabIndex={0}
         onClick={event => {
           event.preventDefault();
           event.stopPropagation();
@@ -181,14 +177,15 @@ export const ManageListingCardComponent = props => {
           // (So, that they have no parent-child relationship - like '<a>bla<a>blaa</a></a>')
           history.push(createListingURL(routeConfiguration(), listing));
         }}
+        tabIndex={0}
       >
         <div className={css.aspectWrapper}>
           <ResponsiveImage
-            rootClassName={css.rootForImage}
             alt={title}
             image={firstImage}
-            variants={['landscape-crop', 'landscape-crop2x']}
+            rootClassName={css.rootForImage}
             sizes={renderSizes}
+            variants={['landscape-crop', 'landscape-crop2x']}
           />
         </div>
         <div className={classNames(css.menuOverlayWrapper, { [css.menuOverlayOpen]: isMenuOpen })}>
@@ -204,12 +201,12 @@ export const ManageListingCardComponent = props => {
               className={classNames(css.menu, { [css.cardIsOpen]: !isClosed })}
               contentPlacementOffset={MENU_CONTENT_OFFSET}
               contentPosition="left"
-              useArrow={false}
+              isOpen={isMenuOpen}
               onToggleActive={isOpen => {
                 const listingOpen = isOpen ? currentListing : null;
                 onToggleMenu(listingOpen);
               }}
-              isOpen={isMenuOpen}
+              useArrow={false}
             >
               <MenuLabel className={css.menuLabel} isOpenClassName={css.listingMenuIsOpen}>
                 <div className={css.iconWrapper}>
@@ -219,7 +216,6 @@ export const ManageListingCardComponent = props => {
               <MenuContent rootClassName={css.menuContent}>
                 <MenuItem key="close-listing">
                   <InlineTextButton
-                    rootClassName={menuItemClasses}
                     onClick={event => {
                       event.preventDefault();
                       event.stopPropagation();
@@ -228,6 +224,7 @@ export const ManageListingCardComponent = props => {
                         onCloseListing(currentListing.id);
                       }
                     }}
+                    rootClassName={menuItemClasses}
                   >
                     <FormattedMessage id="ManageListingCard.closeListing" />
                   </InlineTextButton>
@@ -315,12 +312,12 @@ export const ManageListingCardComponent = props => {
         <div className={css.mainInfo}>
           <div className={css.titleWrapper}>
             <InlineTextButton
-              rootClassName={titleClasses}
               onClick={event => {
                 event.preventDefault();
                 event.stopPropagation();
                 history.push(createListingURL(routeConfiguration(), listing));
               }}
+              rootClassName={titleClasses}
             >
               {formatTitle(title, MAX_LENGTH_FOR_WORDS_IN_TITLE)}
             </InlineTextButton>

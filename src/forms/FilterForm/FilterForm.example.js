@@ -1,14 +1,14 @@
 import React from 'react';
-import FilterForm from './FilterForm';
 import { FieldTextInput } from '../../components';
+import FilterForm from './FilterForm';
 
 const field = formId => (
   <FieldTextInput
     id={`${formId}.field`}
-    name="field"
-    type="textarea"
     label="Field label"
+    name="field"
     placeholder="Write something here"
+    type="textarea"
   />
 );
 

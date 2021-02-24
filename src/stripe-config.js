@@ -26,7 +26,7 @@ You can find the bank account formats from https://stripe.com/docs/connect/payou
 
 export const stripeCountryDetails = [
   {
-    //Australia
+    // Australia
     code: 'AU',
     currency: 'AUD',
     accountConfig: {
@@ -51,7 +51,7 @@ export const stripeCountryDetails = [
     },
   },
   {
-    //Bulgraia
+    // Bulgraia
     code: 'BG',
     currency: 'BGN',
     accountConfig: {
@@ -69,7 +69,7 @@ export const stripeCountryDetails = [
     },
   },
   {
-    //Cyprus
+    // Cyprus
     code: 'CY',
     currency: 'EUR',
     accountConfig: {

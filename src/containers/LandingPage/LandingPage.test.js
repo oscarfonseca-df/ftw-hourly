@@ -1,27 +1,27 @@
 import React from 'react';
 import { fakeIntl } from '../../util/test-data';
 import { renderShallow } from '../../util/test-helpers';
-import { LandingPageComponent } from './LandingPage';
 import { RoutesProvider } from '../../components';
 import routeConfiguration from '../../routeConfiguration';
+import { LandingPageComponent } from './LandingPage';
 
 const noop = () => null;
 
-describe('LandingPage', () => {
+describe('landingPage', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <LandingPageComponent
-        history={{ push: noop }}
-        location={{ search: '' }}
-        scrollingDisabled={false}
         authInProgress={false}
         currentUserHasListings={false}
+        history={{ push: noop }}
         intl={fakeIntl}
         isAuthenticated={false}
+        location={{ search: '' }}
         onLogout={noop}
         onManageDisableScrolling={noop}
-        sendVerificationEmailInProgress={false}
         onResendVerificationEmail={noop}
+        scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
       />
     );
     expect(tree).toMatchSnapshot();

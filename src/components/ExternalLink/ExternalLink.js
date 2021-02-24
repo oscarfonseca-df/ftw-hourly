@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const ExternalLink = props => {
   const { children, ...rest } = props;
   return (
-    <a {...rest} target="_blank" rel="noopener noreferrer">
+    <a {...rest} rel="noopener noreferrer" target="_blank">
       {children}
     </a>
   );

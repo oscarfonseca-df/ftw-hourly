@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-import { Button } from '../../components';
+import { Button } from "..";
 import { ensureCurrentUser } from '../../util/data';
-
 import css from './LimitedAccessBanner.module.css';
 
 // Due to the layout structure, do not render the banner on the following pages
@@ -39,7 +38,7 @@ const LimitedAccessBanner = props => {
       <p className={css.text}>
         <FormattedMessage id="LimitedAccessBanner.message" values={{ firstName, lastName }} />
       </p>
-      <Button rootClassName={css.button} onClick={onLogout}>
+      <Button onClick={onLogout} rootClassName={css.button}>
         <FormattedMessage id="LimitedAccessBanner.logout" />
       </Button>
     </div>

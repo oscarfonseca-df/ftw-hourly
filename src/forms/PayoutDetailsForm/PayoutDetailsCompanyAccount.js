@@ -2,7 +2,6 @@ import React from 'react';
 import { bool, object, shape } from 'prop-types';
 import { compose } from 'redux';
 import { injectIntl, intlShape } from '../../util/reactIntl';
-
 import PayoutDetailsAddress from './PayoutDetailsAddress';
 import PayoutDetailsCompany from './PayoutDetailsCompany';
 import PayoutDetailsBankDetails from './PayoutDetailsBankDetails';
@@ -40,16 +39,16 @@ const CompanyAccountComponent = props => {
             disabled={disabled}
             fieldId="company"
             intl={intl}
-            showPhoneNumberField={showCompanyPhoneNumberField}
-            showMCCForUSField={showMCCForUSField}
             showBusinessURLField={showBusinessURLField}
+            showMCCForUSField={showMCCForUSField}
+            showPhoneNumberField={showCompanyPhoneNumberField}
           />
           <PayoutDetailsAddress
             country={country}
-            intl={intl}
             disabled={disabled}
-            form={form}
             fieldId="company.address"
+            form={form}
+            intl={intl}
           />
           <PayoutDetailsBankDetails country={country} disabled={disabled} fieldId="company" />
 

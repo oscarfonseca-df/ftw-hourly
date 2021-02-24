@@ -55,7 +55,7 @@ const render = (store, shouldHydrate) => {
 };
 
 const setupAnalyticsHandlers = () => {
-  let handlers = [];
+  const handlers = [];
 
   // Log analytics page views and events in dev mode
   if (config.dev) {

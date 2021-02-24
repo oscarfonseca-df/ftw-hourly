@@ -13,7 +13,7 @@ afterAll(() => {
   window.scroll = jsdomScroll;
 });
 
-describe('Application - JSDOM environment', () => {
+describe('application - JSDOM environment', () => {
   it('renders in the client without crashing', () => {
     window.google = { maps: {} };
     const store = configureStore();

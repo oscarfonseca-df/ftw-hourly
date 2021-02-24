@@ -2,7 +2,7 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import * as validators from '../../util/validators';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldReviewRating from './FieldReviewRating';
 
 const formName = 'Styleguide.FieldReviewRating.Form';
@@ -26,11 +26,11 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} />
           <FieldReviewRating
             id={`${formId}.rate1`}
-            name="rating"
             label="Rate your experience"
+            name="rating"
             validate={required}
           />
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

@@ -5,23 +5,23 @@ import { StripePayoutPageComponent } from './StripePayoutPage';
 
 const noop = () => null;
 
-describe('StripePayoutPage', () => {
+describe('stripePayoutPage', () => {
   it('matches snapshot with Stripe not connected', () => {
     const currentUser = createCurrentUser('stripe-not-connected');
     expect(currentUser.stripeAccount).toBeUndefined();
     const tree = renderShallow(
       <StripePayoutPageComponent
         currentUser={currentUser}
-        scrollingDisabled={false}
-        payoutDetailsSaveInProgress={false}
-        payoutDetailsSaved={false}
+        getAccountLinkInProgress={false}
+        history={{ replace: noop }}
+        intl={fakeIntl}
+        onGetStripeConnectAccountLink={noop}
         onPayoutDetailsFormChange={noop}
         onPayoutDetailsFormSubmit={noop}
-        onGetStripeConnectAccountLink={noop}
+        payoutDetailsSaved={false}
+        payoutDetailsSaveInProgress={false}
+        scrollingDisabled={false}
         stripeAccountFetched={false}
-        getAccountLinkInProgress={false}
-        intl={fakeIntl}
-        history={{ replace: noop }}
       />
     );
     expect(tree).toMatchSnapshot();
@@ -38,16 +38,16 @@ describe('StripePayoutPage', () => {
     const tree = renderShallow(
       <StripePayoutPageComponent
         currentUser={currentUser}
-        scrollingDisabled={false}
-        payoutDetailsSaveInProgress={false}
-        payoutDetailsSaved={false}
+        getAccountLinkInProgress={false}
+        history={{ replace: noop }}
+        intl={fakeIntl}
+        onGetStripeConnectAccountLink={noop}
         onPayoutDetailsFormChange={noop}
         onPayoutDetailsFormSubmit={noop}
-        onGetStripeConnectAccountLink={noop}
+        payoutDetailsSaved={false}
+        payoutDetailsSaveInProgress={false}
+        scrollingDisabled={false}
         stripeAccountFetched={false}
-        getAccountLinkInProgress={false}
-        intl={fakeIntl}
-        history={{ replace: noop }}
       />
     );
     expect(tree).toMatchSnapshot();
@@ -64,16 +64,16 @@ describe('StripePayoutPage', () => {
     const tree = renderShallow(
       <StripePayoutPageComponent
         currentUser={currentUser}
-        scrollingDisabled={false}
-        payoutDetailsSaveInProgress={false}
-        payoutDetailsSaved={true}
+        getAccountLinkInProgress={false}
+        history={{ replace: noop }}
+        intl={fakeIntl}
+        onGetStripeConnectAccountLink={noop}
         onPayoutDetailsFormChange={noop}
         onPayoutDetailsFormSubmit={noop}
-        onGetStripeConnectAccountLink={noop}
+        payoutDetailsSaved
+        payoutDetailsSaveInProgress={false}
+        scrollingDisabled={false}
         stripeAccountFetched={false}
-        getAccountLinkInProgress={false}
-        intl={fakeIntl}
-        history={{ replace: noop }}
       />
     );
     expect(tree).toMatchSnapshot();

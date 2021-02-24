@@ -14,12 +14,11 @@ import {
   FieldSelect,
   FieldTimeZoneSelect,
 } from '../../components';
-
 import css from './EditListingAvailabilityPlanForm.module.css';
 
 const printHourStrings = h => (h > 9 ? `${h}:00` : `0${h}:00`);
 
-const HOURS = Array(24).fill();
+const HOURS = new Array(24).fill();
 const ALL_START_HOURS = [...HOURS].map((v, i) => printHourStrings(i));
 const ALL_END_HOURS = [...HOURS].map((v, i) => printHourStrings(i + 1));
 
@@ -100,7 +99,7 @@ const getEntryBoundaries = (values, dayOfWeek, intl, findStartHours) => index =>
     if (i !== index && startTime && endTime) {
       const startHour = Number.parseInt(startTime.split(':')[0]);
       const endHour = Number.parseInt(endTime.split(':')[0]);
-      const hoursBetween = Array(endHour - startHour)
+      const hoursBetween = new Array(endHour - startHour)
         .fill()
         .map((v, i) => printHourStrings(startHour + i + boundaryDiff));
 
@@ -132,8 +131,7 @@ const DailyPlan = props => {
       </div>
 
       <FieldArray name={dayOfWeek}>
-        {({ fields }) => {
-          return (
+        {({ fields }) => (
             <div className={css.timePicker}>
               {fields.map((name, index) => {
                 // Pick available start hours
@@ -145,7 +143,7 @@ const DailyPlan = props => {
                 const availableEndHours = ALL_END_HOURS.filter(pickUnreservedEndHours);
 
                 return (
-                  <div className={css.fieldWrapper} key={name}>
+                  <div key={name} className={css.fieldWrapper}>
                     <div className={css.formRow}>
                       <div className={css.field}>
                         <FieldSelect
@@ -158,7 +156,7 @@ const DailyPlan = props => {
                           </option>
                           {filterStartHours(availableStartHours, values, dayOfWeek, index).map(
                             s => (
-                              <option value={s} key={s}>
+                              <option key={s} value={s}>
                                 {s}
                               </option>
                             )
@@ -176,7 +174,7 @@ const DailyPlan = props => {
                             {endTimePlaceholder}
                           </option>
                           {filterEndHours(availableEndHours, values, dayOfWeek, index).map(s => (
-                            <option value={s} key={s}>
+                            <option key={s} value={s}>
                               {s}
                             </option>
                           ))}
@@ -196,24 +194,23 @@ const DailyPlan = props => {
 
               {fields.length === 0 ? (
                 <InlineTextButton
-                  type="button"
                   className={css.buttonSetHours}
                   onClick={() => fields.push({ startTime: null, endTime: null })}
+                  type="button"
                 >
                   <FormattedMessage id="EditListingAvailabilityPlanForm.setHours" />
                 </InlineTextButton>
               ) : (
                 <InlineTextButton
-                  type="button"
                   className={css.buttonAddNew}
                   onClick={() => fields.push({ startTime: null, endTime: null })}
+                  type="button"
                 >
                   <FormattedMessage id="EditListingAvailabilityPlanForm.addAnother" />
                 </InlineTextButton>
               )}
             </div>
-          );
-        }}
+          )}
       </FieldArray>
     </div>
   );
@@ -221,14 +218,12 @@ const DailyPlan = props => {
 
 const submit = (onSubmit, weekdays) => values => {
   const sortedValues = weekdays.reduce(
-    (submitValues, day) => {
-      return submitValues[day]
+    (submitValues, day) => submitValues[day]
         ? {
             ...submitValues,
             [day]: submitValues[day].sort(sortEntries()),
           }
-        : submitValues;
-    },
+        : submitValues,
     { ...values }
   );
 
@@ -240,10 +235,10 @@ const EditListingAvailabilityPlanFormComponent = props => {
   return (
     <FinalForm
       {...restOfprops}
-      onSubmit={submit(onSubmit, props.weekdays)}
       mutators={{
         ...arrayMutators,
       }}
+      onSubmit={submit(onSubmit, props.weekdays)}
       render={fieldRenderProps => {
         const {
           rootClassName,
@@ -272,7 +267,7 @@ const EditListingAvailabilityPlanFormComponent = props => {
         const submitDisabled = submitInProgress || hasUnfinishedEntries;
 
         return (
-          <Form id={formId} className={classes} onSubmit={handleSubmit}>
+          <Form className={classes} id={formId} onSubmit={handleSubmit}>
             <h2 className={css.heading}>
               <FormattedMessage
                 id="EditListingAvailabilityPlanForm.title"
@@ -289,9 +284,7 @@ const EditListingAvailabilityPlanFormComponent = props => {
               <FormattedMessage id="EditListingAvailabilityPlanForm.hoursOfOperationTitle" />
             </h3>
             <div className={css.week}>
-              {weekdays.map(w => {
-                return <DailyPlan dayOfWeek={w} key={w} values={values} intl={intl} />;
-              })}
+              {weekdays.map(w => <DailyPlan key={w} dayOfWeek={w} intl={intl} values={values} />)}
             </div>
 
             <div className={css.submitButton}>
@@ -300,7 +293,7 @@ const EditListingAvailabilityPlanFormComponent = props => {
                   <FormattedMessage id="EditListingAvailabilityPlanForm.updateFailed" />
                 </p>
               ) : null}
-              <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
+              <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
                 <FormattedMessage id="EditListingAvailabilityPlanForm.saveSchedule" />
               </PrimaryButton>
             </div>

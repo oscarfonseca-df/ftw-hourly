@@ -341,10 +341,10 @@ describe('humanizeLineItemCode', () => {
   });
 
   it('should reject a code with missing namespace', () => {
-    expect(() => humanizeLineItemCode('new-line-item')).toThrowError(Error);
+    expect(() => humanizeLineItemCode('new-line-item')).toThrow(Error);
   });
 
   it('should reject a code with missing code value', () => {
-    expect(() => humanizeLineItemCode('line-item/')).toThrowError(Error);
+    expect(() => humanizeLineItemCode('line-item/')).toThrow(Error);
   });
 });

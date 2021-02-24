@@ -3,8 +3,7 @@ import { bool, func, number, shape, string } from 'prop-types';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { parseDateFromISO8601, stringifyDateToISO8601 } from '../../util/dates';
 import { propTypes } from '../../util/types';
-
-import { FieldDateRangeController, FieldSelect, FilterPopup, FilterPlain } from '../../components';
+import { FieldDateRangeController, FieldSelect, FilterPopup, FilterPlain } from "..";
 import css from './BookingDateRangeLengthFilter.module.css';
 
 const RADIX = 10;
@@ -14,9 +13,7 @@ const formatSelectedLabel = (minDurationOptions, minDuration, startDate, endDate
   // matches the given param and that have the short label defined.
   const minDurationOption =
     typeof minDuration === 'number'
-      ? minDurationOptions.find(option => {
-          return minDuration.toString() === option.key && option.shortLabel;
-        })
+      ? minDurationOptions.find(option => minDuration.toString() === option.key && option.shortLabel)
       : null;
   return minDurationOption
     ? `${startDate} - ${endDate}, ${minDurationOption.shortLabel}`
@@ -103,9 +100,7 @@ export class BookingDateRangeLengthFilterComponent extends Component {
             ),
           }
         )
-      : label
-      ? label
-      : intl.formatMessage({ id: 'BookingDateRangeLengthFilter.labelPlain' });
+      : label || intl.formatMessage({ id: 'BookingDateRangeLengthFilter.labelPlain' });
 
     const labelForPopup = isDatesSelected
       ? intl.formatMessage(
@@ -119,9 +114,7 @@ export class BookingDateRangeLengthFilterComponent extends Component {
             ),
           }
         )
-      : label
-      ? label
-      : intl.formatMessage({ id: 'BookingDateRangeLengthFilter.labelPopup' });
+      : label || intl.formatMessage({ id: 'BookingDateRangeLengthFilter.labelPopup' });
 
     const minDurationLabel = intl.formatMessage({
       id: 'BookingDateRangeLengthFilter.minDurationLabel',
@@ -170,32 +163,30 @@ export class BookingDateRangeLengthFilterComponent extends Component {
 
     const selectedDatesInState = this.state.selectedDates;
     const initialValues = {
-      dates: selectedDatesInState ? selectedDatesInState : initialDates,
+      dates: selectedDatesInState || initialDates,
       minDuration: initialMinDuration,
     };
 
     const fields = (
       <>
         <FieldDateRangeController
-          name={datesQueryParamName}
           controllerRef={node => {
             this.popupControllerRef = node;
           }}
+          name={datesQueryParamName}
         />
         <FieldSelect
-          id="BookingDateRangeLengthFilter.duration"
-          name={minDurationQueryParamName}
-          label={minDurationLabel}
           className={css.duration}
           disabled={!datesSelected}
+          id="BookingDateRangeLengthFilter.duration"
+          label={minDurationLabel}
+          name={minDurationQueryParamName}
         >
-          {dateRangeLengthFilter.config.options.map(({ key, label }) => {
-            return (
+          {dateRangeLengthFilter.config.options.map(({ key, label }) => (
               <option key={key} value={key}>
                 {label}
               </option>
-            );
-          })}
+            ))}
         </FieldSelect>
       </>
     );
@@ -203,15 +194,15 @@ export class BookingDateRangeLengthFilterComponent extends Component {
     return showAsPopup ? (
       <FilterPopup
         className={className}
-        rootClassName={rootClassName}
-        popupClassName={css.popupSize}
-        label={labelForPopup}
-        isSelected={isDatesSelected}
-        id={`${id}.popup`}
-        showAsPopup
         contentPlacementOffset={contentPlacementOffset}
-        onSubmit={handleSubmit}
+        id={`${id}.popup`}
+        isSelected={isDatesSelected}
+        label={labelForPopup}
         onChange={handleChange}
+        onSubmit={handleSubmit}
+        popupClassName={css.popupSize}
+        rootClassName={rootClassName}
+        showAsPopup
         {...onClearPopupMaybe}
         {...onCancelPopupMaybe}
         initialValues={initialValues}
@@ -222,13 +213,13 @@ export class BookingDateRangeLengthFilterComponent extends Component {
     ) : (
       <FilterPlain
         className={className}
-        rootClassName={rootClassName}
-        label={labelForPlain}
-        isSelected={isDatesSelected}
-        id={`${id}.plain`}
-        liveEdit
         contentPlacementOffset={contentPlacementOffset}
+        id={`${id}.plain`}
+        isSelected={isDatesSelected}
+        label={labelForPlain}
+        liveEdit
         onSubmit={handleSubmit}
+        rootClassName={rootClassName}
         {...onClearPlainMaybe}
         initialValues={initialValues}
         {...rest}

@@ -9,8 +9,7 @@ import { parse } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 import { ensureListing } from '../../util/data';
 import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
-import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
-
+import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from "..";
 import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
 import css from './SearchMapWithMapbox.module.css';
 
@@ -342,7 +341,7 @@ class SearchMapWithMapbox extends Component {
       });
       window.mapboxMap = this.map;
 
-      var nav = new window.mapboxgl.NavigationControl({ showCompass: false });
+      const nav = new window.mapboxgl.NavigationControl({ showCompass: false });
       this.map.addControl(nav, 'top-left');
 
       this.map.on('moveend', this.onMoveend);
@@ -451,9 +450,9 @@ class SearchMapWithMapbox extends Component {
 
     return (
       <div
-        id={id}
         ref={this.onMount}
         className={classNames(className, css.fullArea)}
+        id={id}
         onClick={this.props.onClick}
       >
         {this.currentMarkers.map(m => {

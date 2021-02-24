@@ -7,7 +7,7 @@ import { node, number, string, shape } from 'prop-types';
 import { compose } from 'redux';
 import { FormattedMessage } from '../../util/reactIntl';
 import { withViewport } from '../../util/contextHelpers';
-import { LayoutWrapperSideNav } from '../../components';
+import { LayoutWrapperSideNav } from "..";
 
 const MAX_HORIZONTAL_NAV_SCREEN_WIDTH = 1023;
 

@@ -8,18 +8,18 @@ import { renderShallow } from '../../util/test-helpers';
 import { fakeIntl } from '../../util/test-data';
 import { BookingDateRangeFilterComponent } from './BookingDateRangeFilter';
 
-describe('BookingDateRangeFilter', () => {
+describe('bookingDateRangeFilter', () => {
   it('matches popup snapshot', () => {
     const tree = renderShallow(
       <BookingDateRangeFilterComponent
-        id="BookingDateRangeFilter"
-        queryParamNames={['dates']}
-        liveEdit={false}
-        showAsPopup={true}
         contentPlacementOffset={-14}
+        id="BookingDateRangeFilter"
         initialValues={{}}
-        onSubmit={() => null}
         intl={fakeIntl}
+        liveEdit={false}
+        onSubmit={() => null}
+        queryParamNames={['dates']}
+        showAsPopup
       />
     );
     expect(tree).toMatchSnapshot();
@@ -28,14 +28,14 @@ describe('BookingDateRangeFilter', () => {
   it('matches plain snapshot', () => {
     const tree = renderShallow(
       <BookingDateRangeFilterComponent
-        id="BookingDateRangeFilter"
-        queryParamNames={['dates']}
-        liveEdit={true}
-        showAsPopup={false}
         contentPlacementOffset={-14}
+        id="BookingDateRangeFilter"
         initialValues={{}}
-        onSubmit={() => null}
         intl={fakeIntl}
+        liveEdit
+        onSubmit={() => null}
+        queryParamNames={['dates']}
+        showAsPopup={false}
       />
     );
     expect(tree).toMatchSnapshot();

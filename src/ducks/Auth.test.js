@@ -1,4 +1,5 @@
 import { storableError } from '../util/errors';
+import * as log from '../util/log';
 import { clearCurrentUser, currentUserShowRequest, currentUserShowSuccess } from './user.duck';
 import reducer, {
   authenticationInProgress,
@@ -17,7 +18,6 @@ import reducer, {
   signupError,
   userLogout,
 } from './Auth.duck';
-import * as log from '../util/log';
 
 // Create a dispatch function that correctly calls the thunk functions
 // with itself
@@ -32,8 +32,7 @@ const createFakeDispatch = (getState, sdk) => {
 };
 
 // Get the dispatched actions from the fake dispatch function
-const dispatchedActions = fakeDispatch => {
-  return fakeDispatch.mock.calls.reduce((actions, args) => {
+const dispatchedActions = fakeDispatch => fakeDispatch.mock.calls.reduce((actions, args) => {
     if (Array.isArray(args) && args.length === 1) {
       const action = args[0];
       return typeof action === 'object' ? actions.concat([action]) : actions;
@@ -42,9 +41,8 @@ const dispatchedActions = fakeDispatch => {
       throw new Error('Fake dispatch function should only be called with a single argument');
     }
   }, []);
-};
 
-describe('Auth duck', () => {
+describe('auth duck', () => {
   describe('reducer', () => {
     it('should be logged out with no errors by default', () => {
       const state = reducer();

@@ -9,14 +9,14 @@ import {
   createOwnListing,
   createBooking,
 } from '../../util/test-data';
-import { InboxPageComponent, InboxItem, txState } from './InboxPage';
 import routeConfiguration from '../../routeConfiguration';
 import { TRANSITION_CONFIRM_PAYMENT } from '../../util/transaction';
 import { LINE_ITEM_NIGHT } from '../../util/types';
+import { InboxPageComponent, InboxItem, txState } from './InboxPage';
 
 const noop = () => null;
 
-describe('InboxPage', () => {
+describe('inboxPage', () => {
   it('matches snapshot', () => {
     const provider = createUser('provider-user-id');
     const customer = createUser('customer-user-id');
@@ -135,11 +135,11 @@ describe('InboxPage', () => {
     // Deeply render one InboxItem
     const orderItem = renderDeep(
       <InboxItem
-        unitType={LINE_ITEM_NIGHT}
-        type="order"
-        tx={ordersProps.transactions[0]}
         intl={fakeIntl}
         stateData={stateDataOrder}
+        tx={ordersProps.transactions[0]}
+        type="order"
+        unitType={LINE_ITEM_NIGHT}
       />
     );
     expect(orderItem).toMatchSnapshot();
@@ -192,11 +192,11 @@ describe('InboxPage', () => {
     // Deeply render one InboxItem
     const saleItem = renderDeep(
       <InboxItem
-        unitType={LINE_ITEM_NIGHT}
-        type="sale"
-        tx={salesProps.transactions[0]}
         intl={fakeIntl}
         stateData={stateDataSale}
+        tx={salesProps.transactions[0]}
+        type="sale"
+        unitType={LINE_ITEM_NIGHT}
       />
     );
     expect(saleItem).toMatchSnapshot();

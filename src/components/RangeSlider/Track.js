@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { array, node, string } from 'prop-types';
 import classNames from 'classnames';
-
 import css from './Track.module.css';
 
 class Track extends Component {
@@ -14,8 +13,7 @@ class Track extends Component {
       <div className={classes}>
         <div className={css.track} />
 
-        {handles.reduce((ranges, h, index) => {
-          return index < handles.length - 1
+        {handles.reduce((ranges, h, index) => index < handles.length - 1
             ? [
                 ...ranges,
                 <div
@@ -27,8 +25,7 @@ class Track extends Component {
                   }}
                 />,
               ]
-            : ranges;
-        }, [])}
+            : ranges, [])}
 
         {children}
       </div>

@@ -10,8 +10,8 @@ import { DateRangeInput } from './FieldDateRangeInput';
 
 const noop = () => null;
 
-describe('DateRangeInput', () => {
-  it('TODO, wait react-dates to work with React 16.9 without warnings', () => {
+describe('dateRangeInput', () => {
+  it('tODO, wait react-dates to work with React 16.9 without warnings', () => {
     expect('todo').toEqual('todo');
   });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldCheckbox from './FieldCheckbox';
 
 const formName = 'Styleguide.FieldCheckbox.Form';
@@ -22,10 +22,10 @@ const FormComponent = props => (
           }}
         >
           <FormSpy onChange={onChange} subscription={{ values: true, dirty: true }} />
-          <FieldCheckbox id="checkbox-id1" name="checkbox-group" label="option 1" value="option1" />
-          <FieldCheckbox id="checkbox-id2" name="checkbox-group" label="option 2" value="option2" />
+          <FieldCheckbox id="checkbox-id1" label="option 1" name="checkbox-group" value="option1" />
+          <FieldCheckbox id="checkbox-id2" label="option 2" name="checkbox-group" value="option2" />
 
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

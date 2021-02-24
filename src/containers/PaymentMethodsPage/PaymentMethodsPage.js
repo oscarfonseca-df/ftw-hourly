@@ -19,10 +19,9 @@ import {
   Page,
   UserNav,
 } from '../../components';
-import { TopbarContainer } from '../../containers';
+import { TopbarContainer } from "..";
 import { PaymentMethodsForm } from '../../forms';
 import { createStripeSetupIntent, stripeCustomer, loadData } from './PaymentMethodsPage.duck.js';
-
 import css from './PaymentMethodsPage.module.css';
 
 const PaymentMethodsPageComponent = props => {
@@ -47,21 +46,19 @@ const PaymentMethodsPageComponent = props => {
     stripeCustomerFetched,
   } = props;
 
-  const getClientSecret = setupIntent => {
-    return setupIntent && setupIntent.attributes ? setupIntent.attributes.clientSecret : null;
-  };
+  const getClientSecret = setupIntent => setupIntent && setupIntent.attributes ? setupIntent.attributes.clientSecret : null;
   const getPaymentParams = (currentUser, formValues) => {
     const { name, addressLine1, addressLine2, postal, state, city, country } = formValues;
     const addressMaybe =
       addressLine1 && postal
         ? {
             address: {
-              city: city,
-              country: country,
+              city,
+              country,
               line1: addressLine1,
               line2: addressLine2,
               postal_code: postal,
-              state: state,
+              state,
             },
           }
         : {};
@@ -145,7 +142,7 @@ const PaymentMethodsPageComponent = props => {
   const showForm = cardState === 'replaceCard' || !hasDefaultPaymentMethod;
   const showCardDetails = !!hasDefaultPaymentMethod;
   return (
-    <Page title={title} scrollingDisabled={scrollingDisabled}>
+    <Page scrollingDisabled={scrollingDisabled} title={title}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
           <TopbarContainer
@@ -166,25 +163,25 @@ const PaymentMethodsPageComponent = props => {
                 {showCardDetails ? (
                   <SavedCardDetails
                     card={card}
-                    onManageDisableScrolling={onManageDisableScrolling}
+                    deletePaymentMethodInProgress={deletePaymentMethodInProgress}
                     onChange={setCardState}
                     onDeleteCard={handleRemovePaymentMethod}
-                    deletePaymentMethodInProgress={deletePaymentMethodInProgress}
+                    onManageDisableScrolling={onManageDisableScrolling}
                   />
                 ) : null}
                 {showForm ? (
                   <PaymentMethodsForm
+                    addPaymentMethodError={addPaymentMethodError}
                     className={css.paymentForm}
+                    createStripeCustomerError={createStripeCustomerError}
+                    deletePaymentMethodError={deletePaymentMethodError}
                     formId="PaymentMethodsForm"
-                    initialValues={initalValuesForStripePayment}
-                    onSubmit={handleSubmit}
+                    handleCardSetupError={handleCardSetupError}
                     handleRemovePaymentMethod={handleRemovePaymentMethod}
                     hasDefaultPaymentMethod={hasDefaultPaymentMethod}
-                    addPaymentMethodError={addPaymentMethodError}
-                    deletePaymentMethodError={deletePaymentMethodError}
-                    createStripeCustomerError={createStripeCustomerError}
-                    handleCardSetupError={handleCardSetupError}
+                    initialValues={initalValuesForStripePayment}
                     inProgress={isSubmitting}
+                    onSubmit={handleSubmit}
                   />
                 ) : null}
               </>

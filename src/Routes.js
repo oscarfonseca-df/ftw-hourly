@@ -106,7 +106,7 @@ class RouteComponentRenderer extends Component {
       staticContext.unauthorized = true;
     }
     return canShow ? (
-      <RouteComponent params={match.params} location={location} />
+      <RouteComponent location={location} params={match.params} />
     ) : (
       <NamedRedirect
         name={authPage}
@@ -165,13 +165,13 @@ const Routes = (props, context) => {
     return (
       <Route
         key={route.name}
-        path={route.path}
         exact={isExact}
+        path={route.path}
         render={matchProps => (
           <RouteComponentContainer
             {...renderProps}
-            match={matchProps.match}
             location={matchProps.location}
+            match={matchProps.match}
             staticContext={matchProps.staticContext}
           />
         )}

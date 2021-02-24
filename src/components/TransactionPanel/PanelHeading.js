@@ -1,9 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { createSlug, stringify } from '../../util/urlHelpers';
-import { NamedLink } from '../../components';
-
+import { NamedLink } from "..";
 import css from './TransactionPanel.module.css';
 
 export const HEADING_ENQUIRED = 'enquired';
@@ -29,13 +28,11 @@ const createListingLink = (listingId, label, listingDeleted, searchParams = {}, 
   }
 };
 
-const ListingDeletedInfoMaybe = props => {
-  return props.listingDeleted ? (
+const ListingDeletedInfoMaybe = props => props.listingDeleted ? (
     <p className={css.transactionInfoMessage}>
       <FormattedMessage id="TransactionPanel.messageDeletedListing" />
     </p>
   ) : null;
-};
 
 const HeadingCustomer = props => {
   const { className, id, values, listingDeleted } = props;
@@ -67,13 +64,11 @@ const HeadingCustomerWithSubtitle = props => {
   );
 };
 
-const CustomerBannedInfoMaybe = props => {
-  return props.isCustomerBanned ? (
+const CustomerBannedInfoMaybe = props => props.isCustomerBanned ? (
     <p className={css.transactionInfoMessage}>
       <FormattedMessage id="TransactionPanel.customerBannedStatus" />
     </p>
   ) : null;
-};
 
 const HeadingProvider = props => {
   const { className, id, values, isCustomerBanned, children } = props;
@@ -117,15 +112,15 @@ const PanelHeading = props => {
         <HeadingCustomer
           className={titleClasses}
           id="TransactionPanel.orderEnquiredTitle"
-          values={{ listingLink }}
           listingDeleted={listingDeleted}
+          values={{ listingLink }}
         />
       ) : (
         <HeadingProvider
           className={titleClasses}
           id="TransactionPanel.saleEnquiredTitle"
-          values={{ customerName, listingLink }}
           isCustomerBanned={isCustomerBanned}
+          values={{ customerName, listingLink }}
         />
       );
     case HEADING_PAYMENT_PENDING:
@@ -133,15 +128,15 @@ const PanelHeading = props => {
         <HeadingCustomer
           className={titleClasses}
           id="TransactionPanel.orderPaymentPendingTitle"
-          values={{ listingLink }}
           listingDeleted={listingDeleted}
+          values={{ listingLink }}
         />
       ) : (
         <HeadingProvider
           className={titleClasses}
           id="TransactionPanel.salePaymentPendingTitle"
-          values={{ customerName, listingLink }}
           isCustomerBanned={isCustomerBanned}
+          values={{ customerName, listingLink }}
         >
           <p className={css.transactionInfoMessage}>
             <FormattedMessage
@@ -156,15 +151,15 @@ const PanelHeading = props => {
         <HeadingCustomer
           className={titleClasses}
           id="TransactionPanel.orderPaymentExpiredTitle"
-          values={{ listingLink }}
           listingDeleted={listingDeleted}
+          values={{ listingLink }}
         />
       ) : (
         <HeadingProvider
           className={titleClasses}
           id="TransactionPanel.salePaymentExpiredTitle"
-          values={{ customerName, listingLink }}
           isCustomerBanned={isCustomerBanned}
+          values={{ customerName, listingLink }}
         />
       );
     case HEADING_REQUESTED:
@@ -172,9 +167,9 @@ const PanelHeading = props => {
         <HeadingCustomerWithSubtitle
           className={titleClasses}
           id="TransactionPanel.orderPreauthorizedTitle"
-          values={{ customerName }}
           subtitleId="TransactionPanel.orderPreauthorizedSubtitle"
           subtitleValues={{ listingLink }}
+          values={{ customerName }}
         >
           {!listingDeleted ? (
             <p className={css.transactionInfoMessage}>
@@ -203,9 +198,9 @@ const PanelHeading = props => {
         <HeadingCustomerWithSubtitle
           className={titleClasses}
           id="TransactionPanel.orderPreauthorizedTitle"
-          values={{ customerName }}
           subtitleId="TransactionPanel.orderAcceptedSubtitle"
           subtitleValues={{ listingLink }}
+          values={{ customerName }}
         />
       ) : (
         <HeadingProvider
@@ -225,8 +220,8 @@ const PanelHeading = props => {
         <HeadingProvider
           className={titleClasses}
           id="TransactionPanel.saleDeclinedTitle"
-          values={{ customerName, listingLink }}
           isCustomerBanned={isCustomerBanned}
+          values={{ customerName, listingLink }}
         />
       );
     case HEADING_CANCELED:
@@ -248,15 +243,15 @@ const PanelHeading = props => {
         <HeadingCustomer
           className={titleClasses}
           id="TransactionPanel.orderDeliveredTitle"
-          values={{ customerName, listingLink }}
           isCustomerBanned={isCustomerBanned}
+          values={{ customerName, listingLink }}
         />
       ) : (
         <HeadingProvider
           className={titleClasses}
           id="TransactionPanel.saleDeliveredTitle"
-          values={{ customerName, listingLink }}
           isCustomerBanned={isCustomerBanned}
+          values={{ customerName, listingLink }}
         />
       );
     default:

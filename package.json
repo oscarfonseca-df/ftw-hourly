@@ -120,11 +120,16 @@
     "timezones": "node scripts/parse-iana-timezones.js",
     "translate": "node scripts/translations.js"
   },
+  "eslintIgnore": ["*.test.*", "*.duck.*"],
   "eslintConfig": {
     "extends": [
       "@dangerfarms/eslint-config-df",
       "prettier"
     ],
+    "rules": {
+      "react/sort-prop-types": "off",
+      "react/jsx-sort-default-props": "off"
+    },
     "parser": "babel-eslint",
     "overrides": [
       {

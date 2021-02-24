@@ -9,9 +9,7 @@ const component = props => {
   return <DateRangeController ref={controllerRef} {...restOfInput} {...rest} />;
 };
 
-const FieldDateRangeController = props => {
-  return <Field component={component} {...props} />;
-};
+const FieldDateRangeController = props => <Field component={component} {...props} />;
 
 FieldDateRangeController.defaultProps = {
   rootClassName: null,

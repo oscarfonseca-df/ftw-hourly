@@ -251,6 +251,7 @@ class PagedFeed extends Component {
     super(props);
     this.state = { showAllMessages: false };
   }
+
   render() {
     const dates = [
       new Date(Date.UTC(2017, 10, 20, 12)),

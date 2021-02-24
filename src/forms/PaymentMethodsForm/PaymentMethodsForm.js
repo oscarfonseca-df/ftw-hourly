@@ -5,9 +5,9 @@
  */
 import React, { Component } from 'react';
 import { func, object, string } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import { Form, PrimaryButton, FieldTextInput, StripePaymentAddress } from '../../components';
 import css from './PaymentMethodsForm.module.css';
@@ -122,12 +122,14 @@ class PaymentMethodsForm extends Component {
       });
     }
   }
+
   componentWillUnmount() {
     if (this.card) {
       this.card.removeEventListener('change', this.handleCardValueChange);
       this.card.unmount();
     }
   }
+
   handleCardValueChange(event) {
     const { intl } = this.props;
     const { error, complete } = event;
@@ -137,13 +139,12 @@ class PaymentMethodsForm extends Component {
       this.finalFormAPI.change('postal', postalCode);
     }
 
-    this.setState(prevState => {
-      return {
+    this.setState(prevState => ({
         error: error ? stripeErrorTranslation(intl, error) : null,
         cardValueValid: complete,
-      };
-    });
+      }));
   }
+
   handleSubmit(values) {
     const { onSubmit, inProgress, formId } = this.props;
     const cardInputNeedsAttention = !this.state.cardValueValid;
@@ -212,7 +213,7 @@ class PaymentMethodsForm extends Component {
     // Stripe recommends asking billing address.
     // In PaymentMethodsForm, we send name and email as billing details, but address only if it exists.
     const billingAddress = (
-      <StripePaymentAddress intl={intl} form={form} fieldId={formId} card={this.card} />
+      <StripePaymentAddress card={this.card} fieldId={formId} form={form} intl={intl} />
     );
 
     const hasStripeKey = config.stripe.publishableKey;
@@ -224,11 +225,11 @@ class PaymentMethodsForm extends Component {
         </label>
 
         <div
-          className={cardClasses}
-          id={`${formId}-card`}
           ref={el => {
             this.cardContainer = el;
           }}
+          className={cardClasses}
+          id={`${formId}-card`}
         />
         <div className={css.infoText}>{infoText}</div>
         {hasCardError ? <span className={css.error}>{this.state.error}</span> : null}
@@ -238,13 +239,13 @@ class PaymentMethodsForm extends Component {
           </h3>
 
           <FieldTextInput
-            className={css.field}
-            type="text"
-            id="name"
-            name="name"
             autoComplete="cc-name"
+            className={css.field}
+            id="name"
             label={billingDetailsNameLabel}
+            name="name"
             placeholder={billingDetailsNamePlaceholder}
+            type="text"
           />
 
           {billingAddress}
@@ -258,9 +259,9 @@ class PaymentMethodsForm extends Component {
           ) : null}
           <PrimaryButton
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
+            type="submit"
           >
             <FormattedMessage id="PaymentMethodsForm.submitPaymentInfo" />
           </PrimaryButton>

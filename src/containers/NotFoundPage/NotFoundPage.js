@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
@@ -16,8 +16,7 @@ import {
   Footer,
 } from '../../components';
 import { LocationSearchForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import css from './NotFoundPage.module.css';
 
 export class NotFoundPageComponent extends Component {
@@ -47,7 +46,7 @@ export class NotFoundPageComponent extends Component {
     };
 
     return (
-      <Page title={title} scrollingDisabled={scrollingDisabled}>
+      <Page scrollingDisabled={scrollingDisabled} title={title}>
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
             <TopbarContainer />
@@ -96,11 +95,9 @@ NotFoundPageComponent.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     scrollingDisabled: isScrollingDisabled(state),
-  };
-};
+  });
 
 // Note: it is important that the withRouter HOC is **outside** the
 // connect HOC, otherwise React Router won't rerender any Route

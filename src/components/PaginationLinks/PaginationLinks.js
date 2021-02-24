@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
 import range from 'lodash/range';
-import { IconArrowHead, NamedLink } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { IconArrowHead, NamedLink } from "..";
 import { stringify } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
-
 import css from './PaginationLinks.module.css';
 
 const { string, object } = PropTypes;
@@ -28,11 +27,11 @@ const getPageNumbersArray = (page, totalPages) => {
   // Create array of numbers: [1, 2, 3, 4, ..., totalPages]
   const numbersFrom1ToTotalPages = range(1, totalPages + 1);
   return numbersFrom1ToTotalPages
-    .filter(v => {
+    .filter(v => 
       // Filter numbers that are next to current page and pick also first and last page
       // E.g. [1, 4, 5, 6, 9], where current page = 5 and totalPages = 9.
-      return v === 1 || Math.abs(v - page) <= 1 || v === totalPages;
-    })
+       v === 1 || Math.abs(v - page) <= 1 || v === totalPages
+    )
     .reduce((newArray, p) => {
       // Create a new array where gaps between consecutive numbers is filled with ellipsis character
       // E.g. [1, '…', 4, 5, 6, '…', 9], where current page = 5 and totalPages = 9.
@@ -72,10 +71,10 @@ export const PaginationLinksComponent = props => {
       className={css.prev}
       name={pageName}
       params={pagePathParams}
-      to={{ search: stringify(prevSearchParams) }}
       title={intl.formatMessage({ id: 'PaginationLinks.previous' })}
+      to={{ search: stringify(prevSearchParams) }}
     >
-      <IconArrowHead direction="left" size="big" rootClassName={css.arrowIcon} />
+      <IconArrowHead direction="left" rootClassName={css.arrowIcon} size="big" />
     </NamedLink>
   );
 
@@ -83,8 +82,8 @@ export const PaginationLinksComponent = props => {
     <div className={css.prev}>
       <IconArrowHead
         direction="left"
-        size="big"
         rootClassName={classNames(css.arrowIcon, css.disabled)}
+        size="big"
       />
     </div>
   );
@@ -95,10 +94,10 @@ export const PaginationLinksComponent = props => {
       className={css.next}
       name={pageName}
       params={pagePathParams}
-      to={{ search: stringify(nextSearchParams) }}
       title={intl.formatMessage({ id: 'PaginationLinks.next' })}
+      to={{ search: stringify(nextSearchParams) }}
     >
-      <IconArrowHead direction="right" size="big" rootClassName={css.arrowIcon} />
+      <IconArrowHead direction="right" rootClassName={css.arrowIcon} size="big" />
     </NamedLink>
   );
 
@@ -106,8 +105,8 @@ export const PaginationLinksComponent = props => {
     <div className={css.next}>
       <IconArrowHead
         direction="right"
-        size="big"
         rootClassName={classNames(css.arrowIcon, css.disabled)}
+        size="big"
       />
     </div>
   );
@@ -123,8 +122,8 @@ export const PaginationLinksComponent = props => {
         className={pageClassNames}
         name={pageName}
         params={pagePathParams}
-        to={{ search: stringify({ ...pageSearchParams, page: v }) }}
         title={intl.formatMessage({ id: 'PaginationLinks.toPage' }, { page: v })}
+        to={{ search: stringify({ ...pageSearchParams, page: v }) }}
       >
         {v}
       </NamedLink>

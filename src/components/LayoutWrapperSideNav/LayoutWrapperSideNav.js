@@ -5,8 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TabNav } from '../../components';
-
+import { TabNav } from "..";
 import css from './LayoutWrapperSideNav.module.css';
 
 const LayoutWrapperSideNav = props => {

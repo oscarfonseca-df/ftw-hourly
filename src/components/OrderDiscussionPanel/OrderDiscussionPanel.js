@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Discussion } from '../../components';
+import { Discussion } from "..";
 
 const OrderDiscussionPanel = props => {
   const { className } = props;

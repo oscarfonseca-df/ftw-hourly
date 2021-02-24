@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
-import { ExternalLink } from '../../components';
 import classNames from 'classnames';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { ExternalLink } from "..";
 import css from './CookieConsent.module.css';
 
 class CookieConsent extends Component {
@@ -32,10 +31,10 @@ class CookieConsent extends Component {
 
   saveCookieConsent() {
     // We create date object and modify it to show date 10 years into the future.
-    let expirationDate = new Date();
+    const expirationDate = new Date();
     expirationDate.setFullYear(expirationDate.getFullYear() + 10);
     // Save the cookie with expiration date
-    document.cookie = 'euCookiesAccepted=1; path=/; expires=' + expirationDate.toGMTString();
+    document.cookie = `euCookiesAccepted=1; path=/; expires=${  expirationDate.toGMTString()}`;
   }
 
   render() {
@@ -47,7 +46,7 @@ class CookieConsent extends Component {
       return null;
     } else {
       const cookieLink = (
-        <ExternalLink href="https://cookiesandyou.com" className={css.cookieLink}>
+        <ExternalLink className={css.cookieLink} href="https://cookiesandyou.com">
           <FormattedMessage id="CookieConsent.cookieLink" />
         </ExternalLink>
       );

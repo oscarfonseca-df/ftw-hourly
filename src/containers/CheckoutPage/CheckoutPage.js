@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { bool, func, instanceOf, object, oneOfType, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName, findRouteByRouteName } from '../../util/routes';
@@ -44,7 +44,6 @@ import { StripePaymentForm } from '../../forms';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { confirmCardPayment, retrievePaymentIntent } from '../../ducks/stripe.duck';
 import { savePaymentMethod } from '../../ducks/paymentMethods.duck';
-
 import {
   initiateOrder,
   setInitialValues,
@@ -67,15 +66,15 @@ const ONETIME_PAYMENT = 'ONETIME_PAYMENT';
 const PAY_AND_SAVE_FOR_LATER_USE = 'PAY_AND_SAVE_FOR_LATER_USE';
 const USE_SAVED_CARD = 'USE_SAVED_CARD';
 
-const paymentFlow = (selectedPaymentMethod, saveAfterOnetimePayment) => {
+const paymentFlow = (selectedPaymentMethod, saveAfterOnetimePayment) => 
   // Payment mode could be 'replaceCard', but without explicit saveAfterOnetimePayment flag,
   // we'll handle it as one-time payment
-  return selectedPaymentMethod === 'defaultCard'
+   selectedPaymentMethod === 'defaultCard'
     ? USE_SAVED_CARD
     : saveAfterOnetimePayment
     ? PAY_AND_SAVE_FOR_LATER_USE
-    : ONETIME_PAYMENT;
-};
+    : ONETIME_PAYMENT
+;
 
 const initializeOrderPage = (initialValues, routes, dispatch) => {
   const OrderPage = findRouteByRouteName('OrderDetailsPage', routes);
@@ -85,13 +84,11 @@ const initializeOrderPage = (initialValues, routes, dispatch) => {
   dispatch(OrderPage.setInitialValues(initialValues));
 };
 
-const checkIsPaymentExpired = existingTransaction => {
-  return txIsPaymentExpired(existingTransaction)
+const checkIsPaymentExpired = existingTransaction => txIsPaymentExpired(existingTransaction)
     ? true
     : txIsPaymentPending(existingTransaction)
     ? minutesBetween(existingTransaction.attributes.lastTransitionedAt, new Date()) >= 15
     : false;
-};
 
 export class CheckoutPageComponent extends Component {
   constructor(props) {
@@ -286,7 +283,7 @@ export class CheckoutPageComponent extends Component {
           ? {
               payment_method: {
                 billing_details: billingDetails,
-                card: card,
+                card,
               },
             }
           : {};
@@ -316,9 +313,7 @@ export class CheckoutPageComponent extends Component {
     };
 
     // Step 4: send initial message
-    const fnSendMessage = fnParams => {
-      return onSendMessage({ ...fnParams, message });
-    };
+    const fnSendMessage = fnParams => onSendMessage({ ...fnParams, message });
 
     // Step 5: optionally save card as defaultPaymentMethod
     const fnSavePaymentMethod = fnParams => {
@@ -332,10 +327,10 @@ export class CheckoutPageComponent extends Component {
             }
             return { ...fnParams, paymentMethodSaved: true };
           })
-          .catch(e => {
+          .catch(e => 
             // Real error cases are catched already in paymentMethods page.
-            return { ...fnParams, paymentMethodSaved: false };
-          });
+             ({ ...fnParams, paymentMethodSaved: false })
+          );
       } else {
         return Promise.resolve({ ...fnParams, paymentMethodSaved: true });
       }
@@ -359,7 +354,7 @@ export class CheckoutPageComponent extends Component {
     // Create order aka transaction
     // NOTE: if unit type is line-item/units, quantity needs to be added.
     // The way to pass it to checkout page is through pageData.bookingData
-    const tx = speculatedTransaction ? speculatedTransaction : storedTx;
+    const tx = speculatedTransaction || storedTx;
 
     // Note: optionalPaymentParams contains Stripe paymentMethod,
     // but that can also be passed on Step 2
@@ -409,12 +404,12 @@ export class CheckoutPageComponent extends Component {
       addressLine1 && postal
         ? {
             address: {
-              city: city,
-              country: country,
+              city,
+              country,
               line1: addressLine1,
               line2: addressLine2,
               postal_code: postal,
-              state: state,
+              state,
             },
           }
         : {};
@@ -531,12 +526,12 @@ export class CheckoutPageComponent extends Component {
         <NamedLink className={css.home} name="LandingPage">
           <Logo
             className={css.logoMobile}
-            title={intl.formatMessage({ id: 'CheckoutPage.goToLandingPage' })}
             format="mobile"
+            title={intl.formatMessage({ id: 'CheckoutPage.goToLandingPage' })}
           />
           <Logo
-            className={css.logoDesktop}
             alt={intl.formatMessage({ id: 'CheckoutPage.goToLandingPage' })}
+            className={css.logoDesktop}
             format="desktop"
           />
         </NamedLink>
@@ -586,13 +581,13 @@ export class CheckoutPageComponent extends Component {
     const breakdown =
       tx.id && txBooking.id ? (
         <BookingBreakdown
-          className={css.bookingBreakdown}
-          userRole="customer"
-          unitType={config.bookingUnitType}
-          transaction={tx}
           booking={txBooking}
+          className={css.bookingBreakdown}
           dateType={DATE_TYPE_DATETIME}
           timeZone={timeZone}
+          transaction={tx}
+          unitType={config.bookingUnitType}
+          userRole="customer"
         />
       ) : null;
 
@@ -755,14 +750,14 @@ export class CheckoutPageComponent extends Component {
         <div className={css.contentContainer}>
           <div className={css.aspectWrapper}>
             <ResponsiveImage
-              rootClassName={css.rootForImage}
               alt={listingTitle}
               image={firstImage}
+              rootClassName={css.rootForImage}
               variants={['landscape-crop', 'landscape-crop2x']}
             />
           </div>
           <div className={classNames(css.avatarWrapper, css.avatarMobile)}>
-            <AvatarMedium user={currentAuthor} disableProfileLink />
+            <AvatarMedium disableProfileLink user={currentAuthor} />
           </div>
           <div className={css.bookListingContainer}>
             <div className={css.heading}>
@@ -788,24 +783,24 @@ export class CheckoutPageComponent extends Component {
               ) : null}
               {showPaymentForm ? (
                 <StripePaymentForm
-                  className={css.paymentForm}
-                  onSubmit={this.handleSubmit}
-                  inProgress={this.state.submitting}
-                  formId="CheckoutPagePaymentForm"
-                  paymentInfo={intl.formatMessage({ id: 'CheckoutPage.paymentInfo' })}
                   authorDisplayName={currentAuthor.attributes.profile.displayName}
-                  showInitialMessageInput={showInitialMessageInput}
-                  initialValues={initalValuesForStripePayment}
-                  initiateOrderError={initiateOrderError}
+                  className={css.paymentForm}
                   confirmCardPaymentError={confirmCardPaymentError}
                   confirmPaymentError={confirmPaymentError}
-                  hasHandledCardPayment={hasPaymentIntentUserActionsDone}
-                  loadingData={!stripeCustomerFetched}
                   defaultPaymentMethod={
                     hasDefaultPaymentMethod ? currentUser.stripeCustomer.defaultPaymentMethod : null
                   }
-                  paymentIntent={paymentIntent}
+                  formId="CheckoutPagePaymentForm"
+                  hasHandledCardPayment={hasPaymentIntentUserActionsDone}
+                  initialValues={initalValuesForStripePayment}
+                  initiateOrderError={initiateOrderError}
+                  inProgress={this.state.submitting}
+                  loadingData={!stripeCustomerFetched}
                   onStripeInitialized={this.onStripeInitialized}
+                  onSubmit={this.handleSubmit}
+                  paymentInfo={intl.formatMessage({ id: 'CheckoutPage.paymentInfo' })}
+                  paymentIntent={paymentIntent}
+                  showInitialMessageInput={showInitialMessageInput}
                 />
               ) : null}
               {isPaymentExpired ? (
@@ -822,14 +817,14 @@ export class CheckoutPageComponent extends Component {
           <div className={css.detailsContainerDesktop}>
             <div className={css.detailsAspectWrapper}>
               <ResponsiveImage
-                rootClassName={css.rootForImage}
                 alt={listingTitle}
                 image={firstImage}
+                rootClassName={css.rootForImage}
                 variants={['landscape-crop', 'landscape-crop2x']}
               />
             </div>
             <div className={css.avatarWrapper}>
-              <AvatarMedium user={currentAuthor} disableProfileLink />
+              <AvatarMedium disableProfileLink user={currentAuthor} />
             </div>
             <div className={css.detailsHeadings}>
               <h2 className={css.detailsTitle}>{listingTitle}</h2>

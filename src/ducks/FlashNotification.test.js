@@ -5,7 +5,7 @@ import reducer, {
   removeFlashNotification,
 } from './FlashNotification.duck';
 
-describe('FlashNotification', () => {
+describe('flashNotification', () => {
   describe('actions', () => {
     it('should create an action to add a filter', () => {
       const content = 'Error message';

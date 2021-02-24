@@ -1,7 +1,7 @@
 import React from 'react';
 import { bool, oneOfType, object } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import {
   LISTING_STATE_PENDING_APPROVAL,
   LISTING_STATE_CLOSED,
@@ -10,7 +10,6 @@ import {
 } from '../../util/types';
 import { NamedLink } from '../../components';
 import EditIcon from './EditIcon';
-
 import css from './ListingPage.module.css';
 
 export const ActionBarMaybe = props => {

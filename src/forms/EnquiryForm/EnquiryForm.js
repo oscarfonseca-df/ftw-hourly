@@ -1,13 +1,12 @@
 import React from 'react';
 import { string, bool } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form, PrimaryButton, FieldTextInput, IconEnquiry } from '../../components';
 import * as validators from '../../util/validators';
 import { propTypes } from '../../util/types';
-
 import css from './EnquiryForm.module.css';
 
 const EnquiryFormComponent = props => (
@@ -56,11 +55,11 @@ const EnquiryFormComponent = props => (
           </h2>
           <FieldTextInput
             className={css.field}
-            type="textarea"
-            name="message"
             id={formId ? `${formId}.message` : 'message'}
             label={messageLabel}
+            name="message"
             placeholder={messagePlaceholder}
+            type="textarea"
             validate={messageRequired}
           />
           <div className={submitButtonWrapperClassName}>
@@ -69,7 +68,7 @@ const EnquiryFormComponent = props => (
                 <FormattedMessage id="EnquiryForm.sendEnquiryError" />
               </p>
             ) : null}
-            <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
+            <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
               <FormattedMessage id="EnquiryForm.submitButtonText" />
             </PrimaryButton>
           </div>

@@ -17,8 +17,7 @@ import {
   LayoutWrapperFooter,
   Footer,
 } from '../../components';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import {
   closeListing,
   openListing,
@@ -121,7 +120,7 @@ export class ManageListingsPageComponent extends Component {
     ].join(', ');
 
     return (
-      <Page title={title} scrollingDisabled={scrollingDisabled}>
+      <Page scrollingDisabled={scrollingDisabled} title={title}>
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
             <TopbarContainer currentPage="ManageListingsPage" />
@@ -135,16 +134,16 @@ export class ManageListingsPageComponent extends Component {
               <div className={css.listingCards}>
                 {listings.map(l => (
                   <ManageListingCard
-                    className={css.listingCard}
                     key={l.id.uuid}
-                    listing={l}
-                    isMenuOpen={!!listingMenuOpen && listingMenuOpen.id.uuid === l.id.uuid}
                     actionsInProgressListingId={openingListing || closingListing}
-                    onToggleMenu={this.onToggleMenu}
+                    className={css.listingCard}
+                    hasClosingError={closingErrorListingId.uuid === l.id.uuid}
+                    hasOpeningError={openingErrorListingId.uuid === l.id.uuid}
+                    isMenuOpen={!!listingMenuOpen && listingMenuOpen.id.uuid === l.id.uuid}
+                    listing={l}
                     onCloseListing={onCloseListing}
                     onOpenListing={onOpenListing}
-                    hasOpeningError={openingErrorListingId.uuid === l.id.uuid}
-                    hasClosingError={closingErrorListingId.uuid === l.id.uuid}
+                    onToggleMenu={this.onToggleMenu}
                     renderSizes={renderSizes}
                   />
                 ))}

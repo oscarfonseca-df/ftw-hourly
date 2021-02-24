@@ -38,15 +38,15 @@ export class Map extends Component {
     return !isMapsLibLoaded() ? (
       <div className={classes} />
     ) : useStaticMap ? (
-      <StaticMap center={location} zoom={zoom} address={address} mapsConfig={mapsConfig} />
+      <StaticMap address={address} center={location} mapsConfig={mapsConfig} zoom={zoom} />
     ) : (
       <DynamicMap
+        address={address}
+        center={location}
         containerClassName={classes}
         mapClassName={mapClasses}
-        center={location}
-        zoom={zoom}
-        address={address}
         mapsConfig={mapsConfig}
+        zoom={zoom}
       />
     );
   }

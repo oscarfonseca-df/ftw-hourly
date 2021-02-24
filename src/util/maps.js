@@ -1,7 +1,7 @@
 import memoize from 'lodash/memoize';
 import seedrandom from 'seedrandom';
-import { types as sdkTypes } from './sdkLoader';
 import config from '../config';
+import { types as sdkTypes } from './sdkLoader';
 
 const { LatLng, LatLngBounds } = sdkTypes;
 
@@ -84,11 +84,9 @@ const memoizedObfuscatedCoordinatesImpl = memoize(obfuscatedCoordinatesImpl, obf
  *
  * @return {LatLng} obfuscated coordinates
  */
-export const obfuscatedCoordinates = (latlng, cacheKey = null) => {
-  return cacheKey
+export const obfuscatedCoordinates = (latlng, cacheKey = null) => cacheKey
     ? memoizedObfuscatedCoordinatesImpl(latlng, cacheKey)
     : obfuscatedCoordinatesImpl(latlng);
-};
 
 /**
  * Query the user's current location from the browser API
@@ -143,7 +141,7 @@ export const circlePolyline = (latlng, radius) => {
   const _lng = (lng * pi) / 180;
   const d = radius / 1000 / R;
 
-  let points = [];
+  const points = [];
   for (let i = 0; i <= 360; i += detail) {
     const brng = (i * pi) / 180;
 

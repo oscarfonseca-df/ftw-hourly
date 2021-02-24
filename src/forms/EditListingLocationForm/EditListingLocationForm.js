@@ -2,8 +2,8 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm } from 'react-final-form';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import {
   autocompleteSearchRequired,
@@ -11,7 +11,6 @@ import {
   composeValidators,
 } from '../../util/validators';
 import { Form, LocationAutocompleteInputField, Button, FieldTextInput } from '../../components';
-
 import css from './EditListingLocationForm.module.css';
 
 const identity = v => v;
@@ -52,7 +51,7 @@ export const EditListingLocationFormComponent = props => (
 
       const buildingMessage = intl.formatMessage(
         { id: 'EditListingLocationForm.building' },
-        { optionalText: optionalText }
+        { optionalText }
       );
       const buildingPlaceholderMessage = intl.formatMessage({
         id: 'EditListingLocationForm.buildingPlaceholder',
@@ -81,39 +80,39 @@ export const EditListingLocationFormComponent = props => (
           {errorMessage}
           {errorMessageShowListing}
           <LocationAutocompleteInputField
-            className={css.locationAddress}
-            inputClassName={css.locationAutocompleteInput}
-            iconClassName={css.locationAutocompleteInputIcon}
-            predictionsClassName={css.predictionsRoot}
-            validClassName={css.validLocation}
             autoFocus
-            name="location"
-            label={titleRequiredMessage}
-            placeholder={addressPlaceholderMessage}
-            useDefaultPredictions={false}
+            className={css.locationAddress}
             format={identity}
-            valueFromForm={values.location}
+            iconClassName={css.locationAutocompleteInputIcon}
+            inputClassName={css.locationAutocompleteInput}
+            label={titleRequiredMessage}
+            name="location"
+            placeholder={addressPlaceholderMessage}
+            predictionsClassName={css.predictionsRoot}
+            useDefaultPredictions={false}
             validate={composeValidators(
               autocompleteSearchRequired(addressRequiredMessage),
               autocompletePlaceSelected(addressNotRecognizedMessage)
             )}
+            validClassName={css.validLocation}
+            valueFromForm={values.location}
           />
 
           <FieldTextInput
             className={css.building}
-            type="text"
-            name="building"
             id="building"
             label={buildingMessage}
+            name="building"
             placeholder={buildingPlaceholderMessage}
+            type="text"
           />
 
           <Button
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
             ready={submitReady}
+            type="submit"
           >
             {saveActionMsg}
           </Button>

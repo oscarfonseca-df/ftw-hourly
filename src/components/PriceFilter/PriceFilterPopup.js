@@ -5,24 +5,21 @@ import { injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { formatCurrencyMajorUnit } from '../../util/currency';
 import config from '../../config';
-
 import { PriceFilterForm } from '../../forms';
 import css from './PriceFilterPopup.module.css';
 
 const KEY_CODE_ESCAPE = 27;
 const RADIX = 10;
 
-const getPriceQueryParamName = queryParamNames => {
-  return Array.isArray(queryParamNames)
+const getPriceQueryParamName = queryParamNames => Array.isArray(queryParamNames)
     ? queryParamNames[0]
     : typeof queryParamNames === 'string'
     ? queryParamNames
     : 'price';
-};
 
 // Parse value, which should look like "0,1000"
 const parse = priceRange => {
-  const [minPrice, maxPrice] = !!priceRange
+  const [minPrice, maxPrice] = priceRange
     ? priceRange.split(',').map(v => Number.parseInt(v, RADIX))
     : [];
   // Note: we compare to null, because 0 as minPrice is falsy in comparisons.
@@ -152,41 +149,39 @@ class PriceFilterPopup extends Component {
             maxPrice: formatCurrencyMajorUnit(intl, currencyConfig.currency, maxPrice),
           }
         )
-      : label
-      ? label
-      : intl.formatMessage({ id: 'PriceFilter.label' });
+      : label || intl.formatMessage({ id: 'PriceFilter.label' });
 
     const labelStyles = hasInitialValues ? css.labelSelected : css.label;
     const contentStyle = this.positionStyleForContent();
 
     return (
       <div
-        className={classes}
-        onBlur={this.handleBlur}
-        onKeyDown={this.handleKeyDown}
         ref={node => {
           this.filter = node;
         }}
+        className={classes}
+        onBlur={this.handleBlur}
+        onKeyDown={this.handleKeyDown}
       >
         <button className={labelStyles} onClick={() => this.toggleOpen()}>
           {currentLabel}
         </button>
         <PriceFilterForm
-          id={id}
-          initialValues={hasInitialValues ? initialPrice : { minPrice: min, maxPrice: max }}
-          onClear={this.handleClear}
-          onCancel={this.handleCancel}
-          onSubmit={this.handleSubmit}
-          intl={intl}
           contentRef={node => {
             this.filterContent = node;
           }}
-          style={contentStyle}
-          min={min}
-          max={max}
-          step={step}
-          showAsPopup
+          id={id}
+          initialValues={hasInitialValues ? initialPrice : { minPrice: min, maxPrice: max }}
+          intl={intl}
           isOpen={this.state.isOpen}
+          max={max}
+          min={min}
+          onCancel={this.handleCancel}
+          onClear={this.handleClear}
+          onSubmit={this.handleSubmit}
+          showAsPopup
+          step={step}
+          style={contentStyle}
         />
       </div>
     );

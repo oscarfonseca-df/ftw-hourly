@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { lazyLoadWithDimensions } from '../../util/contextHelpers';
-
-import { NamedLink } from '../../components';
-
+import { NamedLink } from "..";
 import css from './SectionLocations.module.css';
-
 import nyImage from './images/ny-yogi.jpg';
 import laImage from './images/la-yogi.jpg';
 import sfImage from './images/sf-yogi.jpg';
@@ -23,10 +20,10 @@ const LazyImage = lazyLoadWithDimensions(LocationImage);
 const locationLink = (name, image, searchQuery) => {
   const nameText = <span className={css.locationName}>{name}</span>;
   return (
-    <NamedLink name="SearchPage" to={{ search: searchQuery }} className={css.location}>
+    <NamedLink className={css.location} name="SearchPage" to={{ search: searchQuery }}>
       <div className={css.imageWrapper}>
         <div className={css.aspectWrapper}>
-          <LazyImage src={image} alt={name} className={css.locationImage} />
+          <LazyImage alt={name} className={css.locationImage} src={image} />
         </div>
       </div>
       <div className={css.linkText}>

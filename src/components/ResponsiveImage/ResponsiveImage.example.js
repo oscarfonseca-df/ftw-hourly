@@ -1,28 +1,23 @@
 import React from 'react';
-import ResponsiveImage from './ResponsiveImage';
 import { types as sdkTypes } from '../../util/sdkLoader';
-
+import ResponsiveImage from './ResponsiveImage';
 import css from './ResponsiveImageExample.module.css';
 
 const { UUID } = sdkTypes;
 
-const ResponsiveImageWrapper = props => {
-  return (
+const ResponsiveImageWrapper = props => (
     <div className={css.root}>
       <ResponsiveImage {...props} />
     </div>
   );
-};
 
-const ResponsiveImageWrapperWithAspectRatio = props => {
-  return (
+const ResponsiveImageWrapperWithAspectRatio = props => (
     <div className={css.root}>
       <div className={css.aspectWrapper}>
         <ResponsiveImage {...props} rootClassName={css.rootForImageWithAspectRatio} />
       </div>
     </div>
   );
-};
 
 /* Image without aspect ratio wrapper */
 export const Image2X = {

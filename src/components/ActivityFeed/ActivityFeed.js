@@ -1,9 +1,9 @@
 import React from 'react';
 import { string, arrayOf, bool, func, number } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import dropWhile from 'lodash/dropWhile';
 import classNames from 'classnames';
-import { Avatar, InlineTextButton, ReviewRating, UserDisplayName } from '../../components';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
+import { Avatar, InlineTextButton, ReviewRating, UserDisplayName } from "..";
 import { formatDate } from '../../util/dates';
 import { ensureTransaction, ensureUser, ensureListing } from '../../util/data';
 import {
@@ -30,7 +30,6 @@ import {
 } from '../../util/transaction';
 import { propTypes } from '../../util/types';
 import * as log from '../../util/log';
-
 import css from './ActivityFeed.module.css';
 
 const Message = props => {
@@ -38,7 +37,7 @@ const Message = props => {
   const todayString = intl.formatMessage({ id: 'ActivityFeed.today' });
   return (
     <div className={css.message}>
-      <Avatar className={css.avatar} user={message.sender} disableProfileLink />
+      <Avatar className={css.avatar} disableProfileLink user={message.sender} />
       <div>
         <p className={css.messageContent}>{message.attributes.content}</p>
         <p className={css.messageDate}>
@@ -81,9 +80,9 @@ const Review = props => {
       <p className={css.reviewContent}>{content}</p>
       {rating ? (
         <ReviewRating
-          reviewStarClassName={css.reviewStar}
           className={css.reviewStars}
           rating={rating}
+          reviewStarClassName={css.reviewStar}
         />
       ) : null}
     </div>
@@ -204,11 +203,9 @@ const resolveTransitionMessage = (
   }
 };
 
-const reviewByAuthorId = (transaction, userId) => {
-  return transaction.reviews.filter(
+const reviewByAuthorId = (transaction, userId) => transaction.reviews.filter(
     r => !r.attributes.deleted && r.author.id.uuid === userId.uuid
   )[0];
-};
 
 const Transition = props => {
   const { transition, transaction, currentUser, intl, onOpenReviewModal } = props;
@@ -228,9 +225,9 @@ const Transition = props => {
   const ownRole = getUserTxRole(currentUser.id, currentTransaction);
 
   const otherUsersName = txRoleIsProvider(ownRole) ? (
-    <UserDisplayName user={customer} intl={intl} />
+    <UserDisplayName intl={intl} user={customer} />
   ) : (
-    <UserDisplayName user={provider} intl={intl} />
+    <UserDisplayName intl={intl} user={provider} />
   );
 
   const transitionMessage = resolveTransitionMessage(
@@ -289,8 +286,7 @@ Transition.propTypes = {
   onOpenReviewModal: func.isRequired,
 };
 
-const EmptyTransition = () => {
-  return (
+const EmptyTransition = () => (
     <div className={css.transition}>
       <div className={css.bullet}>
         <p className={css.transitionContent}>•</p>
@@ -301,7 +297,6 @@ const EmptyTransition = () => {
       </div>
     </div>
   );
-};
 
 const isMessage = item => item && item.type === 'message';
 
@@ -361,11 +356,11 @@ export const ActivityFeedComponent = props => {
     if (transitionsAvailable) {
       return (
         <Transition
-          transition={transition}
-          transaction={transaction}
           currentUser={currentUser}
           intl={intl}
           onOpenReviewModal={onOpenReviewModal}
+          transaction={transaction}
+          transition={transition}
         />
       );
     } else {
@@ -381,18 +376,16 @@ export const ActivityFeedComponent = props => {
       currentUser.id &&
       message.sender.id.uuid === currentUser.id.uuid;
     if (isOwnMessage) {
-      return <OwnMessage message={message} intl={intl} />;
+      return <OwnMessage intl={intl} message={message} />;
     }
-    return <Message message={message} intl={intl} />;
+    return <Message intl={intl} message={message} />;
   };
 
-  const messageListItem = message => {
-    return (
-      <li id={`msg-${message.id.uuid}`} key={message.id.uuid} className={css.messageItem}>
+  const messageListItem = message => (
+      <li key={message.id.uuid} className={css.messageItem} id={`msg-${message.id.uuid}`}>
         {messageComponent(message)}
       </li>
     );
-  };
 
   const transitionListItem = transition => {
     if (isRelevantPastTransition(transition.transition)) {
@@ -409,7 +402,7 @@ export const ActivityFeedComponent = props => {
   return (
     <ul className={classes}>
       {hasOlderMessages ? (
-        <li className={css.showOlderWrapper} key="show-older-messages">
+        <li key="show-older-messages" className={css.showOlderWrapper}>
           <InlineTextButton className={css.showOlderButton} onClick={onShowOlderMessages}>
             <FormattedMessage id="ActivityFeed.showOlderMessages" />
           </InlineTextButton>

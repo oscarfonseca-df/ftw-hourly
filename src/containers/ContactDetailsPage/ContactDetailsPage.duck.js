@@ -163,8 +163,7 @@ const requestSaveEmail = params => (dispatch, getState, sdk) => {
 /**
  * Save email and update the current user.
  */
-const saveEmail = params => (dispatch, getState, sdk) => {
-  return (
+const saveEmail = params => (dispatch, getState, sdk) => (
     dispatch(requestSaveEmail(params))
       .then(user => {
         dispatch(currentUserShowSuccess(user));
@@ -173,13 +172,11 @@ const saveEmail = params => (dispatch, getState, sdk) => {
       // error action dispatched in requestSaveEmail
       .catch(e => null)
   );
-};
 
 /**
  * Save phone number and update the current user.
  */
-const savePhoneNumber = params => (dispatch, getState, sdk) => {
-  return (
+const savePhoneNumber = params => (dispatch, getState, sdk) => (
     dispatch(requestSavePhoneNumber(params))
       .then(user => {
         dispatch(currentUserShowSuccess(user));
@@ -188,7 +185,6 @@ const savePhoneNumber = params => (dispatch, getState, sdk) => {
       // error action dispatched in requestSavePhoneNumber
       .catch(e => null)
   );
-};
 
 /**
  * Save email and phone number and update the current user.

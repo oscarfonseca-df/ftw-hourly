@@ -2,8 +2,8 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm } from 'react-final-form';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import config from '../../config';
 import { LINE_ITEM_NIGHT, LINE_ITEM_DAY, propTypes } from '../../util/types';
 import * as validators from '../../util/validators';
@@ -78,7 +78,7 @@ export const EditListingPricingFormComponent = props => (
       const { updateListingError, showListingsError } = fetchErrors || {};
 
       return (
-        <Form onSubmit={handleSubmit} className={classes}>
+        <Form className={classes} onSubmit={handleSubmit}>
           {updateListingError ? (
             <p className={css.error}>
               <FormattedMessage id="EditListingPricingForm.updateFailed" />
@@ -90,22 +90,22 @@ export const EditListingPricingFormComponent = props => (
             </p>
           ) : null}
           <FieldCurrencyInput
-            id="price"
-            name="price"
-            className={css.priceInput}
             autoFocus
-            label={pricePerUnitMessage}
-            placeholder={pricePlaceholderMessage}
+            className={css.priceInput}
             currencyConfig={config.currencyConfig}
+            id="price"
+            label={pricePerUnitMessage}
+            name="price"
+            placeholder={pricePlaceholderMessage}
             validate={priceValidators}
           />
 
           <Button
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
             ready={submitReady}
+            type="submit"
           >
             {saveActionMsg}
           </Button>

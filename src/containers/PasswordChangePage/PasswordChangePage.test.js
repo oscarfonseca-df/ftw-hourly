@@ -5,27 +5,27 @@ import { PasswordChangePageComponent } from './PasswordChangePage';
 
 const noop = () => null;
 
-describe('PasswordChangePage', () => {
+describe('passwordChangePage', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <PasswordChangePageComponent
-        params={{ displayName: 'my-shop' }}
-        history={{ push: noop }}
-        location={{ search: '' }}
-        scrollingDisabled={false}
         authInProgress={false}
+        changePasswordInProgress={false}
         currentUser={createCurrentUser('user1')}
         currentUserHasListings={false}
+        history={{ push: noop }}
+        intl={fakeIntl}
         isAuthenticated={false}
+        location={{ search: '' }}
         onChange={noop}
         onLogout={noop}
         onManageDisableScrolling={noop}
-        sendVerificationEmailInProgress={false}
         onResendVerificationEmail={noop}
         onSubmitChangePassword={noop}
-        changePasswordInProgress={false}
+        params={{ displayName: 'my-shop' }}
         passwordChanged={false}
-        intl={fakeIntl}
+        scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
       />
     );
     expect(tree).toMatchSnapshot();

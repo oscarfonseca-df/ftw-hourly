@@ -5,7 +5,7 @@ import { AuthenticationPageComponent } from './AuthenticationPage';
 
 const noop = () => null;
 
-describe('AuthenticationPageComponent', () => {
+describe('authenticationPageComponent', () => {
   // We need to overwrite social login client ids before running the test
   // to make sure it's same in local environment and in CI
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('AuthenticationPageComponent', () => {
   });
 });
 
-describe('AuthenticationPageComponent with Facebook login', () => {
+describe('authenticationPageComponent with Facebook login', () => {
   // We need to overwrite social login client ids before running the test
   // to make sure it's same in local environment and in CI
   beforeEach(() => {
@@ -65,7 +65,7 @@ describe('AuthenticationPageComponent with Facebook login', () => {
   });
 });
 
-describe('AuthenticationPageComponent with Google login', () => {
+describe('authenticationPageComponent with Google login', () => {
   // We need to overwrite social login client ids before running the test
   // to make sure it's same in local environment and in CI
   beforeEach(() => {
@@ -95,7 +95,7 @@ describe('AuthenticationPageComponent with Google login', () => {
   });
 });
 
-describe('AuthenticationPageComponent with Google and Facebook login', () => {
+describe('authenticationPageComponent with Google and Facebook login', () => {
   // We need to overwrite social login client ids before running the test
   // to make sure it's same in local environment and in CI
   beforeEach(() => {

@@ -10,8 +10,7 @@ import { propTypes } from '../../util/types';
 import { ensureListing } from '../../util/data';
 import { sdkBoundsToFixedCoordinates, hasSameSDKBounds } from '../../util/maps';
 import { getOffsetOverride, getLayoutStyles } from '../../util/googleMaps';
-import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from '../../components';
-
+import { SearchMapInfoCard, SearchMapPriceLabel, SearchMapGroupLabel } from "..";
 import { groupedByCoordinates, reducedToArray } from './SearchMap.helpers.js';
 import css from './SearchMapWithGoogleMaps.module.css';
 
@@ -117,8 +116,8 @@ class CustomOverlayView extends Component {
 
   onRemove() {
     this.containerElement.parentNode.removeChild(this.containerElement);
-    //Remove `unmountComponentAtNode` for react version 16
-    //I decided to keep the code here incase React decides not to give out warning when `unmountComponentAtNode` in newer version
+    // Remove `unmountComponentAtNode` for react version 16
+    // I decided to keep the code here incase React decides not to give out warning when `unmountComponentAtNode` in newer version
     if (!React.version.match(/^16/)) {
       ReactDOM.unmountComponentAtNode(this.containerElement);
     }
@@ -176,9 +175,7 @@ class CustomOverlayView extends Component {
  * Center label so that caret is pointing to correct pixel.
  * (vertical positioning: height + arrow)
  */
-const getPixelPositionOffset = (width, height) => {
-  return { x: -1 * (width / 2), y: -1 * (height + 3) };
-};
+const getPixelPositionOffset = (width, height) => ({ x: -1 * (width / 2), y: -1 * (height + 3) });
 
 /**
  * GoogleMaps need to use Google specific OverlayView components and therefore we need to
@@ -211,17 +208,17 @@ class SearchMapPriceLabelWithOverlay extends Component {
 
     return (
       <CustomOverlayView
-        position={position}
+        getPixelPositionOffset={getPixelPositionOffset}
         map={map}
         mapPaneName={mapPaneName}
-        getPixelPositionOffset={getPixelPositionOffset}
+        position={position}
       >
         <SearchMapPriceLabel
-          isActive={isActive}
           className={className}
+          isActive={isActive}
           listing={listing}
-          onListingClicked={onListingClicked}
           mapComponentRefreshToken={mapComponentRefreshToken}
+          onListingClicked={onListingClicked}
         />
       </CustomOverlayView>
     );
@@ -255,17 +252,17 @@ class SearchMapGroupLabelWithOverlay extends Component {
     } = this.props;
     return (
       <CustomOverlayView
-        position={position}
+        getPixelPositionOffset={getPixelPositionOffset}
         map={map}
         mapPaneName={mapPaneName}
-        getPixelPositionOffset={getPixelPositionOffset}
+        position={position}
       >
         <SearchMapGroupLabel
-          isActive={isActive}
           className={className}
+          isActive={isActive}
           listings={listings}
-          onListingClicked={onListingClicked}
           mapComponentRefreshToken={mapComponentRefreshToken}
+          onListingClicked={onListingClicked}
         />
       </CustomOverlayView>
     );
@@ -308,14 +305,14 @@ const PriceLabelsAndGroups = props => {
       return (
         <SearchMapPriceLabelWithOverlay
           key={listing.id.uuid}
-          position={latLngLiteral}
-          map={map}
-          mapPaneName={OVERLAY_MOUSE_TARGET}
-          isActive={isActive}
           className={classes}
+          isActive={isActive}
           listing={listing}
-          onListingClicked={onListingClicked}
+          map={map}
           mapComponentRefreshToken={mapComponentRefreshToken}
+          mapPaneName={OVERLAY_MOUSE_TARGET}
+          onListingClicked={onListingClicked}
+          position={latLngLiteral}
         />
       );
     }
@@ -328,14 +325,14 @@ const PriceLabelsAndGroups = props => {
     return (
       <SearchMapGroupLabelWithOverlay
         key={listingArr[0].id.uuid}
-        position={latLngLiteral}
-        map={map}
-        mapPaneName={OVERLAY_MOUSE_TARGET}
-        isActive={isActive}
         className={classes}
+        isActive={isActive}
         listings={listingArr}
-        onListingClicked={onListingClicked}
+        map={map}
         mapComponentRefreshToken={mapComponentRefreshToken}
+        mapPaneName={OVERLAY_MOUSE_TARGET}
+        onListingClicked={onListingClicked}
+        position={latLngLiteral}
       />
     );
   });
@@ -366,18 +363,18 @@ const InfoCardComponent = props => {
   return (
     <CustomOverlayView
       key={listingsArray[0].id.uuid}
-      position={latLngLiteral}
+      getPixelPositionOffset={getPixelPositionOffset}
       map={map}
       mapPaneName={FLOAT_PANE}
-      getPixelPositionOffset={getPixelPositionOffset}
+      position={latLngLiteral}
       styles={{ zIndex: 1 }}
     >
       <SearchMapInfoCard
-        mapComponentRefreshToken={mapComponentRefreshToken}
         className={INFO_CARD_HANDLE}
-        listings={listingsArray}
-        onListingInfoCardClicked={onListingInfoCardClicked}
         createURLToListing={createURLToListing}
+        listings={listingsArray}
+        mapComponentRefreshToken={mapComponentRefreshToken}
+        onListingInfoCardClicked={onListingInfoCardClicked}
       />
     </CustomOverlayView>
   );
@@ -531,28 +528,28 @@ class SearchMapWithGoogleMaps extends Component {
     } = this.props;
     return (
       <div
-        id={id}
         ref={this.onMount}
         className={classNames(className, css.fullArea)}
+        id={id}
         onClick={this.props.onClick}
       >
         {this.map ? (
           <PriceLabelsAndGroups
-            map={this.map}
-            listings={listings}
             activeListingId={activeListingId}
             infoCardOpen={infoCardOpen}
-            onListingClicked={onListingClicked}
+            listings={listings}
+            map={this.map}
             mapComponentRefreshToken={mapComponentRefreshToken}
+            onListingClicked={onListingClicked}
           />
         ) : null}
         {this.map ? (
           <InfoCardComponent
-            map={this.map}
-            infoCardOpen={infoCardOpen}
-            onListingInfoCardClicked={onListingInfoCardClicked}
             createURLToListing={createURLToListing}
+            infoCardOpen={infoCardOpen}
+            map={this.map}
             mapComponentRefreshToken={mapComponentRefreshToken}
+            onListingInfoCardClicked={onListingInfoCardClicked}
           />
         ) : null}
       </div>

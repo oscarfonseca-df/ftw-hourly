@@ -5,24 +5,20 @@ import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { formatCurrencyMajorUnit } from '../../util/currency';
 import config from '../../config';
-
 import { PriceFilterForm } from '../../forms';
-
 import css from './PriceFilterPlain.module.css';
 
 const RADIX = 10;
 
-const getPriceQueryParamName = queryParamNames => {
-  return Array.isArray(queryParamNames)
+const getPriceQueryParamName = queryParamNames => Array.isArray(queryParamNames)
     ? queryParamNames[0]
     : typeof queryParamNames === 'string'
     ? queryParamNames
     : 'price';
-};
 
 // Parse value, which should look like "0,1000"
 const parse = priceRange => {
-  const [minPrice, maxPrice] = !!priceRange
+  const [minPrice, maxPrice] = priceRange
     ? priceRange.split(',').map(v => Number.parseInt(v, RADIX))
     : [];
   // Note: we compare to null, because 0 as minPrice is falsy in comparisons.
@@ -95,34 +91,32 @@ class PriceFilterPlainComponent extends Component {
             maxPrice: formatCurrencyMajorUnit(intl, currencyConfig.currency, maxPrice),
           }
         )
-      : label
-      ? label
-      : intl.formatMessage({ id: 'PriceFilter.label' });
+      : label || intl.formatMessage({ id: 'PriceFilter.label' });
 
     return (
       <div className={classes}>
         <div className={labelClass}>
-          <button type="button" className={css.labelButton} onClick={this.toggleIsOpen}>
+          <button className={css.labelButton} onClick={this.toggleIsOpen} type="button">
             <span className={labelClass}>{labelText}</span>
           </button>
-          <button type="button" className={css.clearButton} onClick={this.handleClear}>
-            <FormattedMessage id={'PriceFilter.clear'} />
+          <button className={css.clearButton} onClick={this.handleClear} type="button">
+            <FormattedMessage id="PriceFilter.clear" />
           </button>
         </div>
         <div className={css.formWrapper}>
           <PriceFilterForm
-            id={id}
-            initialValues={hasInitialValues ? initialPrice : { minPrice: min, maxPrice: max }}
-            onChange={this.handleChange}
-            intl={intl}
             contentRef={node => {
               this.filterContent = node;
             }}
-            min={min}
-            max={max}
-            step={step}
-            liveEdit
+            id={id}
+            initialValues={hasInitialValues ? initialPrice : { minPrice: min, maxPrice: max }}
+            intl={intl}
             isOpen={this.state.isOpen}
+            liveEdit
+            max={max}
+            min={min}
+            onChange={this.handleChange}
+            step={step}
           />
         </div>
       </div>

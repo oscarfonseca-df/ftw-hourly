@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
-import { IconEdit, IconSuccess, PrimaryButton, InlineTextButton } from '../../components';
+import { IconEdit, IconSuccess, PrimaryButton, InlineTextButton } from "..";
 import css from './StripeConnectAccountStatusBox.module.css';
 
 const STATUS_VERIFICATION_NEEDED = 'verificationNeeded';
@@ -25,11 +25,11 @@ const StripeConnectAccountStatusBox = props => {
 
         <PrimaryButton
           className={css.getVerifiedButton}
+          disabled={disabled}
+          inProgress={inProgress}
+          onClick={onGetStripeConnectAccountLink}
           spinnerClassName={css.spinner}
           type="button"
-          inProgress={inProgress}
-          disabled={disabled}
-          onClick={onGetStripeConnectAccountLink}
         >
           <FormattedMessage id="StripeConnectAccountStatusBox.getVerifiedButton" />
         </PrimaryButton>
@@ -52,11 +52,11 @@ const StripeConnectAccountStatusBox = props => {
 
         <InlineTextButton
           className={css.editVerificationButton}
+          disabled={disabled}
+          inProgress={inProgress}
+          onClick={onGetStripeConnectAccountLink}
           spinnerClassName={css.spinner}
           type="button"
-          inProgress={inProgress}
-          disabled={disabled}
-          onClick={onGetStripeConnectAccountLink}
         >
           <IconEdit className={css.icon} pencilClassName={css.iconEditPencil} />
           <FormattedMessage id="StripeConnectAccountStatusBox.editAccountButton" />
@@ -77,11 +77,11 @@ const StripeConnectAccountStatusBox = props => {
 
         <PrimaryButton
           className={css.getVerifiedButton}
+          disabled={disabled}
+          inProgress={inProgress}
+          onClick={onGetStripeConnectAccountLink}
           spinnerClassName={css.spinner}
           type="button"
-          inProgress={inProgress}
-          disabled={disabled}
-          onClick={onGetStripeConnectAccountLink}
         >
           <FormattedMessage id="StripeConnectAccountStatusBox.getVerifiedButton" />
         </PrimaryButton>

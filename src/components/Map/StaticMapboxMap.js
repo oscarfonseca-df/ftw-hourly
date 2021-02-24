@@ -5,9 +5,7 @@ import { lazyLoadWithDimensions } from '../../util/contextHelpers';
 import { circlePolyline } from '../../util/maps';
 import config from '../../config';
 
-const formatColor = color => {
-  return color.replace(/^#/, '');
-};
+const formatColor = color => color.replace(/^#/, '');
 
 const fuzzyCircleOverlay = (center, mapsConfig) => {
   const strokeWeight = 1;
@@ -28,9 +26,7 @@ const customMarkerOverlay = (center, mapsConfig) => {
   return `url-${encodeURIComponent(url)}(${center.lng},${center.lat})`;
 };
 
-const markerOverlay = center => {
-  return `pin-s(${center.lng},${center.lat})`;
-};
+const markerOverlay = center => `pin-s(${center.lng},${center.lat})`;
 
 const mapOverlay = (center, mapsConfig) => {
   if (mapsConfig.fuzzy.enabled) {
@@ -53,13 +49,13 @@ const StaticMapboxMap = props => {
 
   const overlay = mapOverlay(center, mapsConfig);
   const src =
-    'https://api.mapbox.com/styles/v1/mapbox/streets-v10/static' +
-    (overlay ? `/${overlay}` : '') +
-    `/${center.lng},${center.lat},${zoom}` +
+    `https://api.mapbox.com/styles/v1/mapbox/streets-v10/static${ 
+    overlay ? `/${overlay}` : '' 
+    }/${center.lng},${center.lat},${zoom}` +
     `/${width}x${height}` +
     `?access_token=${config.maps.mapboxAccessToken}`;
 
-  return <img src={src} alt={address} />;
+  return <img alt={address} src={src} />;
 };
 
 StaticMapboxMap.defaultProps = {

@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
-import { TopbarContainer } from '../../containers';
+import { TopbarContainer } from "..";
 import {
   Page,
   LayoutSideNavigation,
@@ -16,7 +16,6 @@ import {
   Footer,
 } from '../../components';
 import config from '../../config';
-
 import css from './PrivacyPolicyPage.module.css';
 
 const PrivacyPolicyPageComponent = props => {
@@ -46,7 +45,7 @@ const PrivacyPolicyPageComponent = props => {
     name: schemaTitle,
   };
   return (
-    <Page title={schemaTitle} scrollingDisabled={scrollingDisabled} schema={schema}>
+    <Page schema={schema} scrollingDisabled={scrollingDisabled} title={schemaTitle}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
           <TopbarContainer currentPage="PrivacyPolicyPage" />
@@ -77,11 +76,9 @@ PrivacyPolicyPageComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     scrollingDisabled: isScrollingDisabled(state),
-  };
-};
+  });
 
 const PrivacyPolicyPage = compose(
   connect(mapStateToProps),

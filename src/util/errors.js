@@ -24,22 +24,14 @@ import {
   ERROR_CODE_TRANSACTION_BOOKING_TIME_NOT_AVAILABLE,
 } from './types';
 
-const errorAPIErrors = error => {
-  return error && error.apiErrors ? error.apiErrors : [];
-};
+const errorAPIErrors = error => error && error.apiErrors ? error.apiErrors : [];
 
-const hasErrorWithCode = (error, code) => {
-  return errorAPIErrors(error).some(apiError => {
-    return apiError.code === code;
-  });
-};
+const hasErrorWithCode = (error, code) => errorAPIErrors(error).some(apiError => apiError.code === code);
 
 /**
  * return apiErrors from error response
  */
-const responseAPIErrors = error => {
-  return error && error.data && error.data.errors ? error.data.errors : [];
-};
+const responseAPIErrors = error => error && error.data && error.data.errors ? error.data.errors : [];
 
 /**
  * Check if the given API error (from `sdk.currentuser.create()`) is
@@ -229,13 +221,11 @@ export const isStripeInvalidPostalCode = error => {
   });
 };
 
-export const isStripeError = error => {
-  return errorAPIErrors(error).some(apiError => {
+export const isStripeError = error => errorAPIErrors(error).some(apiError => 
     // Stripe doesn't seem to give an error code for this specific
     // case, so we have to recognize it from the message.
-    return !!(apiError.meta && apiError.meta.stripeMessage);
-  });
-};
+     !!(apiError.meta && apiError.meta.stripeMessage)
+  );
 
 export const storableError = err => {
   const error = err || {};

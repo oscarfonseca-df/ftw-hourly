@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { arrayOf, func, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import debounce from 'lodash/debounce';
-import { FieldTextInput } from '../../components';
-
-import { FilterPopup, FilterPlain } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { FieldTextInput , FilterPopup, FilterPlain } from "..";
 import css from './KeywordFilter.module.css';
 
 // When user types, we wait for new keystrokes a while before searching new content
@@ -13,13 +11,11 @@ const DEBOUNCE_WAIT_TIME = 600;
 // Short search queries (e.g. 2 letters) have a longer timeout before search is made
 const TIMEOUT_FOR_SHORT_QUERIES = 2000;
 
-const getKeywordQueryParam = queryParamNames => {
-  return Array.isArray(queryParamNames)
+const getKeywordQueryParam = queryParamNames => Array.isArray(queryParamNames)
     ? queryParamNames[0]
     : typeof queryParamNames === 'string'
     ? queryParamNames
     : 'keywords';
-};
 
 class KeywordFilter extends Component {
   constructor(props) {
@@ -126,12 +122,12 @@ class KeywordFilter extends Component {
         }
         return debouncedSubmit(values);
       } else {
-        this.shortKeywordTimeout = window.setTimeout(() => {
+        this.shortKeywordTimeout = window.setTimeout(() => 
           // if mobileInputRef exists, use the most up-to-date value from there
-          return this.mobileInputRef && this.mobileInputRef.current
+           this.mobileInputRef && this.mobileInputRef.current
             ? handleSubmit({ ...values, [name]: this.mobileInputRef.current.value })
-            : handleSubmit(values);
-        }, TIMEOUT_FOR_SHORT_QUERIES);
+            : handleSubmit(values)
+        , TIMEOUT_FOR_SHORT_QUERIES);
       }
     };
 
@@ -145,54 +141,54 @@ class KeywordFilter extends Component {
     return showAsPopup ? (
       <FilterPopup
         className={classes}
-        rootClassName={rootClassName}
-        popupClassName={css.popupSize}
-        name={name}
-        label={labelForPopup}
-        isSelected={hasInitialValues}
-        id={`${id}.popup`}
-        showAsPopup
-        labelMaxWidth={250}
         contentPlacementOffset={contentPlacementOffset}
-        onSubmit={handleSubmit}
+        id={`${id}.popup`}
         initialValues={namedInitialValues}
+        isSelected={hasInitialValues}
         keepDirtyOnReinitialize
+        label={labelForPopup}
+        labelMaxWidth={250}
+        name={name}
+        onSubmit={handleSubmit}
+        popupClassName={css.popupSize}
+        rootClassName={rootClassName}
+        showAsPopup
         {...rest}
       >
         <FieldTextInput
-          className={css.field}
-          name={name}
-          id={`${id}-input`}
-          type="text"
-          label={filterText}
-          placeholder={placeholder}
           autoComplete="off"
+          className={css.field}
+          id={`${id}-input`}
+          label={filterText}
+          name={name}
+          placeholder={placeholder}
+          type="text"
         />
       </FilterPopup>
     ) : (
       <FilterPlain
         className={className}
-        rootClassName={rootClassName}
-        label={labelForPlain}
-        isSelected={hasInitialValues}
-        id={`${id}.plain`}
-        liveEdit
         contentPlacementOffset={contentStyle}
-        onSubmit={handleChangeWithDebounce}
-        onClear={handleClear}
+        id={`${id}.plain`}
         initialValues={namedInitialValues}
+        isSelected={hasInitialValues}
+        label={labelForPlain}
+        liveEdit
+        onClear={handleClear}
+        onSubmit={handleChangeWithDebounce}
+        rootClassName={rootClassName}
         {...rest}
       >
         <fieldset className={css.fieldPlain}>
           <label>{filterText}</label>
           <FieldTextInput
-            name={name}
-            id={`${id}-input`}
-            isUncontrolled
-            inputRef={this.mobileInputRef}
-            type="text"
-            placeholder={placeholder}
             autoComplete="off"
+            id={`${id}-input`}
+            inputRef={this.mobileInputRef}
+            isUncontrolled
+            name={name}
+            placeholder={placeholder}
+            type="text"
           />
         </fieldset>
       </FilterPlain>

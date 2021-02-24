@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { IconSpinner, IconCheckmark } from '../../components';
-
+import { IconSpinner, IconCheckmark } from "..";
 import css from './Button.module.css';
 
 class Button extends Component {
@@ -10,9 +9,11 @@ class Button extends Component {
     super(props);
     this.state = { mounted: false };
   }
+
   componentDidMount() {
     this.setState({ mounted: true }); // eslint-disable-line react/no-did-mount-set-state
   }
+
   render() {
     const {
       children,

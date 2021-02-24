@@ -3,7 +3,7 @@ import { Form as FinalForm, FormSpy } from 'react-final-form';
 import { FormattedDate } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { getDefaultTimeZoneOnBrowser } from '../../util/dates';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldTimeZoneSelect from './FieldTimeZoneSelect';
 
 const FormComponent = props => (
@@ -24,8 +24,8 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} subscription={{ values: true, dirty: true }} />
           <FieldTimeZoneSelect
             id="timezone1"
-            name="timezone1"
             label="Choose an option:"
+            name="timezone1"
             validate={required}
           />
 
@@ -33,17 +33,17 @@ const FormComponent = props => (
             <span>Current time in selected timezone:</span>
             <br />
             <FormattedDate
-              value={new Date()}
-              year="numeric"
-              month="long"
               day="2-digit"
               hour="numeric"
               minute="numeric"
-              timeZoneName="long"
+              month="long"
               timeZone={formState.values.timezone1}
+              timeZoneName="long"
+              value={new Date()}
+              year="numeric"
             />
           </div>
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

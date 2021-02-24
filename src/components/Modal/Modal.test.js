@@ -2,7 +2,7 @@ import React from 'react';
 import { renderDeep } from '../../util/test-helpers';
 import Modal from './Modal';
 
-describe('Modal', () => {
+describe('modal', () => {
   it('no extra classes when window is missing', () => {
     const props = {
       id: 'TestModal',

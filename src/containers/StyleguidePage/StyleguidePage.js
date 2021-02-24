@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames';
 import { NamedLink } from '../../components';
-
 import css from './StyleguidePage.module.css';
 
 const ALL = '*';
@@ -26,26 +25,26 @@ const Example = props => {
     <li className={css.example}>
       <h3 className={css.withMargin}>
         <NamedLink
+          className={css.link}
           name="StyleguideComponent"
           params={{ component: componentName }}
-          className={css.link}
         >
           {componentName}
         </NamedLink>{' '}
         /{' '}
         <NamedLink
+          className={css.link}
           name="StyleguideComponentExample"
           params={{ component: componentName, example: exampleName }}
-          className={css.link}
         >
           {exampleName}
         </NamedLink>
       </h3>
       <span className={css.withMargin}>
         <NamedLink
+          className={css.link}
           name="StyleguideComponentExampleRaw"
           params={{ component: componentName, example: exampleName }}
-          className={css.link}
         >
           raw
         </NamedLink>
@@ -137,8 +136,7 @@ Nav.propTypes = {
 
 // The imported examples are in a nested tree structure. Flatten the
 // structure into an array of example objects.
-const flatExamples = examples => {
-  return Object.keys(examples).reduce((flattened, componentName) => {
+const flatExamples = examples => Object.keys(examples).reduce((flattened, componentName) => {
     const exs = Object.keys(examples[componentName]).reduce((result, exampleName) => {
       const ex = examples[componentName][exampleName];
       return result.concat([
@@ -152,18 +150,13 @@ const flatExamples = examples => {
     }, []);
     return flattened.concat(exs);
   }, []);
-};
 
 // Filter the examples based on the given criteria
-const examplesFor = (examples, group, componentName, exampleName) => {
-  return examples.filter(ex => {
-    return (
+const examplesFor = (examples, group, componentName, exampleName) => examples.filter(ex => (
       (group === ALL || ex.group === group) &&
       (componentName === ALL || ex.componentName === componentName) &&
       (exampleName === ALL || ex.exampleName === exampleName)
-    );
-  });
-};
+    ));
 
 const StyleguidePage = props => {
   // TODO: importing all the examples will affect the module bundling
@@ -224,7 +217,7 @@ const StyleguidePage = props => {
     <section className={css.root}>
       <div className={css.navBar}>
         <h1 className={css.withMargin}>
-          <NamedLink name="Styleguide" className={css.link}>
+          <NamedLink className={css.link} name="Styleguide">
             Styleguide
           </NamedLink>
         </h1>

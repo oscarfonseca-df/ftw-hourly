@@ -2,8 +2,8 @@ import React from 'react';
 import { bool, func, object, shape, string, oneOf } from 'prop-types';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { intlShape, injectIntl } from '../../util/reactIntl';
 import { connect } from 'react-redux';
+import { intlShape, injectIntl } from '../../util/reactIntl';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import {
   LISTING_PAGE_PARAM_TYPE_DRAFT,
@@ -22,8 +22,7 @@ import {
   getStripeConnectAccountLink,
 } from '../../ducks/stripeConnectAccount.duck';
 import { EditListingWizard, Footer, NamedRedirect, Page, UserNav } from '../../components';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import {
   requestAddAvailabilityException,
   requestDeleteAvailabilityException,
@@ -37,7 +36,6 @@ import {
   clearUpdatedTab,
   savePayoutDetails,
 } from './EditListingPage.duck';
-
 import css from './EditListingPage.module.css';
 
 const STRIPE_ONBOARDING_RETURN_URL_SUCCESS = 'success';
@@ -179,65 +177,63 @@ export const EditListingPageComponent = props => {
 
     const allImages = currentListingImages.concat(unattachedImages);
     const removedImageIds = page.removedImageIds || [];
-    const images = allImages.filter(img => {
-      return !removedImageIds.includes(img.id);
-    });
+    const images = allImages.filter(img => !removedImageIds.includes(img.id));
 
     const title = isNewListingFlow
       ? intl.formatMessage({ id: 'EditListingPage.titleCreateListing' })
       : intl.formatMessage({ id: 'EditListingPage.titleEditListing' });
 
     return (
-      <Page title={title} scrollingDisabled={scrollingDisabled}>
+      <Page scrollingDisabled={scrollingDisabled} title={title}>
         <TopbarContainer
           className={css.topbar}
-          mobileRootClassName={css.mobileTopbar}
           desktopClassName={css.desktopTopbar}
           mobileClassName={css.mobileTopbar}
+          mobileRootClassName={css.mobileTopbar}
         />
         <UserNav
-          selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
           listing={listing}
+          selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
         />
         <EditListingWizard
-          id="EditListingWizard"
+          availabilityExceptions={page.availabilityExceptions}
           className={css.wizard}
-          params={params}
+          currentUser={currentUser}
           disabled={disableForm}
           errors={errors}
+          fetchExceptionsInProgress={page.fetchExceptionsInProgress}
           fetchInProgress={fetchInProgress}
-          newListingPublished={newListingPublished}
+          getAccountLinkInProgress={getAccountLinkInProgress}
           history={history}
+          id="EditListingWizard"
           images={images}
           listing={currentListing}
+          newListingPublished={newListingPublished}
           onAddAvailabilityException={onAddAvailabilityException}
-          onDeleteAvailabilityException={onDeleteAvailabilityException}
-          onUpdateListing={onUpdateListing}
+          onChange={onChange}
           onCreateListingDraft={onCreateListingDraft}
-          onPublishListingDraft={onPublishListingDraft}
+          onDeleteAvailabilityException={onDeleteAvailabilityException}
+          onGetStripeConnectAccountLink={onGetStripeConnectAccountLink}
+          onImageUpload={onImageUpload}
+          onManageDisableScrolling={onManageDisableScrolling}
           onPayoutDetailsFormChange={onPayoutDetailsFormChange}
           onPayoutDetailsSubmit={onPayoutDetailsFormSubmit}
-          onGetStripeConnectAccountLink={onGetStripeConnectAccountLink}
-          getAccountLinkInProgress={getAccountLinkInProgress}
-          onImageUpload={onImageUpload}
-          onUpdateImageOrder={onUpdateImageOrder}
+          onPublishListingDraft={onPublishListingDraft}
           onRemoveImage={onRemoveListingImage}
-          onChange={onChange}
-          currentUser={currentUser}
-          onManageDisableScrolling={onManageDisableScrolling}
-          stripeOnboardingReturnURL={params.returnURLType}
-          updatedTab={page.updatedTab}
-          updateInProgress={page.updateInProgress || page.createListingDraftInProgress}
-          fetchExceptionsInProgress={page.fetchExceptionsInProgress}
-          availabilityExceptions={page.availabilityExceptions}
-          payoutDetailsSaveInProgress={page.payoutDetailsSaveInProgress}
+          onUpdateImageOrder={onUpdateImageOrder}
+          onUpdateListing={onUpdateListing}
+          params={params}
           payoutDetailsSaved={page.payoutDetailsSaved}
-          stripeAccountFetched={stripeAccountFetched}
+          payoutDetailsSaveInProgress={page.payoutDetailsSaveInProgress}
           stripeAccount={stripeAccount}
           stripeAccountError={
             createStripeAccountError || updateStripeAccountError || fetchStripeAccountError
           }
+          stripeAccountFetched={stripeAccountFetched}
           stripeAccountLinkError={getAccountLinkError}
+          stripeOnboardingReturnURL={params.returnURLType}
+          updatedTab={page.updatedTab}
+          updateInProgress={page.updateInProgress || page.createListingDraftInProgress}
         />
         <Footer />
       </Page>
@@ -249,16 +245,16 @@ export const EditListingPageComponent = props => {
       id: 'EditListingPage.loadingListingData',
     };
     return (
-      <Page title={intl.formatMessage(loadingPageMsg)} scrollingDisabled={scrollingDisabled}>
+      <Page scrollingDisabled={scrollingDisabled} title={intl.formatMessage(loadingPageMsg)}>
         <TopbarContainer
           className={css.topbar}
-          mobileRootClassName={css.mobileTopbar}
           desktopClassName={css.desktopTopbar}
           mobileClassName={css.mobileTopbar}
+          mobileRootClassName={css.mobileTopbar}
         />
         <UserNav
-          selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
           listing={listing}
+          selectedPageName={listing ? 'EditListingPage' : 'NewListingPage'}
         />
         <div className={css.placeholderWhileLoading} />
         <Footer />

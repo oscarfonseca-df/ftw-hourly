@@ -200,7 +200,7 @@ const ownListingAttributes = shape({
   deleted: propTypes.value(false).isRequired,
   state: oneOf(LISTING_STATES).isRequired,
   price: propTypes.money,
-  availabilityPlan: availabilityPlan,
+  availabilityPlan,
   publicData: object.isRequired,
 });
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { NamedLink } from '../../components';
-
+import { NamedLink } from "..";
 import css from './TabNav.module.css';
 
 const Tab = props => {
@@ -13,7 +12,7 @@ const Tab = props => {
   });
 
   return (
-    <div id={id} className={className}>
+    <div className={className} id={id}>
       <NamedLink className={linkClasses} {...linkProps}>
         {text}
       </NamedLink>
@@ -42,7 +41,7 @@ const TabNav = props => {
     <nav className={classes}>
       {tabs.map((tab, index) => {
         const id = typeof tab.id === 'string' ? tab.id : `${index}`;
-        return <Tab key={id} id={id} className={tabClasses} {...tab} />;
+        return <Tab key={id} className={tabClasses} id={id} {...tab} />;
       })}
     </nav>
   );

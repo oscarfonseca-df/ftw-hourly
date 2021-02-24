@@ -1,14 +1,13 @@
 import React from 'react';
 import { string } from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconEnquiry.module.css';
 
 const IconEnquiry = props => {
   const { rootClassName, className } = props;
   const classes = classNames(rootClassName || css.root, className);
   return (
-    <svg className={classes} width="47" height="46" xmlns="http://www.w3.org/2000/svg">
+    <svg className={classes} height="46" width="47" xmlns="http://www.w3.org/2000/svg">
       <g
         className={css.marketplaceColorStroke}
         fill="none"
@@ -21,8 +20,8 @@ const IconEnquiry = props => {
           strokeWidth="2"
         />
         <path
-          strokeWidth="2.5"
           d="M8 40l9.412-8h13.176L40 40M45 23l-11 8M2 23l11 8M38 27V2H10v25M15 8h4M19 13h13M15 19h17M15 24h17"
+          strokeWidth="2.5"
         />
       </g>
     </svg>

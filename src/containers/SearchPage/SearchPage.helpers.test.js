@@ -58,7 +58,7 @@ const sortConfig = {
   ],
 };
 
-describe('SearchPage.helpers', () => {
+describe('searchPage.helpers', () => {
   describe('validURLParamForExtendedData', () => {
     it('returns a valid parameter', () => {
       const validParam = validURLParamForExtendedData(

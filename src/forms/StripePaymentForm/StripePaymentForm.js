@@ -5,13 +5,12 @@
  */
 import React, { Component } from 'react';
 import { bool, func, object, string } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import { propTypes } from '../../util/types';
 import { ensurePaymentMethodCard } from '../../util/data';
-
 import {
   Form,
   PrimaryButton,
@@ -94,17 +93,17 @@ const OneTimePaymentWithCardElement = props => {
       <label className={css.paymentLabel} htmlFor={`${formId}-card`}>
         <FormattedMessage id="StripePaymentForm.paymentCardDetails" />
       </label>
-      <div className={cardClasses} id={`${formId}-card`} ref={handleStripeElementRef} />
+      <div ref={handleStripeElementRef} className={cardClasses} id={`${formId}-card`} />
       {hasCardError ? <span className={css.error}>{error}</span> : null}
       <div className={css.saveForLaterUse}>
         <FieldCheckbox
           className={css.saveForLaterUseCheckbox}
-          textClassName={css.saveForLaterUseLabel}
           id="saveAfterOnetimePayment"
-          name="saveAfterOnetimePayment"
           label={labelText}
-          value="saveAfterOnetimePayment"
+          name="saveAfterOnetimePayment"
+          textClassName={css.saveForLaterUseLabel}
           useSuccessColor
+          value="saveAfterOnetimePayment"
         />
         <span className={css.saveForLaterUseLegalInfo}>
           <FormattedMessage id="StripePaymentForm.saveforLaterUseLegalInfo" />
@@ -138,32 +137,30 @@ const PaymentMethodSelector = props => {
         <FormattedMessage id="StripePaymentForm.payWithHeading" />
       </h3>
       <SavedCardDetails
-        className={css.paymentMethodSelector}
         card={defaultPaymentMethod.attributes.card}
+        className={css.paymentMethodSelector}
         onChange={changePaymentMethod}
       />
       {paymentMethod === 'replaceCard' ? (
         <OneTimePaymentWithCardElement
           cardClasses={cardClasses}
+          error={error}
           formId={formId}
           handleStripeElementRef={handleStripeElementRef}
           hasCardError={hasCardError}
-          error={error}
-          label={labelText}
           intl={intl}
+          label={labelText}
         />
       ) : null}
     </React.Fragment>
   );
 };
 
-const getPaymentMethod = (selectedPaymentMethod, hasDefaultPaymentMethod) => {
-  return selectedPaymentMethod == null && hasDefaultPaymentMethod
+const getPaymentMethod = (selectedPaymentMethod, hasDefaultPaymentMethod) => selectedPaymentMethod == null && hasDefaultPaymentMethod
     ? 'defaultCard'
     : selectedPaymentMethod == null
     ? 'onetimeCardPayment'
     : selectedPaymentMethod;
-};
 
 const initialState = {
   error: null,
@@ -271,13 +268,12 @@ class StripePaymentForm extends Component {
       this.finalFormAPI.change('postal', postalCode);
     }
 
-    this.setState(prevState => {
-      return {
+    this.setState(prevState => ({
         error: error ? stripeErrorTranslation(intl, error) : null,
         cardValueValid: complete,
-      };
-    });
+      }));
   }
+
   handleSubmit(values) {
     const {
       onSubmit,
@@ -377,13 +373,13 @@ class StripePaymentForm extends Component {
 
     const initialMessageLabel = intl.formatMessage(
       { id: 'StripePaymentForm.messageLabel' },
-      { messageOptionalText: messageOptionalText }
+      { messageOptionalText }
     );
 
     // Asking billing address is recommended in PaymentIntent flow.
     // In CheckoutPage, we send name and email as billing details, but address only if it exists.
     const billingAddress = (
-      <StripePaymentAddress intl={intl} form={form} fieldId={formId} card={this.card} />
+      <StripePaymentAddress card={this.card} fieldId={formId} form={form} intl={intl} />
     );
 
     const hasStripeKey = config.stripe.publishableKey;
@@ -402,14 +398,14 @@ class StripePaymentForm extends Component {
             {showPaymentMethodSelector ? (
               <PaymentMethodSelector
                 cardClasses={cardClasses}
-                formId={formId}
-                defaultPaymentMethod={ensuredDefaultPaymentMethod}
                 changePaymentMethod={this.changePaymentMethod}
+                defaultPaymentMethod={ensuredDefaultPaymentMethod}
+                error={this.state.error}
+                formId={formId}
                 handleStripeElementRef={this.handleStripeElementRef}
                 hasCardError={hasCardError}
-                error={this.state.error}
-                paymentMethod={selectedPaymentMethod}
                 intl={intl}
+                paymentMethod={selectedPaymentMethod}
               />
             ) : (
               <React.Fragment>
@@ -418,10 +414,10 @@ class StripePaymentForm extends Component {
                 </h3>
                 <OneTimePaymentWithCardElement
                   cardClasses={cardClasses}
+                  error={this.state.error}
                   formId={formId}
                   handleStripeElementRef={this.handleStripeElementRef}
                   hasCardError={hasCardError}
-                  error={this.state.error}
                   intl={intl}
                 />
               </React.Fragment>
@@ -434,13 +430,13 @@ class StripePaymentForm extends Component {
                 </h3>
 
                 <FieldTextInput
-                  className={css.field}
-                  type="text"
-                  id="name"
-                  name="name"
                   autoComplete="cc-name"
+                  className={css.field}
+                  id="name"
                   label={billingDetailsNameLabel}
+                  name="name"
                   placeholder={billingDetailsNamePlaceholder}
+                  type="text"
                 />
 
                 {billingAddress}
@@ -463,12 +459,12 @@ class StripePaymentForm extends Component {
             </h3>
 
             <FieldTextInput
-              type="textarea"
-              id={`${formId}-message`}
-              name="initialMessage"
-              label={initialMessageLabel}
-              placeholder={messagePlaceholder}
               className={css.message}
+              id={`${formId}-message`}
+              label={initialMessageLabel}
+              name="initialMessage"
+              placeholder={messagePlaceholder}
+              type="textarea"
             />
           </div>
         ) : null}
@@ -479,9 +475,9 @@ class StripePaymentForm extends Component {
           <p className={css.paymentInfo}>{paymentInfo}</p>
           <PrimaryButton
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
+            type="submit"
           >
             {billingDetailsNeeded ? (
               <FormattedMessage id="StripePaymentForm.submitPaymentInfo" />

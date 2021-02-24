@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { func, instanceOf, object, node, string, bool } from 'prop-types';
 import { Field } from 'react-final-form';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
 import range from 'lodash/range';
-import { ValidationError } from '../../components';
-
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { ValidationError } from "..";
 import css from './FieldBirthdayInput.module.css';
 
 // Since final-form tracks the onBlur event for marking the field as
@@ -83,12 +82,14 @@ class BirthdayInputComponent extends Component {
     this.handleSelectBlur = this.handleSelectBlur.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
+
   componentDidMount() {
     const value = this.props.valueFromForm;
     if (value instanceof Date) {
       this.setState({ selected: selectedFromDate(value) });
     }
   }
+
   componentDidUpdate(prevProps) {
     const oldValue = prevProps.valueFromForm;
     const newValue = this.props.valueFromForm;
@@ -97,19 +98,23 @@ class BirthdayInputComponent extends Component {
       this.setState({ selected: selectedFromDate(newValue) });
     }
   }
+
   componentWillUnmount() {
     window.clearTimeout(this.blurTimeoutId);
   }
+
   handleSelectFocus() {
     window.clearTimeout(this.blurTimeoutId);
     this.props.onFocus();
   }
+
   handleSelectBlur() {
     window.clearTimeout(this.blurTimeoutId);
     this.blurTimeoutId = window.setTimeout(() => {
       this.props.onBlur();
     }, BLUR_TIMEOUT);
   }
+
   handleSelectChange(type, value) {
     this.setState(prevState => {
       const selected = { ...prevState.selected, [type]: parseNum(value) };
@@ -117,6 +122,7 @@ class BirthdayInputComponent extends Component {
       return { selected };
     });
   }
+
   render() {
     const {
       selectClassName,
@@ -130,9 +136,7 @@ class BirthdayInputComponent extends Component {
       intl,
     } = this.props;
 
-    const selectedValue = n => {
-      return typeof n === 'number' ? n : '';
-    };
+    const selectedValue = n => typeof n === 'number' ? n : '';
 
     const datePlaceholder = intl.formatMessage({ id: 'PayoutDetailsForm.birthdayDatePlaceholder' });
     const monthPlaceholder = intl.formatMessage({
@@ -146,15 +150,15 @@ class BirthdayInputComponent extends Component {
           {dateLabel}
           <select
             autoComplete="bday-day"
-            disabled={disabled}
-            id={dateId}
-            value={selectedValue(this.state.selected.day)}
             className={classNames(selectClassName || css.select, {
               [css.notSet]: !parseNum(this.state.selected.day),
             })}
-            onFocus={() => this.handleSelectFocus()}
+            disabled={disabled}
+            id={dateId}
             onBlur={() => this.handleSelectBlur()}
             onChange={e => this.handleSelectChange('day', e.target.value)}
+            onFocus={() => this.handleSelectFocus()}
+            value={selectedValue(this.state.selected.day)}
           >
             <option disabled value="">
               {datePlaceholder}
@@ -170,15 +174,15 @@ class BirthdayInputComponent extends Component {
           {monthLabel}
           <select
             autoComplete="bday-month"
-            disabled={disabled}
-            id={monthId}
-            value={selectedValue(this.state.selected.month)}
             className={classNames(selectClassName || css.select, {
               [css.notSet]: !parseNum(this.state.selected.month),
             })}
-            onFocus={() => this.handleSelectFocus()}
+            disabled={disabled}
+            id={monthId}
             onBlur={() => this.handleSelectBlur()}
             onChange={e => this.handleSelectChange('month', e.target.value)}
+            onFocus={() => this.handleSelectFocus()}
+            value={selectedValue(this.state.selected.month)}
           >
             <option disabled value="">
               {monthPlaceholder}
@@ -194,15 +198,15 @@ class BirthdayInputComponent extends Component {
           {yearLabel}
           <select
             autoComplete="bday-year"
-            disabled={disabled}
-            id={yearId}
-            value={selectedValue(this.state.selected.year)}
             className={classNames(selectClassName || css.select, {
               [css.notSet]: !parseNum(this.state.selected.year),
             })}
-            onFocus={() => this.handleSelectFocus()}
+            disabled={disabled}
+            id={yearId}
             onBlur={() => this.handleSelectBlur()}
             onChange={e => this.handleSelectChange('year', e.target.value)}
+            onFocus={() => this.handleSelectFocus()}
+            value={selectedValue(this.state.selected.year)}
           >
             <option disabled value="">
               {yearPlaceholder}
@@ -321,8 +325,6 @@ FieldBirthdayInputComponent.propTypes = {
   meta: object.isRequired,
 };
 
-const FieldBirthdayInput = props => {
-  return <Field component={FieldBirthdayInputComponent} {...props} />;
-};
+const FieldBirthdayInput = props => <Field component={FieldBirthdayInputComponent} {...props} />;
 
 export default FieldBirthdayInput;

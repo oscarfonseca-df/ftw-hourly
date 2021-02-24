@@ -178,15 +178,11 @@ export const deletePaymentMethod = () => (dispatch, getState, sdk) => {
     });
 };
 
-export const updatePaymentMethod = stripePaymentMethodId => (dispatch, getState, sdk) => {
-  return dispatch(deletePaymentMethod())
-    .then(() => {
-      return dispatch(addPaymentMethod(stripePaymentMethodId));
-    })
+export const updatePaymentMethod = stripePaymentMethodId => (dispatch, getState, sdk) => dispatch(deletePaymentMethod())
+    .then(() => dispatch(addPaymentMethod(stripePaymentMethodId)))
     .catch(e => {
       log.error(storableError(e), 'updating-payment-method-failed');
     });
-};
 
 // This function helps to choose correct thunk function
 export const savePaymentMethod = (stripeCustomer, stripePaymentMethodId) => (

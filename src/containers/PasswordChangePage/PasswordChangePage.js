@@ -16,8 +16,7 @@ import {
   UserNav,
 } from '../../components';
 import { PasswordChangeForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import { changePassword, changePasswordClear, resetPassword } from './PasswordChangePage.duck';
 import css from './PasswordChangePage.module.css';
 
@@ -39,23 +38,23 @@ export const PasswordChangePageComponent = props => {
   const changePasswordForm =
     currentUser && currentUser.id ? (
       <PasswordChangeForm
-        className={css.form}
         changePasswordError={changePasswordError}
+        className={css.form}
         currentUser={currentUser}
-        onSubmit={onSubmitChangePassword}
+        inProgress={changePasswordInProgress}
         onChange={onChange}
         onResetPassword={onResetPassword}
-        resetPasswordInProgress={resetPasswordInProgress}
-        resetPasswordError={resetPasswordError}
-        inProgress={changePasswordInProgress}
+        onSubmit={onSubmitChangePassword}
         ready={passwordChanged}
+        resetPasswordError={resetPasswordError}
+        resetPasswordInProgress={resetPasswordInProgress}
       />
     ) : null;
 
   const title = intl.formatMessage({ id: 'PasswordChangePage.title' });
 
   return (
-    <Page title={title} scrollingDisabled={scrollingDisabled}>
+    <Page scrollingDisabled={scrollingDisabled} title={title}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
           <TopbarContainer

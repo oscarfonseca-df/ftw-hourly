@@ -1,8 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from '../../util/reactIntl';
 import { isTooManyEmailVerificationRequestsError } from '../../util/errors';
-import { IconEmailAttention, InlineTextButton, NamedLink } from '../../components';
-
+import { IconEmailAttention, InlineTextButton, NamedLink } from "..";
 import css from './ModalMissingInformation.module.css';
 
 const EmailReminder = props => {
@@ -17,7 +16,7 @@ const EmailReminder = props => {
   const email = user.id ? <span className={css.email}>{user.attributes.email}</span> : '';
 
   const resendEmailLink = (
-    <InlineTextButton rootClassName={css.helperLink} onClick={onResendVerificationEmail}>
+    <InlineTextButton onClick={onResendVerificationEmail} rootClassName={css.helperLink}>
       <FormattedMessage id="ModalMissingInformation.resendEmailLinkText" />
     </InlineTextButton>
   );

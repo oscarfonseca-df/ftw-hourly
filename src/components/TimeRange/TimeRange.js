@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { isSameDay, formatDateToText } from '../../util/dates';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { DATE_TYPE_DATE, DATE_TYPE_DATETIME, propTypes } from '../../util/types';
-
 import css from './TimeRange.module.css';
 
 export const TimeRangeComponent = props => {

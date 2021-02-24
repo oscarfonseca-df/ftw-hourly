@@ -17,8 +17,7 @@ import {
   NamedLink,
 } from '../../components';
 import { ProfileSettingsForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import { updateProfile, uploadImage } from './ProfileSettingsPage.duck';
 import css from './ProfileSettingsPage.module.css';
 
@@ -77,24 +76,24 @@ export class ProfileSettingsPageComponent extends Component {
         className={css.form}
         currentUser={currentUser}
         initialValues={{ firstName, lastName, bio, profileImage: user.profileImage }}
-        profileImage={profileImage}
         onImageUpload={e => onImageUploadHandler(e, onImageUpload)}
-        uploadInProgress={uploadInProgress}
-        updateInProgress={updateInProgress}
-        uploadImageError={uploadImageError}
-        updateProfileError={updateProfileError}
         onSubmit={handleSubmit}
+        profileImage={profileImage}
+        updateInProgress={updateInProgress}
+        updateProfileError={updateProfileError}
+        uploadImageError={uploadImageError}
+        uploadInProgress={uploadInProgress}
       />
     ) : null;
 
     const title = intl.formatMessage({ id: 'ProfileSettingsPage.title' });
 
     return (
-      <Page className={css.root} title={title} scrollingDisabled={scrollingDisabled}>
+      <Page className={css.root} scrollingDisabled={scrollingDisabled} title={title}>
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
             <TopbarContainer currentPage="ProfileSettingsPage" />
-            <UserNav selectedPageName="ProfileSettingsPage" listing={currentUserListing} />
+            <UserNav listing={currentUserListing} selectedPageName="ProfileSettingsPage" />
           </LayoutWrapperTopbar>
           <LayoutWrapperMain>
             <div className={css.content}>

@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage } from '../../util/reactIntl';
 import { ResponsiveImage, Modal, ImageCarousel } from '../../components';
 import ActionBarMaybe from './ActionBarMaybe';
-
 import css from './ListingPage.module.css';
 
 const SectionImages = props => {
@@ -24,7 +23,7 @@ const SectionImages = props => {
   // to the parent that would otherwise open the image carousel
   const actionBar = listing.id ? (
     <div onClick={e => e.stopPropagation()}>
-      <ActionBarMaybe isOwnListing={isOwnListing} listing={listing} editParams={editParams} />
+      <ActionBarMaybe editParams={editParams} isOwnListing={isOwnListing} listing={listing} />
     </div>
   ) : null;
 
@@ -43,9 +42,9 @@ const SectionImages = props => {
         <div className={css.aspectWrapper} onClick={handleViewPhotosClick}>
           {actionBar}
           <ResponsiveImage
-            rootClassName={css.rootForImage}
             alt={title}
             image={firstImage}
+            rootClassName={css.rootForImage}
             variants={[
               'landscape-crop',
               'landscape-crop2x',
@@ -57,14 +56,14 @@ const SectionImages = props => {
         </div>
       </div>
       <Modal
-        id="ListingPage.imageCarousel"
-        scrollLayerClassName={css.carouselModalScrollLayer}
         containerClassName={css.carouselModalContainer}
-        lightCloseButton
+        id="ListingPage.imageCarousel"
         isOpen={imageCarouselOpen}
+        lightCloseButton
         onClose={onImageCarouselClose}
-        usePortal
         onManageDisableScrolling={onManageDisableScrolling}
+        scrollLayerClassName={css.carouselModalScrollLayer}
+        usePortal
       >
         <ImageCarousel images={listing.images} />
       </Modal>

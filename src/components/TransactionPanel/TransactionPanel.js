@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { array, arrayOf, bool, func, number, object, string } from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import {
   TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY,
   txIsAccepted,
@@ -28,7 +28,7 @@ import {
   NamedLink,
   ReviewModal,
   UserDisplayName,
-} from '../../components';
+} from "..";
 import { SendMessageForm } from '../../forms';
 import config from '../../config';
 
@@ -49,13 +49,12 @@ import PanelHeading, {
   HEADING_CANCELED,
   HEADING_DELIVERED,
 } from './PanelHeading';
-
 import css from './TransactionPanel.module.css';
 
 // Helper function to get display names for different roles
 const displayNames = (currentUser, currentProvider, currentCustomer, intl) => {
-  const authorDisplayName = <UserDisplayName user={currentProvider} intl={intl} />;
-  const customerDisplayName = <UserDisplayName user={currentCustomer} intl={intl} />;
+  const authorDisplayName = <UserDisplayName intl={intl} user={currentProvider} />;
+  const customerDisplayName = <UserDisplayName intl={intl} user={currentCustomer} />;
 
   let otherUserDisplayName = '';
   let otherUserDisplayNameString = '';
@@ -216,9 +215,7 @@ export class TransactionPanelComponent extends Component {
     const stateDataFn = tx => {
       if (txIsEnquired(tx)) {
         const transitions = Array.isArray(nextTransitions)
-          ? nextTransitions.map(transition => {
-              return transition.attributes.name;
-            })
+          ? nextTransitions.map(transition => transition.attributes.name)
           : [];
         const hasCorrectNextTransition =
           transitions.length > 0 && transitions.includes(TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY);
@@ -307,13 +304,13 @@ export class TransactionPanelComponent extends Component {
 
     const saleButtons = (
       <SaleActionButtonsMaybe
-        showButtons={stateData.showSaleButtons}
         acceptInProgress={acceptInProgress}
-        declineInProgress={declineInProgress}
         acceptSaleError={acceptSaleError}
+        declineInProgress={declineInProgress}
         declineSaleError={declineSaleError}
         onAcceptSale={() => onAcceptSale(currentTransaction.id)}
         onDeclineSale={() => onDeclineSale(currentTransaction.id)}
+        showButtons={stateData.showSaleButtons}
       />
     );
 
@@ -342,37 +339,37 @@ export class TransactionPanelComponent extends Component {
         <div className={css.container}>
           <div className={css.txInfo}>
             <DetailCardImage
-              rootClassName={css.imageWrapperMobile}
               avatarWrapperClassName={css.avatarWrapperMobile}
-              listingTitle={listingTitle}
               image={firstImage}
-              provider={currentProvider}
               isCustomer={isCustomer}
-              listingId={currentListing.id && currentListing.id.uuid}
               listingDeleted={listingDeleted}
+              listingId={currentListing.id && currentListing.id.uuid}
+              listingTitle={listingTitle}
+              provider={currentProvider}
+              rootClassName={css.imageWrapperMobile}
             />
             {isProvider ? (
               <div className={css.avatarWrapperProviderDesktop}>
-                <AvatarLarge user={currentCustomer} className={css.avatarDesktop} />
+                <AvatarLarge className={css.avatarDesktop} user={currentCustomer} />
               </div>
             ) : null}
 
             <PanelHeading
-              panelHeadingState={stateData.headingState}
-              transactionRole={transactionRole}
-              providerName={authorDisplayName}
               customerName={customerDisplayName}
               isCustomerBanned={isCustomerBanned}
+              listingDeleted={listingDeleted}
               listingId={currentListing.id && currentListing.id.uuid}
               listingTitle={listingTitle}
-              listingDeleted={listingDeleted}
+              panelHeadingState={stateData.headingState}
+              providerName={authorDisplayName}
+              transactionRole={transactionRole}
             />
 
             <div className={css.bookingDetailsMobile}>
               <AddressLinkMaybe
-                rootClassName={css.addressMobile}
-                location={location}
                 geolocation={geolocation}
+                location={location}
+                rootClassName={css.addressMobile}
                 showAddress={stateData.showAddress}
               />
               <BreakdownMaybe transaction={currentTransaction} transactionRole={transactionRole} />
@@ -387,7 +384,6 @@ export class TransactionPanelComponent extends Component {
               </p>
             ) : null}
             <FeedSection
-              rootClassName={css.feedContainer}
               currentTransaction={currentTransaction}
               currentUser={currentUser}
               fetchMessagesError={fetchMessagesError}
@@ -397,18 +393,19 @@ export class TransactionPanelComponent extends Component {
               oldestMessagePageFetched={oldestMessagePageFetched}
               onOpenReviewModal={this.onOpenReviewModal}
               onShowMoreMessages={() => onShowMoreMessages(currentTransaction.id)}
+              rootClassName={css.feedContainer}
               totalMessagePages={totalMessagePages}
             />
             {showSendMessageForm ? (
               <SendMessageForm
                 formId={this.sendMessageFormName}
-                rootClassName={css.sendMessageForm}
-                messagePlaceholder={sendMessagePlaceholder}
                 inProgress={sendMessageInProgress}
-                sendMessageError={sendMessageError}
-                onFocus={this.onSendMessageFormFocus}
+                messagePlaceholder={sendMessagePlaceholder}
                 onBlur={this.onSendMessageFormBlur}
+                onFocus={this.onSendMessageFormFocus}
                 onSubmit={this.onMessageSubmit}
+                rootClassName={css.sendMessageForm}
+                sendMessageError={sendMessageError}
               />
             ) : (
               <div className={css.sendingMessageNotAllowed}>{sendingMessageNotAllowed}</div>
@@ -423,39 +420,39 @@ export class TransactionPanelComponent extends Component {
             <div className={css.detailCard}>
               <DetailCardImage
                 avatarWrapperClassName={css.avatarWrapperDesktop}
-                listingTitle={listingTitle}
                 image={firstImage}
-                provider={currentProvider}
                 isCustomer={isCustomer}
-                listingId={currentListing.id && currentListing.id.uuid}
                 listingDeleted={listingDeleted}
+                listingId={currentListing.id && currentListing.id.uuid}
+                listingTitle={listingTitle}
+                provider={currentProvider}
               />
 
               <DetailCardHeadingsMaybe
-                showDetailCardHeadings={stateData.showDetailCardHeadings}
-                listingTitle={listingTitle}
-                subTitle={bookingSubTitle}
-                location={location}
                 geolocation={geolocation}
+                listingTitle={listingTitle}
+                location={location}
                 showAddress={stateData.showAddress}
+                showDetailCardHeadings={stateData.showDetailCardHeadings}
+                subTitle={bookingSubTitle}
               />
               {stateData.showBookingPanel ? (
                 <BookingPanel
-                  className={css.bookingPanel}
-                  titleClassName={css.bookingTitle}
-                  isOwnListing={false}
-                  listing={currentListing}
-                  title={listingTitle}
-                  subTitle={bookingSubTitle}
                   authorDisplayName={authorDisplayName}
-                  onSubmit={onSubmitBookingRequest}
-                  onManageDisableScrolling={onManageDisableScrolling}
+                  className={css.bookingPanel}
+                  fetchLineItemsError={fetchLineItemsError}
+                  fetchLineItemsInProgress={fetchLineItemsInProgress}
+                  isOwnListing={false}
+                  lineItems={lineItems}
+                  listing={currentListing}
                   monthlyTimeSlots={monthlyTimeSlots}
                   onFetchTimeSlots={onFetchTimeSlots}
                   onFetchTransactionLineItems={onFetchTransactionLineItems}
-                  lineItems={lineItems}
-                  fetchLineItemsInProgress={fetchLineItemsInProgress}
-                  fetchLineItemsError={fetchLineItemsError}
+                  onManageDisableScrolling={onManageDisableScrolling}
+                  onSubmit={onSubmitBookingRequest}
+                  subTitle={bookingSubTitle}
+                  title={listingTitle}
+                  titleClassName={css.bookingTitle}
                 />
               ) : null}
               <BreakdownMaybe
@@ -478,8 +475,8 @@ export class TransactionPanelComponent extends Component {
           onSubmitReview={this.onSubmitReview}
           revieweeName={otherUserDisplayName}
           reviewSent={this.state.reviewSubmitted}
-          sendReviewInProgress={sendReviewInProgress}
           sendReviewError={sendReviewError}
+          sendReviewInProgress={sendReviewInProgress}
         />
       </div>
     );

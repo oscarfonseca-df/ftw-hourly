@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconReviewStar.module.css';
 
 const IconReviewStar = props => {
@@ -12,9 +11,9 @@ const IconReviewStar = props => {
   return (
     <svg
       className={classes}
-      width="23"
       height="23"
       viewBox="0 0 23 23"
+      width="23"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

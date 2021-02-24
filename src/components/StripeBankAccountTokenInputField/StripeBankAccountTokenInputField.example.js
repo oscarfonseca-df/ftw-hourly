@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
-import { Button } from '../../components';
+import { Button } from "..";
+import * as validators from '../../util/validators';
 import { stripeCountryConfigs } from './StripeBankAccountTokenInputField.util';
 import StripeBankAccountTokenInputField from './StripeBankAccountTokenInputField';
-import * as validators from '../../util/validators';
 
 const formComponent = country => props => (
   <FinalForm
@@ -22,11 +22,11 @@ const formComponent = country => props => (
         >
           <FormSpy onChange={onChange} />
           <StripeBankAccountTokenInputField
-            id={`${formName}.token`}
-            name="token"
             country={country}
             currency={currency}
             formName={formName}
+            id={`${formName}.token`}
+            name="token"
             validate={validators.required(' ')}
           />
           <Button style={{ marginTop: 24 }} type="submit">

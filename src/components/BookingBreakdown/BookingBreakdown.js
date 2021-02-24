@@ -4,14 +4,13 @@
  */
 import React from 'react';
 import { oneOf, string } from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import {
   propTypes,
   LINE_ITEM_CUSTOMER_COMMISSION,
   LINE_ITEM_PROVIDER_COMMISSION,
 } from '../../util/types';
-
 import LineItemBookingPeriod from './LineItemBookingPeriod';
 import LineItemBasePriceMaybe from './LineItemBasePriceMaybe';
 import LineItemUnitPriceMaybe from './LineItemUnitPriceMaybe';
@@ -23,7 +22,6 @@ import LineItemProviderCommissionRefundMaybe from './LineItemProviderCommissionR
 import LineItemRefundMaybe from './LineItemRefundMaybe';
 import LineItemTotalPrice from './LineItemTotalPrice';
 import LineItemUnknownItemsMaybe from './LineItemUnknownItemsMaybe';
-
 import css from './BookingBreakdown.module.css';
 
 export const BookingBreakdownComponent = props => {
@@ -92,46 +90,46 @@ export const BookingBreakdownComponent = props => {
     <div className={classes}>
       <LineItemBookingPeriod
         booking={booking}
-        unitType={unitType}
         dateType={dateType}
         timeZone={timeZone}
+        unitType={unitType}
       />
-      <LineItemUnitPriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
+      <LineItemUnitPriceMaybe intl={intl} transaction={transaction} unitType={unitType} />
 
-      <LineItemBasePriceMaybe transaction={transaction} unitType={unitType} intl={intl} />
-      <LineItemUnknownItemsMaybe transaction={transaction} isProvider={isProvider} intl={intl} />
+      <LineItemBasePriceMaybe intl={intl} transaction={transaction} unitType={unitType} />
+      <LineItemUnknownItemsMaybe intl={intl} isProvider={isProvider} transaction={transaction} />
 
       <LineItemSubTotalMaybe
+        intl={intl}
         transaction={transaction}
         unitType={unitType}
         userRole={userRole}
-        intl={intl}
       />
-      <LineItemRefundMaybe transaction={transaction} intl={intl} />
+      <LineItemRefundMaybe intl={intl} transaction={transaction} />
 
       <LineItemCustomerCommissionMaybe
-        transaction={transaction}
-        isCustomer={isCustomer}
         intl={intl}
+        isCustomer={isCustomer}
+        transaction={transaction}
       />
       <LineItemCustomerCommissionRefundMaybe
-        transaction={transaction}
-        isCustomer={isCustomer}
         intl={intl}
+        isCustomer={isCustomer}
+        transaction={transaction}
       />
 
       <LineItemProviderCommissionMaybe
-        transaction={transaction}
-        isProvider={isProvider}
         intl={intl}
+        isProvider={isProvider}
+        transaction={transaction}
       />
       <LineItemProviderCommissionRefundMaybe
-        transaction={transaction}
-        isProvider={isProvider}
         intl={intl}
+        isProvider={isProvider}
+        transaction={transaction}
       />
 
-      <LineItemTotalPrice transaction={transaction} isProvider={isProvider} intl={intl} />
+      <LineItemTotalPrice intl={intl} isProvider={isProvider} transaction={transaction} />
 
       {hasCommissionLineItem ? (
         <span className={css.feeInfo}>

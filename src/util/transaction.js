@@ -296,8 +296,7 @@ export const getReview2Transition = isCustomer =>
 // Check if a transition is the kind that should be rendered
 // when showing transition history (e.g. ActivityFeed)
 // The first transition and most of the expiration transitions made by system are not relevant
-export const isRelevantPastTransition = transition => {
-  return [
+export const isRelevantPastTransition = transition => [
     TRANSITION_ACCEPT,
     TRANSITION_CANCEL,
     TRANSITION_COMPLETE,
@@ -309,15 +308,10 @@ export const isRelevantPastTransition = transition => {
     TRANSITION_REVIEW_2_BY_CUSTOMER,
     TRANSITION_REVIEW_2_BY_PROVIDER,
   ].includes(transition);
-};
 
-export const isCustomerReview = transition => {
-  return [TRANSITION_REVIEW_1_BY_CUSTOMER, TRANSITION_REVIEW_2_BY_CUSTOMER].includes(transition);
-};
+export const isCustomerReview = transition => [TRANSITION_REVIEW_1_BY_CUSTOMER, TRANSITION_REVIEW_2_BY_CUSTOMER].includes(transition);
 
-export const isProviderReview = transition => {
-  return [TRANSITION_REVIEW_1_BY_PROVIDER, TRANSITION_REVIEW_2_BY_PROVIDER].includes(transition);
-};
+export const isProviderReview = transition => [TRANSITION_REVIEW_1_BY_PROVIDER, TRANSITION_REVIEW_2_BY_PROVIDER].includes(transition);
 
 export const getUserTxRole = (currentUserId, transaction) => {
   const tx = ensureTransaction(transaction);
@@ -342,8 +336,6 @@ export const txRoleIsCustomer = userRole => userRole === TX_TRANSITION_ACTOR_CUS
 // i.e. the backend. This helper is used to check if the transition
 // should go through the local API endpoints, or if using JS SDK is
 // enough.
-export const isPrivileged = transition => {
-  return [TRANSITION_REQUEST_PAYMENT, TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY].includes(
+export const isPrivileged = transition => [TRANSITION_REQUEST_PAYMENT, TRANSITION_REQUEST_PAYMENT_AFTER_ENQUIRY].includes(
     transition
   );
-};

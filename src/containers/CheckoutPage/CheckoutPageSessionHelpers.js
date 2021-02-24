@@ -14,8 +14,7 @@ const { UUID, Money } = sdkTypes;
 
 // Validate that given 'obj' has all the keys of defined by validPropTypes parameter
 // and values must pass related test-value-format function.
-const validateProperties = (obj, validPropTypes) => {
-  return reduce(
+const validateProperties = (obj, validPropTypes) => reduce(
     Object.entries(validPropTypes),
     (acc, [prop, fn]) => {
       if (Object.prototype.hasOwnProperty.call(obj, prop) && fn(obj[prop])) {
@@ -25,7 +24,6 @@ const validateProperties = (obj, validPropTypes) => {
     },
     true
   );
-};
 
 // Validate content of booking dates object received from SessionStore
 export const isValidBookingDates = bookingDates => {
@@ -41,9 +39,7 @@ export const isValidBookingDates = bookingDates => {
 export const isValidListing = listing => {
   const props = {
     id: id => id instanceof UUID,
-    attributes: v => {
-      return typeof v === 'object' && v.price instanceof Money;
-    },
+    attributes: v => typeof v === 'object' && v.price instanceof Money,
   };
   return validateProperties(listing, props);
 };
@@ -54,9 +50,7 @@ export const isValidTransaction = transaction => {
   const props = {
     id: id => id instanceof UUID,
     type: type => type === 'transaction',
-    attributes: v => {
-      return typeof v === 'object' && TRANSITIONS.includes(v.lastTransition);
-    },
+    attributes: v => typeof v === 'object' && TRANSITIONS.includes(v.lastTransition),
   };
   return validateProperties(transaction, props);
 };
@@ -115,7 +109,7 @@ export const storedData = storageKey => {
       : false;
 
     // resolve transaction as valid if it is missing
-    const isTransactionValid = !!transaction ? isValidTransaction(transaction) : true;
+    const isTransactionValid = transaction ? isValidTransaction(transaction) : true;
 
     const isStoredDataValid =
       isFreshlySaved &&

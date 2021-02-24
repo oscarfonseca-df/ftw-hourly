@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import * as validators from '../../util/validators';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldBoolean from './FieldBoolean';
 
 const formName = 'Styleguide.FieldBoolean.Form';
@@ -24,12 +24,12 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} />
           <FieldBoolean
             id={`${form}.boolOption`}
-            name="boolOption"
             label="Boolean option"
+            name="boolOption"
             placeholder="Choose yes/no"
             validate={required}
           />
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

@@ -1,11 +1,10 @@
 import React from 'react';
-import { intlShape } from '../../util/reactIntl';
 import { bool, object, string } from 'prop-types';
+import { intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import * as validators from '../../util/validators';
 import getCountryCodes from '../../translations/countryCodes';
-import { FieldTextInput, FieldSelect } from '../../components';
-
+import { FieldTextInput, FieldSelect } from "..";
 import css from './StripePaymentAddress.module.css';
 
 const StripePaymentAddress = props => {
@@ -29,7 +28,7 @@ const StripePaymentAddress = props => {
 
   const addressLine2Label = intl.formatMessage(
     { id: 'StripePaymentAddress.addressLine2Label' },
-    { optionalText: optionalText }
+    { optionalText }
   );
 
   const addressLine2Placeholder = intl.formatMessage({
@@ -56,7 +55,7 @@ const StripePaymentAddress = props => {
 
   const stateLabel = intl.formatMessage(
     { id: 'StripePaymentAddress.stateLabel' },
-    { optionalText: optionalText }
+    { optionalText }
   );
   const statePlaceholder = intl.formatMessage({ id: 'StripePaymentAddress.statePlaceholder' });
 
@@ -78,92 +77,90 @@ const StripePaymentAddress = props => {
   const countryCodes = getCountryCodes(config.locale);
 
   return (
-    <div className={className ? className : css.root}>
+    <div className={className || css.root}>
       <div className={css.formRow}>
         <FieldTextInput
-          id={`${fieldId}.addressLine1`}
-          name="addressLine1"
-          disabled={disabled}
-          className={css.field}
-          type="text"
           autoComplete="billing address-line1"
+          className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.addressLine1`}
           label={addressLine1Label}
-          placeholder={addressLine1Placeholder}
-          validate={addressLine1Required}
+          name="addressLine1"
           onUnmount={() => form.change('addressLine1', undefined)}
+          placeholder={addressLine1Placeholder}
+          type="text"
+          validate={addressLine1Required}
         />
 
         <FieldTextInput
-          id={`${fieldId}.addressLine2`}
-          name="addressLine2"
-          disabled={disabled}
-          className={css.field}
-          type="text"
           autoComplete="billing address-line2"
+          className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.addressLine2`}
           label={addressLine2Label}
-          placeholder={addressLine2Placeholder}
+          name="addressLine2"
           onUnmount={() => form.change('addressLine2', undefined)}
+          placeholder={addressLine2Placeholder}
+          type="text"
         />
       </div>
       <div className={css.formRow}>
         <FieldTextInput
-          id={`${fieldId}.postalCode`}
-          name="postal"
-          disabled={disabled}
-          className={css.field}
-          type="text"
           autoComplete="billing postal-code"
+          className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.postalCode`}
           label={postalCodeLabel}
-          placeholder={postalCodePlaceholder}
-          validate={postalCodeRequired}
-          onUnmount={() => form.change('postal', undefined)}
+          name="postal"
           onChange={event => handleOnChange(event)}
+          onUnmount={() => form.change('postal', undefined)}
+          placeholder={postalCodePlaceholder}
+          type="text"
+          validate={postalCodeRequired}
         />
 
         <FieldTextInput
-          id={`${fieldId}.city`}
-          name="city"
-          disabled={disabled}
-          className={css.field}
-          type="text"
           autoComplete="billing address-level2"
+          className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.city`}
           label={cityLabel}
-          placeholder={cityPlaceholder}
-          validate={cityRequired}
+          name="city"
           onUnmount={() => form.change('city', undefined)}
+          placeholder={cityPlaceholder}
+          type="text"
+          validate={cityRequired}
         />
       </div>
       <div className={css.formRow}>
         <FieldTextInput
-          id={`${fieldId}.state`}
-          name="state"
-          disabled={disabled}
-          className={css.field}
-          type="text"
           autoComplete="billing address-level1"
+          className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.state`}
           label={stateLabel}
-          placeholder={statePlaceholder}
+          name="state"
           onUnmount={() => form.change('state', undefined)}
+          placeholder={statePlaceholder}
+          type="text"
         />
 
         <FieldSelect
-          id={`${fieldId}.country`}
-          name="country"
-          disabled={disabled}
           className={css.field}
+          disabled={disabled}
+          id={`${fieldId}.country`}
           label={countryLabel}
+          name="country"
           validate={countryRequired}
         >
           <option disabled value="">
             {countryPlaceholder}
           </option>
-          {countryCodes.map(country => {
-            return (
+          {countryCodes.map(country => (
               <option key={country.code} value={country.code}>
                 {country.name}
               </option>
-            );
-          })}
+            ))}
         </FieldSelect>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { isSameDay, isInclusivelyAfterDay, isInclusivelyBeforeDay } from 'react-dates';
-
 import { ensureTimeSlot } from '../../util/data';
 import { START_DATE, END_DATE } from '../../util/dates';
 import { LINE_ITEM_DAY, LINE_ITEM_NIGHT, TIME_SLOT_DAY } from '../../util/types';
@@ -29,9 +28,7 @@ const timeSlotEqualsDay = (timeSlot, day) => {
  * Return a boolean indicating if given date can be found in an array
  * of tile slots (start dates).
  */
-const timeSlotsContain = (timeSlots, date) => {
-  return timeSlots.findIndex(slot => timeSlotEqualsDay(slot, date)) > -1;
-};
+const timeSlotsContain = (timeSlots, date) => timeSlots.findIndex(slot => timeSlotEqualsDay(slot, date)) > -1;
 
 /**
  * Find first blocked date between two dates.
@@ -203,10 +200,8 @@ export const isOutsideRangeFn = (timeSlots, startDate, endDate, focusedInput, un
   }
 
   // standard isOutsideRange function
-  return day => {
-    return (
+  return day => (
       !isInclusivelyAfterDay(day, moment()) ||
       !isInclusivelyBeforeDay(day, moment().add(endOfRange, 'days'))
     );
-  };
 };

@@ -4,8 +4,7 @@ import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
 import { propTypes, LISTING_STATE_DRAFT } from '../../util/types';
 import { getListingType, createSlug } from '../../util/urlHelpers';
-import { NamedLink } from '../../components';
-
+import { NamedLink } from "..";
 import css from './OwnListingLink.module.css';
 
 const OwnListingLink = props => {
@@ -17,8 +16,8 @@ const OwnListingLink = props => {
 
   if (!listing) {
     return (
-      <NamedLink className={className ? className : css.defaultLinkStyle} name="NewListingPage">
-        {children ? children : <FormattedMessage id="OwnListingLink.addYourListingLink" />}
+      <NamedLink className={className || css.defaultLinkStyle} name="NewListingPage">
+        {children || <FormattedMessage id="OwnListingLink.addYourListingLink" />}
       </NamedLink>
     );
   }
@@ -31,7 +30,7 @@ const OwnListingLink = props => {
 
   return (
     <NamedLink
-      className={className ? className : css.yourListingsLink}
+      className={className || css.yourListingsLink}
       name="EditListingPage"
       params={{
         id,
@@ -41,7 +40,7 @@ const OwnListingLink = props => {
       }}
     >
       <span className={css.menuItemBorder} />
-      {children ? children : <FormattedMessage id="OwnListingLink.editYourListingLink" />}
+      {children || <FormattedMessage id="OwnListingLink.editYourListingLink" />}
     </NamedLink>
   );
 };

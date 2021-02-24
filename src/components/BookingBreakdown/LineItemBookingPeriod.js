@@ -1,8 +1,7 @@
 import React from 'react';
-import { FormattedMessage, FormattedDate } from '../../util/reactIntl';
 import moment from 'moment';
+import { FormattedMessage, FormattedDate } from '../../util/reactIntl';
 import { LINE_ITEM_NIGHT, LINE_ITEM_UNITS, DATE_TYPE_DATE, propTypes } from '../../util/types';
-
 import css from './BookingBreakdown.module.css';
 
 const BookingPeriod = props => {
@@ -77,9 +76,9 @@ const LineItemBookingPeriod = props => {
     <>
       <div className={css.lineItem}>
         <BookingPeriod
-          startDate={localStartDate}
-          endDate={endDay}
           dateType={dateType}
+          endDate={endDay}
+          startDate={localStartDate}
           timeZone={timeZone}
         />
       </div>

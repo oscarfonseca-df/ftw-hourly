@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { node, string, object } from 'prop-types';
 import { IntlProvider } from '../../util/reactIntl';
 import config from '../../config';
-
 import css from './SearchMap.module.css';
 
 /**
@@ -102,10 +101,10 @@ class ReusableMapContainer extends React.Component {
   render() {
     return (
       <div
-        className={css.reusableMap}
         ref={node => {
           this.mountNode = node;
         }}
+        className={css.reusableMap}
       />
     );
   }

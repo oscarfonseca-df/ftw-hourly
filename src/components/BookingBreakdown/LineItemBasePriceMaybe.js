@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
 import { LINE_ITEM_NIGHT, LINE_ITEM_DAY, propTypes } from '../../util/types';
-
 import css from './BookingBreakdown.module.css';
 
 const LineItemBasePriceMaybe = props => {

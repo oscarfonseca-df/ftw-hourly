@@ -11,7 +11,7 @@ import { ActivityFeedComponent } from './ActivityFeed';
 
 const noop = () => null;
 
-describe('ActivityFeed', () => {
+describe('activityFeed', () => {
   it('matches snapshot', () => {
     const props = {
       currentUser: createCurrentUser('user2'),

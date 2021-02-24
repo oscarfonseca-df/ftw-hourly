@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bool, func, node, object, string } from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
-
 import { FilterForm } from '../../forms';
 import css from './FilterPlain.module.css';
 
@@ -55,27 +54,27 @@ class FilterPlainComponent extends Component {
     return (
       <div className={classes}>
         <div className={labelClass}>
-          <button type="button" className={css.labelButton} onClick={this.toggleIsOpen}>
+          <button className={css.labelButton} onClick={this.toggleIsOpen} type="button">
             <span className={labelClass}>{label}</span>
           </button>
-          <button type="button" className={css.clearButton} onClick={this.handleClear}>
-            <FormattedMessage id={'FilterPlain.clear'} />
+          <button className={css.clearButton} onClick={this.handleClear} type="button">
+            <FormattedMessage id="FilterPlain.clear" />
           </button>
         </div>
         <div
-          id={id}
-          className={classNames(plainClassName, css.plain, { [css.isOpen]: this.state.isOpen })}
           ref={node => {
             this.filterContent = node;
           }}
+          className={classNames(plainClassName, css.plain, { [css.isOpen]: this.state.isOpen })}
+          id={id}
         >
           <FilterForm
-            id={`${id}.form`}
-            liveEdit
             contentPlacementOffset={contentPlacementOffset}
-            onChange={this.handleChange}
+            id={`${id}.form`}
             initialValues={initialValues}
             keepDirtyOnReinitialize={keepDirtyOnReinitialize}
+            liveEdit
+            onChange={this.handleChange}
           >
             {children}
           </FilterForm>

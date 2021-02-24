@@ -18,12 +18,12 @@ import {
   LISTING_STATE_CLOSED,
 } from '../../util/types';
 import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
+import routeConfiguration from '../../routeConfiguration';
 import { showListingRequest, showListingError, showListing } from './ListingPage.duck';
 
 // routeConfiguration needs to be imported before tests for ListingPageComponent can be made.
 // Otherwise, ListingPage itself is not initialized correctly when routeConfiguration is imported
 // (loadData call fails).
-import routeConfiguration from '../../routeConfiguration';
 import { ListingPageComponent } from './ListingPage';
 import ActionBarMaybe from './ActionBarMaybe';
 
@@ -67,7 +67,7 @@ const filterConfig = [
   },
 ];
 
-describe('ListingPage', () => {
+describe('listingPage', () => {
   it('matches snapshot', () => {
     const currentUser = createCurrentUser('user-2');
     const id = 'listing1';
@@ -115,7 +115,7 @@ describe('ListingPage', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  describe('Duck', () => {
+  describe('duck', () => {
     it('showListing() success', () => {
       const id = new UUID('00000000-0000-0000-0000-000000000000');
       const dispatch = jest.fn(action => action);
@@ -210,12 +210,12 @@ describe('ListingPage', () => {
     });
   });
 
-  describe('ActionBarMaybe', () => {
+  describe('actionBarMaybe', () => {
     it('shows users own listing status', () => {
       const listing = createListing('listing-published', {
         state: LISTING_STATE_PUBLISHED,
       });
-      const actionBar = shallow(<ActionBarMaybe isOwnListing listing={listing} editParams={{}} />);
+      const actionBar = shallow(<ActionBarMaybe editParams={{}} isOwnListing listing={listing} />);
       const formattedMessages = actionBar.find(FormattedMessage);
       expect(formattedMessages.length).toEqual(2);
       expect(formattedMessages.at(0).props().id).toEqual('ListingPage.ownListing');
@@ -225,7 +225,7 @@ describe('ListingPage', () => {
       const listing = createListing('listing-published', {
         state: LISTING_STATE_PENDING_APPROVAL,
       });
-      const actionBar = shallow(<ActionBarMaybe isOwnListing listing={listing} editParams={{}} />);
+      const actionBar = shallow(<ActionBarMaybe editParams={{}} isOwnListing listing={listing} />);
       const formattedMessages = actionBar.find(FormattedMessage);
       expect(formattedMessages.length).toEqual(2);
       expect(formattedMessages.at(0).props().id).toEqual('ListingPage.ownListingPendingApproval');
@@ -235,7 +235,7 @@ describe('ListingPage', () => {
       const listing = createListing('listing-closed', {
         state: LISTING_STATE_CLOSED,
       });
-      const actionBar = shallow(<ActionBarMaybe isOwnListing listing={listing} editParams={{}} />);
+      const actionBar = shallow(<ActionBarMaybe editParams={{}} isOwnListing listing={listing} />);
       const formattedMessages = actionBar.find(FormattedMessage);
       expect(formattedMessages.length).toEqual(2);
       expect(formattedMessages.at(0).props().id).toEqual('ListingPage.ownClosedListing');
@@ -246,7 +246,7 @@ describe('ListingPage', () => {
         state: LISTING_STATE_CLOSED,
       });
       const actionBar = shallow(
-        <ActionBarMaybe isOwnListing={false} listing={listing} editParams={{}} />
+        <ActionBarMaybe editParams={{}} isOwnListing={false} listing={listing} />
       );
       const formattedMessages = actionBar.find(FormattedMessage);
       expect(formattedMessages.length).toEqual(1);
@@ -257,7 +257,7 @@ describe('ListingPage', () => {
         state: LISTING_STATE_PUBLISHED,
       });
       const actionBar = shallow(
-        <ActionBarMaybe isOwnListing={false} listing={listing} editParams={{}} />
+        <ActionBarMaybe editParams={{}} isOwnListing={false} listing={listing} />
       );
       expect(actionBar.getElement()).toBeNull();
     });

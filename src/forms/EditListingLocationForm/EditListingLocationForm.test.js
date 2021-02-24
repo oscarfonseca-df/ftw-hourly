@@ -6,18 +6,18 @@ import { EditListingLocationFormComponent } from './EditListingLocationForm';
 
 const noop = () => null;
 
-describe('EditListingLocationForm', () => {
+describe('editListingLocationForm', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <EditListingLocationFormComponent
-        intl={fakeIntl}
+        disabled={false}
         dispatch={noop}
+        intl={fakeIntl}
         onSubmit={noop}
+        ready={false}
         saveActionMsg="Save location"
         updated={false}
         updateInProgress={false}
-        disabled={false}
-        ready={false}
       />
     );
     expect(tree).toMatchSnapshot();

@@ -152,7 +152,7 @@ describe('richText', () => {
         </span>
       );
       expect(wrapper.html()).toEqual(
-        '<span><a href="http://www.example.com" class="linkClass" target="_blank" rel="noopener noreferrer">http://www.example.com</a></span>'
+        '<span><a class="linkClass" href="http://www.example.com" rel="noopener noreferrer" target="_blank">http://www.example.com</a></span>'
       );
     });
     it('should add link around words that are links even inside parenthesis', () => {
@@ -165,7 +165,7 @@ describe('richText', () => {
         </span>
       );
       expect(wrapper.html()).toEqual(
-        '<span>(<a href="http://www.example.com" class="linkClass" target="_blank" rel="noopener noreferrer">http://www.example.com</a>)</span>'
+        '<span>(<a class="linkClass" href="http://www.example.com" rel="noopener noreferrer" target="_blank">http://www.example.com</a>)</span>'
       );
     });
     it('should add link around words that are links even inside brackets', () => {
@@ -178,7 +178,7 @@ describe('richText', () => {
         </span>
       );
       expect(wrapper.html()).toEqual(
-        '<span>[<a href="http://www.example.com" class="linkClass" target="_blank" rel="noopener noreferrer">http://www.example.com</a>]</span>'
+        '<span>[<a class="linkClass" href="http://www.example.com" rel="noopener noreferrer" target="_blank">http://www.example.com</a>]</span>'
       );
     });
   });
@@ -255,7 +255,7 @@ describe('richText', () => {
       //   Chars one​/​two​/​three - count until <span class=\"classX\">exhaustion…</span> and a random link: <a href=\"http://www.example.com\" target=\"_blank\" rel=\"noopener noreferrer\">http://www.example.com</a>
       // </span>
       expect(wrapper.html()).toEqual(
-        `<span>Chars one${slashWithZWSP}two${slashWithZWSP}three - count until <span class=\"longWord\">exhaustion…</span> and a random link: <a href=\"http://www.example.com\" class=\"link\" target=\"_blank\" rel=\"noopener noreferrer\">http://www.example.com</a></span>`
+        `<span>Chars one${slashWithZWSP}two${slashWithZWSP}three - count until <span class=\"longWord\">exhaustion…</span> and a random link: <a class=\"link\" href=\"http://www.example.com\" rel=\"noopener noreferrer\" target=\"_blank\">http://www.example.com</a></span>`
       );
     });
     it('should add link inside non-whitespace-sequence (http://example.com)', () => {
@@ -266,7 +266,7 @@ describe('richText', () => {
       //   Link: (<a href=\"http://example.com\" target=\"_blank\" rel=\"noopener noreferrer\">http://example.com</a>)
       // </span>
       expect(wrapper.html()).toEqual(
-        `<span>Link: (<a href=\"http://example.com\" class=\"longWord\" target=\"_blank\" rel=\"noopener noreferrer\">http://example.com</a>)</span>`
+        `<span>Link: (<a class=\"longWord\" href=\"http://example.com\" rel=\"noopener noreferrer\" target=\"_blank\">http://example.com</a>)</span>`
       );
     });
     it('should not add span around a string if no linkify option is given', () => {

@@ -5,18 +5,18 @@ import EditListingPricingForm from './EditListingPricingForm';
 
 const noop = () => null;
 
-describe('EditListingPricingForm', () => {
+describe('editListingPricingForm', () => {
   it('matches snapshot', () => {
     const tree = renderDeep(
       <EditListingPricingForm
-        intl={fakeIntl}
+        disabled={false}
         dispatch={noop}
+        intl={fakeIntl}
         onSubmit={v => v}
+        ready={false}
         saveActionMsg="Save price"
         updated={false}
         updateInProgress={false}
-        disabled={false}
-        ready={false}
       />
     );
     expect(tree).toMatchSnapshot();

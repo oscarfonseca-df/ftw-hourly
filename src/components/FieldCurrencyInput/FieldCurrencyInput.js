@@ -5,11 +5,11 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl } from '../../util/reactIntl';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import Decimal from 'decimal.js';
-import { ValidationError } from '../../components';
+import { intlShape, injectIntl } from '../../util/reactIntl';
+import { ValidationError } from "..";
 import { types as sdkTypes } from '../../util/sdkLoader';
 import {
   isSafeNumber,
@@ -22,7 +22,6 @@ import {
 } from '../../util/currency';
 import { propTypes } from '../../util/types';
 import * as log from '../../util/log';
-
 import css from './FieldCurrencyInput.module.css';
 
 const { Money } = sdkTypes;
@@ -202,12 +201,12 @@ class CurrencyInputComponent extends Component {
       <input
         className={className}
         {...allowedInputProps(this.props)}
-        value={this.state.value}
-        onChange={this.onInputChange}
         onBlur={this.onInputBlur}
+        onChange={this.onInputChange}
         onFocus={this.onInputFocus}
-        type="text"
         placeholder={placeholderText}
+        type="text"
+        value={this.state.value}
       />
     );
   }
@@ -290,8 +289,6 @@ FieldCurrencyInputComponent.propTypes = {
   meta: object.isRequired,
 };
 
-const FieldCurrencyInput = props => {
-  return <Field component={FieldCurrencyInputComponent} {...props} />;
-};
+const FieldCurrencyInput = props => <Field component={FieldCurrencyInputComponent} {...props} />;
 
 export default FieldCurrencyInput;

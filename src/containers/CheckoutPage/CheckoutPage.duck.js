@@ -273,9 +273,7 @@ export const sendMessage = params => (dispatch, getState, sdk) => {
   if (message) {
     return sdk.messages
       .send({ transactionId: orderId, content: message })
-      .then(() => {
-        return { orderId, messageSuccess: true };
-      })
+      .then(() => ({ orderId, messageSuccess: true }))
       .catch(e => {
         log.error(e, 'initial-message-send-failed', { txId: orderId });
         return { orderId, messageSuccess: false };

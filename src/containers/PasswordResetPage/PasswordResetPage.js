@@ -19,8 +19,7 @@ import {
   Footer,
 } from '../../components';
 import { PasswordResetForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import { resetPassword } from './PasswordResetPage.duck';
 import css from './PasswordResetPage.module.css';
 
@@ -35,6 +34,7 @@ export class PasswordResetPageComponent extends Component {
     super(props);
     this.state = { newPasswordSubmitted: false };
   }
+
   render() {
     const {
       intl,
@@ -89,8 +89,8 @@ export class PasswordResetPageComponent extends Component {
         ) : null}
         <PasswordResetForm
           className={css.form}
-          onSubmit={handleSubmit}
           inProgress={resetPasswordInProgress}
+          onSubmit={handleSubmit}
         />
       </div>
     );
@@ -104,7 +104,7 @@ export class PasswordResetPageComponent extends Component {
         <p className={css.modalMessage}>
           <FormattedMessage id="PasswordResetPage.passwordChangedHelpText" />
         </p>
-        <NamedLink name="LoginPage" className={css.submitButton}>
+        <NamedLink className={css.submitButton} name="LoginPage">
           <FormattedMessage id="PasswordResetPage.loginButtonText" />
         </NamedLink>
       </div>
@@ -121,7 +121,7 @@ export class PasswordResetPageComponent extends Component {
     }
 
     return (
-      <Page title={title} scrollingDisabled={scrollingDisabled} referrer="origin">
+      <Page referrer="origin" scrollingDisabled={scrollingDisabled} title={title}>
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
             <TopbarContainer />

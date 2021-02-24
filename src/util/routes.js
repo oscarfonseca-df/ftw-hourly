@@ -48,9 +48,7 @@ export const matchPathname = (pathname, routeConfiguration) => {
     return matches;
   }, []);
 
-  const matchedExactRoute = matchedRoutes.find(r => {
-    return r.exact === true || r.exact == null;
-  });
+  const matchedExactRoute = matchedRoutes.find(r => r.exact === true || r.exact == null);
 
   // We return matched 'exact' path route only if such exists
   // and all matches if no exact flag exists.

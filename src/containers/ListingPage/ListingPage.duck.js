@@ -252,11 +252,7 @@ export const fetchReviews = listingId => (dispatch, getState, sdk) => {
     });
 };
 
-const timeSlotsRequest = params => (dispatch, getState, sdk) => {
-  return sdk.timeslots.query(params).then(response => {
-    return denormalisedResponseEntities(response);
-  });
-};
+const timeSlotsRequest = params => (dispatch, getState, sdk) => sdk.timeslots.query(params).then(response => denormalisedResponseEntities(response));
 
 export const fetchTimeSlots = (listingId, start, end, timeZone) => (dispatch, getState, sdk) => {
   const monthId = monthIdStringInTimeZone(start, timeZone);
@@ -340,7 +336,7 @@ export const fetchTransactionLineItems = ({ bookingData, listingId, isOwnListing
       dispatch(fetchLineItemsError(storableError(e)));
       log.error(e, 'fetching-line-items-failed', {
         listingId: listingId.uuid,
-        bookingData: bookingData,
+        bookingData,
       });
     });
 };

@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
-import { IconReviewUser, Modal } from '../../components';
+import { IconReviewUser, Modal } from "..";
 import { ReviewForm } from '../../forms';
-
 import css from './ReviewModal.module.css';
 
 const ReviewModal = props => {
@@ -30,14 +29,14 @@ const ReviewModal = props => {
 
   return (
     <Modal
-      id={id}
+      closeButtonMessage={closeButtonMessage}
       containerClassName={classes}
       contentClassName={css.modalContent}
+      id={id}
       isOpen={isOpen}
       onClose={onCloseModal}
       onManageDisableScrolling={onManageDisableScrolling}
       usePortal
-      closeButtonMessage={closeButtonMessage}
     >
       <IconReviewUser className={css.modalIcon} />
       <p className={css.modalTitle}>
@@ -49,8 +48,8 @@ const ReviewModal = props => {
       <ReviewForm
         onSubmit={onSubmitReview}
         reviewSent={reviewSent}
-        sendReviewInProgress={sendReviewInProgress}
         sendReviewError={sendReviewError}
+        sendReviewInProgress={sendReviewInProgress}
       />
     </Modal>
   );

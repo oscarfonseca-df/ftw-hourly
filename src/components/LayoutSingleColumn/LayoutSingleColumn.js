@@ -5,8 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { LayoutWrapperTopbar, LayoutWrapperMain, LayoutWrapperFooter } from '../../components';
-
+import { LayoutWrapperTopbar, LayoutWrapperMain, LayoutWrapperFooter } from "..";
 import css from './LayoutSingleColumn.module.css';
 
 const prepareChildren = children => {

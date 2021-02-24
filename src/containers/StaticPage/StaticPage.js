@@ -17,11 +17,9 @@ StaticPageComponent.propTypes = {
   children: node,
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     scrollingDisabled: isScrollingDisabled(state),
-  };
-};
+  });
 
 const StaticPage = connect(mapStateToProps)(StaticPageComponent);
 

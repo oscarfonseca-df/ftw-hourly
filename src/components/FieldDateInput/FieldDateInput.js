@@ -8,8 +8,7 @@ import React, { Component } from 'react';
 import { bool, func, object, string } from 'prop-types';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError } from '../../components';
-
+import { ValidationError } from "..";
 import DateInput from './DateInput';
 import css from './FieldDateInput.module.css';
 
@@ -124,9 +123,7 @@ FieldDateInputComponent.propTypes = {
   onChange: func,
 };
 
-const FieldDateInput = props => {
-  return <Field component={FieldDateInputComponent} {...props} />;
-};
+const FieldDateInput = props => <Field component={FieldDateInputComponent} {...props} />;
 
 export { DateInput };
 export default FieldDateInput;

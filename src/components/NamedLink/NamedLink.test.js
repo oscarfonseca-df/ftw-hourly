@@ -2,7 +2,7 @@ import React from 'react';
 import { renderShallow, renderDeep } from '../../util/test-helpers';
 import NamedLink, { NamedLinkComponent } from './NamedLink';
 
-describe('NamedLinkComponent', () => {
+describe('namedLinkComponent', () => {
   it('should mark the link as active if the current URL matches', () => {
     const activeClassName = 'my-active-class';
     const landingPageProps = {
@@ -31,7 +31,7 @@ describe('NamedLinkComponent', () => {
   });
 });
 
-describe('NamedLink', () => {
+describe('namedLink', () => {
   it('should contain correct link', () => {
     const id = 12;
     const tree = renderDeep(

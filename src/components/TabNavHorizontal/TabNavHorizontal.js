@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { InlineTextButton, NamedLink } from '../../components';
-
+import { InlineTextButton, NamedLink } from "..";
 import css from './TabNavHorizontal.module.css';
 
 export const LIGHT_SKIN = 'light';
@@ -43,7 +42,7 @@ const Tab = props => {
   return (
     <div className={className}>
       {isButton ? (
-        <InlineTextButton rootClassName={buttonClasses} onClick={onClick}>
+        <InlineTextButton onClick={onClick} rootClassName={buttonClasses}>
           {text}
         </InlineTextButton>
       ) : (

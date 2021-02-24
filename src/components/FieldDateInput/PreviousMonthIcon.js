@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './DateInput.module.css';
 
 const PreviousMonthIcon = props => {
@@ -11,9 +10,9 @@ const PreviousMonthIcon = props => {
   return (
     <svg
       className={classes}
-      width="9"
       height="13"
       viewBox="0 0 9 13"
+      width="9"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path

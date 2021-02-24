@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './Topbar.module.css';
 
 const SearchIcon = props => {
@@ -11,18 +10,18 @@ const SearchIcon = props => {
   return (
     <svg
       className={classes}
-      width="18"
       height="18"
       viewBox="0 0 18 18"
+      width="18"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
-        transform="matrix(-1 0 0 1 17 1)"
-        strokeWidth="2"
         fill="none"
         fillRule="evenodd"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="2"
+        transform="matrix(-1 0 0 1 17 1)"
       >
         <path d="M11.733 11.733l3.727 3.727" />
         <circle cx="6.4" cy="6.4" r="6.4" />

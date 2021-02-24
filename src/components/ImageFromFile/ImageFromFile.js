@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { Promised } from '../../components';
-
+import { FormattedMessage } from '../../util/reactIntl';
+import { Promised } from "..";
 import css from './ImageFromFile.module.css';
 
 // readImage returns a promise which is resolved
@@ -11,12 +10,12 @@ import css from './ImageFromFile.module.css';
 const readImage = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = e => resolve(e.target.result);
-    reader.onerror = e => {
+    reader.addEventListener('load', e => resolve(e.target.result));
+    reader.addEventListener('error', e => {
       // eslint-disable-next-line
       console.error('Error (', e, `) happened while reading ${file.name}: ${e.target.result}`);
       reject(new Error(`Error reading ${file.name}: ${e.target.result}`));
-    };
+    });
     reader.readAsDataURL(file);
   });
 
@@ -37,18 +36,16 @@ class ImageFromFile extends Component {
       <Promised
         key={id}
         promise={this.state.promisedImage}
-        renderFulfilled={dataURL => {
-          return (
+        renderFulfilled={dataURL => (
             <div className={classes}>
               <div className={css.threeToTwoWrapper}>
                 <div className={aspectRatioClasses}>
-                  <img src={dataURL} alt={file.name} className={css.rootForImage} />
+                  <img alt={file.name} className={css.rootForImage} src={dataURL} />
                 </div>
               </div>
               {children}
             </div>
-          );
-        }}
+          )}
         renderRejected={() => (
           <div className={classes}>
             <FormattedMessage id="ImageFromFile.couldNotReadFile" />

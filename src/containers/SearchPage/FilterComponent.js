@@ -34,10 +34,10 @@ const FilterComponent = props => {
       return (
         <SelectSingleFilter
           id={componentId}
-          label={label}
-          queryParamNames={queryParamNames}
           initialValues={initialValues(queryParamNames)}
+          label={label}
           onSelect={getHandleChangedValueFn(useHistoryPush)}
+          queryParamNames={queryParamNames}
           {...config}
           {...rest}
         />
@@ -47,11 +47,11 @@ const FilterComponent = props => {
       return (
         <SelectMultipleFilter
           id={componentId}
+          initialValues={initialValues(queryParamNames)}
           label={label}
           name={name}
-          queryParamNames={queryParamNames}
-          initialValues={initialValues(queryParamNames)}
           onSubmit={getHandleChangedValueFn(useHistoryPush)}
+          queryParamNames={queryParamNames}
           {...config}
           {...rest}
         />
@@ -61,10 +61,10 @@ const FilterComponent = props => {
       return (
         <BookingDateRangeFilter
           id={componentId}
-          label={label}
-          queryParamNames={queryParamNames}
           initialValues={initialValues(queryParamNames)}
+          label={label}
           onSubmit={getHandleChangedValueFn(useHistoryPush)}
+          queryParamNames={queryParamNames}
           {...config}
           {...rest}
         />
@@ -73,12 +73,12 @@ const FilterComponent = props => {
     case 'BookingDateRangeLengthFilter': {
       return (
         <BookingDateRangeLengthFilter
-          id={componentId}
-          label={label}
-          queryParamNames={queryParamNames}
-          initialValues={initialValues(queryParamNames)}
-          onSubmit={getHandleChangedValueFn(useHistoryPush)}
           dateRangeLengthFilter={filterConfig}
+          id={componentId}
+          initialValues={initialValues(queryParamNames)}
+          label={label}
+          onSubmit={getHandleChangedValueFn(useHistoryPush)}
+          queryParamNames={queryParamNames}
           {...rest}
         />
       );
@@ -87,10 +87,10 @@ const FilterComponent = props => {
       return (
         <PriceFilter
           id={componentId}
-          label={label}
-          queryParamNames={queryParamNames}
           initialValues={initialValues(queryParamNames)}
+          label={label}
           onSubmit={getHandleChangedValueFn(useHistoryPush)}
+          queryParamNames={queryParamNames}
           {...config}
           {...rest}
         />
@@ -100,11 +100,11 @@ const FilterComponent = props => {
       return (
         <KeywordFilter
           id={componentId}
+          initialValues={initialValues(queryParamNames)}
           label={label}
           name={name}
-          queryParamNames={queryParamNames}
-          initialValues={initialValues(queryParamNames)}
           onSubmit={getHandleChangedValueFn(useHistoryPush)}
+          queryParamNames={queryParamNames}
           {...config}
           {...rest}
         />

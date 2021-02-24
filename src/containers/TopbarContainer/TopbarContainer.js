@@ -36,23 +36,23 @@ export const TopbarContainerComponent = props => {
   return (
     <Topbar
       authInProgress={authInProgress}
+      authScopes={authScopes}
       currentPage={currentPage}
       currentSearchParams={currentSearchParams}
       currentUser={currentUser}
       currentUserHasListings={currentUserHasListings}
+      currentUserHasOrders={currentUserHasOrders}
       currentUserListing={currentUserListing}
       currentUserListingFetched={currentUserListingFetched}
-      currentUserHasOrders={currentUserHasOrders}
       history={history}
       isAuthenticated={isAuthenticated}
-      authScopes={authScopes}
       location={location}
       notificationCount={notificationCount}
       onLogout={onLogout}
       onManageDisableScrolling={onManageDisableScrolling}
       onResendVerificationEmail={onResendVerificationEmail}
-      sendVerificationEmailInProgress={sendVerificationEmailInProgress}
       sendVerificationEmailError={sendVerificationEmailError}
+      sendVerificationEmailInProgress={sendVerificationEmailInProgress}
       showGenericError={hasGenericError}
       {...rest}
     />

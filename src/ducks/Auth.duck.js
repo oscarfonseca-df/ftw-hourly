@@ -1,8 +1,8 @@
 import isEmpty from 'lodash/isEmpty';
-import { clearCurrentUser, fetchCurrentUser } from './user.duck';
 import { createUserWithIdp } from '../util/api';
 import { storableError } from '../util/errors';
 import * as log from '../util/log';
+import { clearCurrentUser, fetchCurrentUser } from './user.duck';
 
 const authenticated = authInfo => authInfo && authInfo.isAnonymous === false;
 
@@ -224,9 +224,7 @@ export const signup = params => (dispatch, getState, sdk) => {
 export const signupWithIdp = params => (dispatch, getState, sdk) => {
   dispatch(confirmRequest());
   return createUserWithIdp(params)
-    .then(res => {
-      return dispatch(confirmSuccess());
-    })
+    .then(res => dispatch(confirmSuccess()))
     .then(() => dispatch(fetchCurrentUser()))
     .catch(e => {
       log.error(e, 'create-user-with-idp-failed', { params });

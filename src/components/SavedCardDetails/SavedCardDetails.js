@@ -14,7 +14,7 @@ import {
   MenuItem,
   MenuContent,
   Modal,
-} from '../../components';
+} from "..";
 import css from './SavedCardDetails.module.css';
 
 const DEFAULT_CARD = 'defaultCard';
@@ -74,7 +74,7 @@ const SavedCardDetails = props => {
   const isExpired = (expirationMonth, expirationYear) => {
     const currentTime = new Date();
     const currentYear = currentTime.getFullYear();
-    const currentMonth = currentTime.getMonth() + 1; //getMonth() method returns the month (from 0 to 11)
+    const currentMonth = currentTime.getMonth() + 1; // getMonth() method returns the month (from 0 to 11)
 
     if (expirationYear < currentYear) {
       return true;
@@ -142,10 +142,10 @@ const SavedCardDetails = props => {
             {active === DEFAULT_CARD ? defaultCard : replaceCard}
             <span>
               <IconArrowHead
-                direction="down"
-                size="small"
-                rootClassName={css.iconArrow}
                 className={iconArrowClassName}
+                direction="down"
+                rootClassName={css.iconArrow}
+                size="small"
               />
             </span>
           </div>
@@ -181,7 +181,7 @@ const SavedCardDetails = props => {
       {showExpired && !menuOpen ? expiredText : null}
 
       {onDeleteCard && active !== REPLACE_CARD ? (
-        <InlineTextButton onClick={handleDeleteCard} className={css.savedPaymentMethodDelete}>
+        <InlineTextButton className={css.savedPaymentMethodDelete} onClick={handleDeleteCard}>
           <IconClose rootClassName={css.closeIcon} size="small" />
           {deletePaymentMethod}
         </InlineTextButton>
@@ -189,27 +189,27 @@ const SavedCardDetails = props => {
 
       {onManageDisableScrolling ? (
         <Modal
+          contentClassName={css.modalContent}
           id="VerifyDeletingPaymentMethod"
           isOpen={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
           }}
-          usePortal
-          contentClassName={css.modalContent}
           onManageDisableScrolling={onManageDisableScrolling}
+          usePortal
         >
           <div>
             <div className={css.modalTitle}>{removeCardModalTitle}</div>
             <p className={css.modalMessage}>{removeCardModalContent}</p>
             <div className={css.modalButtonsWrapper}>
               <div
-                onClick={() => setIsModalOpen(false)}
                 className={css.cancelCardDelete}
+                onClick={() => setIsModalOpen(false)}
                 tabIndex="0"
               >
                 {cancel}
               </div>
-              <Button onClick={onDeleteCard} inProgress={deletePaymentMethodInProgress}>
+              <Button inProgress={deletePaymentMethodInProgress} onClick={onDeleteCard}>
                 {removeCard}
               </Button>
             </div>

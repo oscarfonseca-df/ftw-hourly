@@ -5,10 +5,9 @@ import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
-import { ListingLink } from '../../components';
+import { ListingLink } from "..";
 import { EditListingDescriptionForm } from '../../forms';
 import config from '../../config';
-
 import css from './EditListingDescriptionPanel.module.css';
 
 const EditListingDescriptionPanel = props => {
@@ -51,9 +50,12 @@ const EditListingDescriptionPanel = props => {
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingDescriptionForm
+        certificateOptions={certificateOptions}
         className={css.form}
+        disabled={disabled}
+        fetchErrors={errors}
         initialValues={{ title, description, certificate: publicData.certificate }}
-        saveActionMsg={submitButtonText}
+        onChange={onChange}
         onSubmit={values => {
           const { title, description, certificate } = values;
           const updateValues = {
@@ -64,13 +66,10 @@ const EditListingDescriptionPanel = props => {
 
           onSubmit(updateValues);
         }}
-        onChange={onChange}
-        disabled={disabled}
         ready={ready}
+        saveActionMsg={submitButtonText}
         updated={panelUpdated}
         updateInProgress={updateInProgress}
-        fetchErrors={errors}
-        certificateOptions={certificateOptions}
       />
     </div>
   );

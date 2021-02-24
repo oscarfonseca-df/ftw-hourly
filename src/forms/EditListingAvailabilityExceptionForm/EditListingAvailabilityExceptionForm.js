@@ -3,7 +3,6 @@ import { array, bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
-
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import {
@@ -35,7 +34,6 @@ import {
   IconArrowHead,
   PrimaryButton,
 } from '../../components';
-
 import css from './EditListingAvailabilityExceptionForm.module.css';
 
 const TODAY = new Date();
@@ -54,15 +52,11 @@ const firstAvailableStartTime = availableStartTimes =>
     ? availableStartTimes[0].timestamp
     : null;
 
-const endOfAvailabilityExceptionRange = (timeZone, date) => {
-  return resetToStartOfDay(date, timeZone, MAX_AVAILABILITY_EXCEPTIONS_RANGE - 1);
-};
+const endOfAvailabilityExceptionRange = (timeZone, date) => resetToStartOfDay(date, timeZone, MAX_AVAILABILITY_EXCEPTIONS_RANGE - 1);
 
 // Ensure that AvailabilityExceptions are in sensible order.
 // NOTE: this sorting can only be used for non-paginated list of exceptions (page size is max 100)
-const sortExceptionsByStartTime = (a, b) => {
-  return a.attributes.start.getTime() - b.attributes.start.getTime();
-};
+const sortExceptionsByStartTime = (a, b) => a.attributes.start.getTime() - b.attributes.start.getTime();
 
 // Convert exceptions list to inverted array of time-ranges that are available for new exceptions.
 const getAvailableTimeRangesForExceptions = (exceptions, timeZone) => {
@@ -192,11 +186,9 @@ const getAvailableEndTimes = (
 };
 
 // Get time-ranges on given date.
-const getTimeRanges = (timeRanges, date, timeZone) => {
-  return timeRanges && timeRanges[0] && date
+const getTimeRanges = (timeRanges, date, timeZone) => timeRanges && timeRanges[0] && date
     ? timeRanges.filter(t => isInRange(date, t.start, t.end, 'day', timeZone))
     : [];
-};
 
 // Use start date to calculate the first possible start time or times, end date and end time or times.
 // If the selected value is passed to function it will be used instead of calculated value.
@@ -217,11 +209,9 @@ const getAllTimeValues = (
         timeZone
       );
 
-  const startTime = selectedStartTime
-    ? selectedStartTime
-    : startTimes.length > 0 && startTimes[0] && startTimes[0].timestamp
+  const startTime = selectedStartTime || (startTimes.length > 0 && startTimes[0] && startTimes[0].timestamp
     ? startTimes[0].timestamp
-    : null;
+    : null);
 
   const startTimeAsDate = startTime ? timestampToDate(startTime) : null;
 
@@ -229,11 +219,9 @@ const getAllTimeValues = (
   // date would be the next day at 00:00 the day in the form is still correct.
   // Because we are only using the date and not the exact time we can remove the
   // 1ms.
-  const endDate = selectedEndDate
-    ? selectedEndDate
-    : startTimeAsDate
+  const endDate = selectedEndDate || (startTimeAsDate
     ? new Date(findNextBoundary(timeZone, startTimeAsDate).getTime() - 1)
-    : null;
+    : null);
 
   const selectedTimeRange = timeRanges.find(t => isInRange(startTimeAsDate, t.start, t.end));
 
@@ -371,9 +359,9 @@ const onExceptionEndDateChange = (value, timeRangesOnSelectedDate, props) => {
   form.change('exceptionEndTime', endTime);
 };
 
-/////////////////
+// ///////////////
 // Next & Prev //
-/////////////////
+// ///////////////
 
 // Components for the react-dates calendar
 const Next = props => {
@@ -394,9 +382,9 @@ const Prev = props => {
   ) : null;
 };
 
-//////////////////////////////////////////
+// ////////////////////////////////////////
 // EditListingAvailabilityExceptionForm //
-//////////////////////////////////////////
+// ////////////////////////////////////////
 const EditListingAvailabilityExceptionForm = props => {
   const [currentMonth, setCurrentMonth] = useState(getMonthStartInTimeZone(TODAY, props.timeZone));
   return (
@@ -521,22 +509,22 @@ const EditListingAvailabilityExceptionForm = props => {
 
             <div className={css.radioButtons}>
               <FieldRadioButton
-                id={`${idPrefix}.available`}
-                name="availability"
-                label={intl.formatMessage({ id: 'EditListingAvailabilityExceptionForm.available' })}
-                value="available"
                 checkedClassName={css.checkedAvailable}
+                id={`${idPrefix}.available`}
+                label={intl.formatMessage({ id: 'EditListingAvailabilityExceptionForm.available' })}
+                name="availability"
                 showAsRequired={pristine}
+                value="available"
               />
               <FieldRadioButton
+                checkedClassName={css.checkedNotAvailable}
                 id={`${idPrefix}.not-available`}
-                name="availability"
                 label={intl.formatMessage({
                   id: 'EditListingAvailabilityExceptionForm.notAvailable',
                 })}
-                value="not-available"
-                checkedClassName={css.checkedNotAvailable}
+                name="availability"
                 showAsRequired={pristine}
+                value="not-available"
               />
             </div>
             <div className={css.section}>
@@ -544,37 +532,37 @@ const EditListingAvailabilityExceptionForm = props => {
                 <div className={css.field}>
                   <FieldDateInput
                     className={css.fieldDateInput}
-                    name="exceptionStartDate"
+                    format={formatFieldDateInput(timeZone)}
                     id={`${idPrefix}.exceptionStartDate`}
+                    isDayBlocked={isDayBlocked(availableTimeRanges, timeZone)}
                     label={intl.formatMessage({
                       id: 'EditListingAvailabilityExceptionForm.exceptionStartDateLabel',
                     })}
-                    placeholderText={intl.formatDate(TODAY, dateFormattingOptions)}
-                    format={formatFieldDateInput(timeZone)}
-                    parse={parseFieldDateInput(timeZone)}
-                    isDayBlocked={isDayBlocked(availableTimeRanges, timeZone)}
+                    name="exceptionStartDate"
+                    navNext={<Next currentMonth={currentMonth} timeZone={timeZone} />}
+                    navPrev={<Prev currentMonth={currentMonth} timeZone={timeZone} />}
                     onChange={value =>
                       onExceptionStartDateChange(value, availableTimeRanges, formRenderProps)
                     }
-                    onPrevMonthClick={() => handleMonthClick(prevMonthFn)}
                     onNextMonthClick={() => handleMonthClick(nextMonthFn)}
-                    navNext={<Next currentMonth={currentMonth} timeZone={timeZone} />}
-                    navPrev={<Prev currentMonth={currentMonth} timeZone={timeZone} />}
-                    useMobileMargins
+                    onPrevMonthClick={() => handleMonthClick(prevMonthFn)}
+                    parse={parseFieldDateInput(timeZone)}
+                    placeholderText={intl.formatDate(TODAY, dateFormattingOptions)}
                     showErrorMessage={false}
+                    useMobileMargins
                     validate={bookingDateRequired('Required')}
                   />
                 </div>
                 <div className={css.field}>
                   <FieldSelect
-                    name="exceptionStartTime"
-                    id={`${idPrefix}.exceptionStartTime`}
                     className={exceptionStartDate ? css.fieldSelect : css.fieldSelectDisabled}
-                    selectClassName={exceptionStartDate ? css.select : css.selectDisabled}
                     disabled={startTimeDisabled}
+                    id={`${idPrefix}.exceptionStartTime`}
+                    name="exceptionStartTime"
                     onChange={value =>
                       onExceptionStartTimeChange(value, timeRangesOnSelectedDate, formRenderProps)
                     }
+                    selectClassName={exceptionStartDate ? css.select : css.selectDisabled}
                   >
                     {exceptionStartDay ? (
                       availableStartTimes.map(p => (
@@ -591,38 +579,38 @@ const EditListingAvailabilityExceptionForm = props => {
               <div className={css.formRow}>
                 <div className={css.field}>
                   <FieldDateInput
-                    name="exceptionEndDate"
-                    id={`${idPrefix}.exceptionEndDate`}
                     className={css.fieldDateInput}
+                    disabled={endDateDisabled}
+                    format={formatFieldDateInput(timeZone)}
+                    id={`${idPrefix}.exceptionEndDate`}
+                    isDayBlocked={isDayBlocked(availableTimeRanges, timeZone)}
+                    isOutsideRange={isOutsideRange(exceptionStartDay, selectedTimeRange, timeZone)}
                     label={intl.formatMessage({
                       id: 'EditListingAvailabilityExceptionForm.exceptionEndDateLabel',
                     })}
-                    placeholderText={intl.formatDate(TODAY, dateFormattingOptions)}
-                    format={formatFieldDateInput(timeZone)}
-                    parse={parseFieldDateInput(timeZone)}
-                    isDayBlocked={isDayBlocked(availableTimeRanges, timeZone)}
+                    name="exceptionEndDate"
+                    navNext={<Next currentMonth={currentMonth} timeZone={timeZone} />}
+                    navPrev={<Prev currentMonth={currentMonth} timeZone={timeZone} />}
                     onChange={value =>
                       onExceptionEndDateChange(value, timeRangesOnSelectedDate, formRenderProps)
                     }
-                    onPrevMonthClick={() => handleMonthClick(prevMonthFn)}
                     onNextMonthClick={() => handleMonthClick(nextMonthFn)}
-                    navNext={<Next currentMonth={currentMonth} timeZone={timeZone} />}
-                    navPrev={<Prev currentMonth={currentMonth} timeZone={timeZone} />}
-                    isOutsideRange={isOutsideRange(exceptionStartDay, selectedTimeRange, timeZone)}
-                    useMobileMargins
+                    onPrevMonthClick={() => handleMonthClick(prevMonthFn)}
+                    parse={parseFieldDateInput(timeZone)}
+                    placeholderText={intl.formatDate(TODAY, dateFormattingOptions)}
                     showErrorMessage={false}
-                    validate={bookingDateRequired('Required')}
-                    disabled={endDateDisabled}
                     showLabelAsDisabled={endDateDisabled}
+                    useMobileMargins
+                    validate={bookingDateRequired('Required')}
                   />
                 </div>
                 <div className={css.field}>
                   <FieldSelect
-                    name="exceptionEndTime"
-                    id={`${idPrefix}.exceptionEndTime`}
                     className={exceptionStartDate ? css.fieldSelect : css.fieldSelectDisabled}
-                    selectClassName={exceptionStartDate ? css.select : css.selectDisabled}
                     disabled={endTimeDisabled}
+                    id={`${idPrefix}.exceptionEndTime`}
+                    name="exceptionEndTime"
+                    selectClassName={exceptionStartDate ? css.select : css.selectDisabled}
                   >
                     {exceptionStartDay && exceptionStartTime && endDate ? (
                       availableEndTimes.map((p, i) => {
@@ -649,7 +637,7 @@ const EditListingAvailabilityExceptionForm = props => {
                   <FormattedMessage id="EditListingAvailabilityExceptionForm.updateFailed" />
                 </p>
               ) : null}
-              <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
+              <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
                 <FormattedMessage id="EditListingAvailabilityExceptionForm.addException" />
               </PrimaryButton>
             </div>

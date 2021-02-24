@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { any, arrayOf, bool, func, number, shape, string, oneOfType, object } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import { IconSpinner } from '../../components';
+import { FormattedMessage } from '../../util/reactIntl';
+import { IconSpinner } from "..";
 import { propTypes } from '../../util/types';
 import config from '../../config';
-
 import IconHourGlass from './IconHourGlass';
 import IconCurrentLocation from './IconCurrentLocation';
 import Geocoder, { GeocoderAttribution, CURRENT_LOCATION_ID } from './GeocoderMapbox';
@@ -63,27 +62,27 @@ const LocationPredictionsList = props => {
 
     return (
       <li
-        className={isHighlighted ? css.highlighted : null}
         key={predictionId}
-        onTouchStart={e => {
-          e.preventDefault();
-          onSelectStart(getTouchCoordinates(e.nativeEvent));
-        }}
+        className={isHighlighted ? css.highlighted : null}
         onMouseDown={e => {
           e.preventDefault();
           onSelectStart();
         }}
-        onTouchMove={e => {
+        onMouseUp={e => {
           e.preventDefault();
-          onSelectMove(getTouchCoordinates(e.nativeEvent));
+          onSelectEnd(prediction);
         }}
         onTouchEnd={e => {
           e.preventDefault();
           onSelectEnd(prediction);
         }}
-        onMouseUp={e => {
+        onTouchMove={e => {
           e.preventDefault();
-          onSelectEnd(prediction);
+          onSelectMove(getTouchCoordinates(e.nativeEvent));
+        }}
+        onTouchStart={e => {
+          e.preventDefault();
+          onSelectStart(getTouchCoordinates(e.nativeEvent));
         }}
       >
         {predictionId === CURRENT_LOCATION_ID ? (
@@ -336,6 +335,7 @@ class LocationAutocompleteInputImpl extends Component {
         });
       });
   }
+
   selectItemIfNoneSelected() {
     if (this.state.fetchingPredictions) {
       // No need to select anything since prediction fetch is still going on
@@ -353,6 +353,7 @@ class LocationAutocompleteInputImpl extends Component {
       }
     }
   }
+
   predict(search) {
     const onChange = this.props.input.onChange;
     this.setState({ fetchingPredictions: true });
@@ -487,35 +488,35 @@ class LocationAutocompleteInputImpl extends Component {
           )}
         </div>
         <input
-          className={inputClass}
-          type="search"
-          autoComplete="off"
-          autoFocus={autoFocus}
-          placeholder={placeholder}
-          name={name}
-          value={search}
-          disabled={this.state.fetchingPlaceDetails}
-          onFocus={handleOnFocus}
-          onBlur={this.handleOnBlur}
-          onChange={this.onChange}
-          onKeyDown={this.onKeyDown}
           ref={node => {
             this.input = node;
             if (inputRef) {
               inputRef(node);
             }
           }}
+          autoComplete="off"
+          autoFocus={autoFocus}
+          className={inputClass}
+          disabled={this.state.fetchingPlaceDetails}
+          name={name}
+          onBlur={this.handleOnBlur}
+          onChange={this.onChange}
+          onFocus={handleOnFocus}
+          onKeyDown={this.onKeyDown}
+          placeholder={placeholder}
+          type="search"
+          value={search}
         />
         {renderPredictions ? (
           <LocationPredictionsList
-            rootClassName={predictionsClass}
             attributionClassName={predictionsAttributionClassName}
-            predictions={predictions}
             geocoder={this.getGeocoder()}
             highlightedIndex={this.state.highlightedIndex}
-            onSelectStart={this.handlePredictionsSelectStart}
-            onSelectMove={this.handlePredictionsSelectMove}
             onSelectEnd={this.handlePredictionsSelectEnd}
+            onSelectMove={this.handlePredictionsSelectMove}
+            onSelectStart={this.handlePredictionsSelectStart}
+            predictions={predictions}
+            rootClassName={predictionsClass}
           />
         ) : null}
       </div>

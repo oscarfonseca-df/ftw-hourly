@@ -128,24 +128,24 @@ const FormComponent = props => (
 
       return (
         <form
-          style={style}
           onSubmit={e => {
             e.preventDefault();
             handleSubmit(e);
           }}
+          style={style}
         >
           <FormSpy onChange={onChange} />
           <FieldDateAndTimeInput
             {...dateInputProps}
+            form={form}
+            intl={intl}
             monthlyTimeSlots={monthlyTimeSlots}
             onFetchTimeSlots={onFetchTimeSlots}
-            values={values}
-            intl={intl}
-            form={form}
             pristine={pristine}
             timeZone={timeZone}
+            values={values}
           />
-          <Button type="submit" disabled={submitDisabled} style={{ marginTop: '24px' }}>
+          <Button disabled={submitDisabled} style={{ marginTop: '24px' }} type="submit">
             Select
           </Button>
         </form>

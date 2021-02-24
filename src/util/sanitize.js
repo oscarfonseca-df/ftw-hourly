@@ -9,10 +9,10 @@
 
 const ESCAPE_TEXT_REGEXP = /[<>]/g;
 const ESCAPE_TEXT_REPLACEMENTS = {
-  //fullwidth lesser-than character
-  '<': '\uff1c',
-  //fullwidth greater-than character
-  '>': '\uff1e',
+  // fullwidth lesser-than character
+  '<': '\uFF1C',
+  // fullwidth greater-than character
+  '>': '\uFF1E',
 };
 
 // An example how you could sanitize text content.
@@ -36,15 +36,15 @@ export const sanitizeUser = entity => {
   const { profile, ...restAttributes } = attributes || {};
   const { bio, displayName, abbreviatedName, publicData, metadata } = profile || {};
 
-  const sanitizePublicData = publicData => {
+  const sanitizePublicData = publicData => 
     // TODO: If you add public data, you should probably sanitize it here.
-    return publicData ? { publicData } : {};
-  };
-  const sanitizeMetadata = metadata => {
+     publicData ? { publicData } : {}
+  ;
+  const sanitizeMetadata = metadata => 
     // TODO: If you add user-generated metadata through Integration API,
     // you should probably sanitize it here.
-    return metadata ? { metadata } : {};
-  };
+     metadata ? { metadata } : {}
+  ;
 
   const profileMaybe = profile
     ? {

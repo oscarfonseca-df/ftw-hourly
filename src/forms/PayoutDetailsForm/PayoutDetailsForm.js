@@ -15,16 +15,15 @@
 import React from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import { propTypes } from '../../util/types';
 import { isStripeInvalidPostalCode, isStripeError } from '../../util/errors';
 import * as validators from '../../util/validators';
 import { Button, ExternalLink, FieldRadioButton, FieldSelect, Form } from '../../components';
-
 import PayoutDetailsCompanyAccount from './PayoutDetailsCompanyAccount';
 import PayoutDetailsIndividualAccount from './PayoutDetailsIndividualAccount';
 import css from './PayoutDetailsForm.module.css';
@@ -120,7 +119,7 @@ const PayoutDetailsFormComponent = props => (
       }
 
       const stripeConnectedAccountTermsLink = (
-        <ExternalLink href="https://stripe.com/connect-account/legal" className={css.termsLink}>
+        <ExternalLink className={css.termsLink} href="https://stripe.com/connect-account/legal">
           <FormattedMessage id="PayoutDetailsForm.stripeConnectedAccountTermsLink" />
         </ExternalLink>
       );
@@ -134,17 +133,17 @@ const PayoutDetailsFormComponent = props => (
             <div className={css.radioButtonRow}>
               <FieldRadioButton
                 id="individual"
-                name="accountType"
                 label={individualAccountLabel}
-                value="individual"
+                name="accountType"
                 showAsRequired={showAsRequired}
+                value="individual"
               />
               <FieldRadioButton
                 id="company"
-                name="accountType"
                 label={companyAccountLabel}
-                value="company"
+                name="accountType"
                 showAsRequired={showAsRequired}
+                value="company"
               />
             </div>
           </div>
@@ -154,12 +153,12 @@ const PayoutDetailsFormComponent = props => (
               <div className={css.sectionContainer}>
                 <h3 className={css.subTitle}>Country</h3>
                 <FieldSelect
-                  id="country"
-                  name="country"
-                  disabled={disabled}
-                  className={css.selectCountry}
                   autoComplete="country"
+                  className={css.selectCountry}
+                  disabled={disabled}
+                  id="country"
                   label={countryLabel}
+                  name="country"
                   validate={countryRequired}
                 >
                   <option disabled value="">
@@ -175,14 +174,14 @@ const PayoutDetailsFormComponent = props => (
 
               {showIndividual ? (
                 <PayoutDetailsIndividualAccount
-                  fieldRenderProps={fieldRenderProps}
                   country={country}
                   currentUserId={currentUserId}
+                  fieldRenderProps={fieldRenderProps}
                 />
               ) : showCompany ? (
                 <PayoutDetailsCompanyAccount
-                  fieldRenderProps={fieldRenderProps}
                   country={country}
+                  fieldRenderProps={fieldRenderProps}
                 />
               ) : null}
 
@@ -196,14 +195,12 @@ const PayoutDetailsFormComponent = props => (
               </p>
               <Button
                 className={css.submitButton}
-                type="submit"
-                inProgress={submitInProgress}
                 disabled={submitDisabled}
+                inProgress={submitInProgress}
                 ready={ready}
+                type="submit"
               >
-                {submitButtonText ? (
-                  submitButtonText
-                ) : (
+                {submitButtonText || (
                   <FormattedMessage id="PayoutDetailsForm.submitButtonText" />
                 )}
               </Button>

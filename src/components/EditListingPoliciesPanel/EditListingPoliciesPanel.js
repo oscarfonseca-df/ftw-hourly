@@ -4,9 +4,8 @@ import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ensureOwnListing } from '../../util/data';
-import { ListingLink } from '../../components';
+import { ListingLink } from "..";
 import { EditListingPoliciesForm } from '../../forms';
-
 import css from './EditListingPoliciesPanel.module.css';
 
 const EditListingPoliciesPanel = props => {
@@ -43,8 +42,10 @@ const EditListingPoliciesPanel = props => {
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingPoliciesForm
         className={css.form}
-        publicData={publicData}
+        disabled={disabled}
+        fetchErrors={errors}
         initialValues={{ rules: publicData.rules }}
+        onChange={onChange}
         onSubmit={values => {
           const { rules = '' } = values;
           const updateValues = {
@@ -54,13 +55,11 @@ const EditListingPoliciesPanel = props => {
           };
           onSubmit(updateValues);
         }}
-        onChange={onChange}
-        disabled={disabled}
+        publicData={publicData}
         ready={ready}
         saveActionMsg={submitButtonText}
         updated={panelUpdated}
         updateInProgress={updateInProgress}
-        fetchErrors={errors}
       />
     </div>
   );

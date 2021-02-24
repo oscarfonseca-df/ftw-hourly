@@ -2,11 +2,10 @@ import React from 'react';
 import { bool, func, shape, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm } from 'react-final-form';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { Form, Button, FieldTextInput } from '../../components';
-
 import css from './EditListingPoliciesForm.module.css';
 
 export const EditListingPoliciesFormComponent = props => (
@@ -57,20 +56,20 @@ export const EditListingPoliciesFormComponent = props => (
           {errorMessageShowListing}
 
           <FieldTextInput
-            id="rules"
-            name="rules"
             className={css.policy}
-            type="textarea"
+            id="rules"
             label={rulesLabelMessage}
+            name="rules"
             placeholder={rulesPlaceholderMessage}
+            type="textarea"
           />
 
           <Button
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
             ready={submitReady}
+            type="submit"
           >
             {saveActionMsg}
           </Button>

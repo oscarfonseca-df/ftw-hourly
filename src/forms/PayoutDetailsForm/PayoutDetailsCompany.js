@@ -3,7 +3,6 @@ import { bool, string } from 'prop-types';
 import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { FieldPhoneNumberInput, FieldTextInput } from '../../components';
-
 import * as normalizePhoneNumberUS from './normalizePhoneNumberUS';
 import PayoutDetailsBusinessProfile from './PayoutDetailsBusinessProfile';
 import css from './PayoutDetailsForm.module.css';
@@ -65,24 +64,24 @@ const PayoutDetailsCompany = props => {
         <FormattedMessage id="PayoutDetailsForm.companyDetailsTitle" />
       </h3>
       <FieldTextInput
-        id={`${fieldId}.name`}
-        name={`${fieldId}.name`}
-        className={css.textInputRow}
         autoComplete="organization"
+        className={css.textInputRow}
         disabled={disabled}
+        id={`${fieldId}.name`}
         label={companyNameLabel}
+        name={`${fieldId}.name`}
         placeholder={companyNamePlaceholder}
         type="text"
         validate={companyNameRequired}
       />
 
       <FieldTextInput
-        id={`${fieldId}.taxId`}
-        name={`${fieldId}.taxId`}
-        className={css.textInputRow}
         autoComplete="company-tax-id"
+        className={css.textInputRow}
         disabled={disabled}
+        id={`${fieldId}.taxId`}
         label={companyTaxIdLabel}
+        name={`${fieldId}.taxId`}
         placeholder={companyTaxIdPlaceholder}
         type="text"
         validate={companyTaxIdRequired}
@@ -91,19 +90,19 @@ const PayoutDetailsCompany = props => {
       <PayoutDetailsBusinessProfile
         disabled={disabled}
         fieldId={`${fieldId}.businessProfile`}
+        intl={intl}
         showBusinessURLField={showBusinessURLField}
         showMCCForUSField={showMCCForUSField}
-        intl={intl}
       />
 
       {showPhoneNumberField ? (
         <FieldPhoneNumberInput
-          id={`${fieldId}.phone`}
-          name={`${fieldId}.phone`}
-          className={css.textInputRow}
           autoComplete="tel-national"
-          label={phoneLabel}
+          className={css.textInputRow}
           format={normalizePhoneNumberUS.format}
+          id={`${fieldId}.phone`}
+          label={phoneLabel}
+          name={`${fieldId}.phone`}
           parse={normalizePhoneNumberUS.parse}
           placeholder={phonePlaceholder}
           type="text"

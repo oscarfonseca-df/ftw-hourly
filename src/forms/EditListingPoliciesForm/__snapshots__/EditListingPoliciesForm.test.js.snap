@@ -27,3 +27,31 @@ exports[`EditListingPoliciesForm matches snapshot 1`] = `
   updated={false}
 />
 `;
+
+exports[`editListingPoliciesForm matches snapshot 1`] = `
+<ReactFinalForm
+  disabled={false}
+  dispatch={[Function]}
+  intl={
+    Object {
+      "formatDate": [Function],
+      "formatHTMLMessage": [Function],
+      "formatMessage": [Function],
+      "formatNumber": [Function],
+      "formatPlural": [Function],
+      "formatRelativeTime": [Function],
+      "formatTime": [Function],
+      "now": [Function],
+    }
+  }
+  onSubmit={[Function]}
+  publicData={Object {}}
+  ready={false}
+  render={[Function]}
+  saveActionMsg="Save rules"
+  selectedPlace={null}
+  updateError={null}
+  updateInProgress={false}
+  updated={false}
+/>
+`;

@@ -8,7 +8,6 @@ import { createSlug } from '../../util/urlHelpers';
 import { propTypes } from '../../util/types';
 import { obfuscatedCoordinates } from '../../util/maps';
 import config from '../../config';
-
 import { hasParentWithClassName } from './SearchMap.helpers.js';
 import SearchMapWithMapbox, {
   LABEL_HANDLE,
@@ -23,8 +22,7 @@ import css from './SearchMap.module.css';
 
 const REUSABLE_MAP_HIDDEN_HANDLE = 'reusableMapHidden';
 
-const withCoordinatesObfuscated = listings => {
-  return listings.map(listing => {
+const withCoordinatesObfuscated = listings => listings.map(listing => {
     const { id, attributes, ...rest } = listing;
     const origGeolocation = attributes.geolocation;
     const cacheKey = id ? `${id.uuid}_${origGeolocation.lat}_${origGeolocation.lng}` : null;
@@ -38,7 +36,6 @@ const withCoordinatesObfuscated = listings => {
       },
     };
   });
-};
 
 export class SearchMapComponent extends Component {
   constructor(props) {
@@ -169,21 +166,21 @@ export class SearchMapComponent extends Component {
     return isMapsLibLoaded() ? (
       <ReusableMapContainer
         className={reusableContainerClassName}
-        reusableMapHiddenHandle={REUSABLE_MAP_HIDDEN_HANDLE}
-        onReattach={forceUpdateHandler}
         messages={messages}
+        onReattach={forceUpdateHandler}
+        reusableMapHiddenHandle={REUSABLE_MAP_HIDDEN_HANDLE}
       >
         <SearchMapWithMapbox
-          id={id}
-          className={classes}
+          activeListingId={activeListingId}
           bounds={bounds}
           center={center}
-          location={location}
+          className={classes}
+          createURLToListing={this.createURLToListing}
+          id={id}
           infoCardOpen={infoCardOpen}
           listings={listings}
-          activeListingId={activeListingId}
+          location={location}
           mapComponentRefreshToken={this.state.mapReattachmentCount}
-          createURLToListing={this.createURLToListing}
           onClick={this.onMapClicked}
           onListingClicked={this.onListingClicked}
           onListingInfoCardClicked={this.onListingInfoCardClicked}

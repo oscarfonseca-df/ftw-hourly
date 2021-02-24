@@ -24,13 +24,11 @@ const { UUID, Money } = sdkTypes;
 
 const CURRENCY = config.currency;
 
-const exampleBooking = attributes => {
-  return {
+const exampleBooking = attributes => ({
     id: new UUID('example-booking'),
     type: 'booking',
     attributes,
-  };
-};
+  });
 
 const exampleTransaction = params => {
   const created = new Date(Date.UTC(2017, 1, 1));

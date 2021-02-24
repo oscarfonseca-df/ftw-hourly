@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { array, bool, func, oneOf, object, shape, string } from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import unionWith from 'lodash/unionWith';
 import classNames from 'classnames';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString, pathByRouteName } from '../../util/routes';
@@ -15,8 +15,7 @@ import { propTypes } from '../../util/types';
 import { getListingsById } from '../../ducks/marketplaceData.duck';
 import { manageDisableScrolling, isScrollingDisabled } from '../../ducks/UI.duck';
 import { SearchMap, ModalInMobile, Page } from '../../components';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import { searchListings, searchMapListings, setActiveListing } from './SearchPage.duck';
 import {
   pickSearchParamsOnly,
@@ -76,7 +75,7 @@ export class SearchPageComponent extends Component {
         latlngBounds: ['bounds'],
       });
 
-      //const viewportMapCenter = SearchMap.getMapCenter(map);
+      // const viewportMapCenter = SearchMap.getMapCenter(map);
       const originMaybe = config.sortSearchByDistance ? { origin: viewportCenter } : {};
 
       const searchParams = {
@@ -163,10 +162,10 @@ export class SearchPageComponent extends Component {
     // For some reason, stickyness doesn't work on Safari, if the element is <button>
     return (
       <Page
-        scrollingDisabled={scrollingDisabled}
         description={description}
-        title={title}
         schema={schema}
+        scrollingDisabled={scrollingDisabled}
+        title={title}
       >
         <TopbarContainer
           className={topbarClasses}
@@ -175,44 +174,44 @@ export class SearchPageComponent extends Component {
         />
         <div className={css.container}>
           <MainPanel
-            urlQueryParams={validQueryParams}
+            history={history}
             listings={listings}
+            onActivateListing={onActivateListing}
+            onCloseModal={this.onCloseMobileModal}
+            onManageDisableScrolling={onManageDisableScrolling}
+            onMapIconClick={onMapIconClick}
+            onOpenModal={this.onOpenMobileModal}
+            pagination={pagination}
             searchInProgress={searchInProgress}
             searchListingsError={searchListingsError}
             searchParamsAreInSync={searchParamsAreInSync}
-            onActivateListing={onActivateListing}
-            onManageDisableScrolling={onManageDisableScrolling}
-            onOpenModal={this.onOpenMobileModal}
-            onCloseModal={this.onCloseMobileModal}
-            onMapIconClick={onMapIconClick}
-            pagination={pagination}
             searchParamsForPagination={parse(location.search)}
             showAsModalMaxWidth={MODAL_BREAKPOINT}
-            history={history}
+            urlQueryParams={validQueryParams}
           />
           <ModalInMobile
             className={css.mapPanel}
             id="SearchPage.map"
             isModalOpenOnMobile={this.state.isSearchMapOpenOnMobile}
             onClose={() => this.setState({ isSearchMapOpenOnMobile: false })}
-            showAsModalMaxWidth={MODAL_BREAKPOINT}
             onManageDisableScrolling={onManageDisableScrolling}
+            showAsModalMaxWidth={MODAL_BREAKPOINT}
           >
             <div className={css.mapWrapper}>
               {shouldShowSearchMap ? (
                 <SearchMap
-                  reusableContainerClassName={css.map}
                   activeListingId={activeListingId}
                   bounds={bounds}
                   center={origin}
                   isSearchMapOpenOnMobile={this.state.isSearchMapOpenOnMobile}
-                  location={location}
                   listings={mapListings || []}
-                  onMapMoveEnd={this.onMapMoveEnd}
+                  location={location}
+                  messages={intl.messages}
                   onCloseAsModal={() => {
                     onManageDisableScrolling('SearchPage.map', false);
                   }}
-                  messages={intl.messages}
+                  onMapMoveEnd={this.onMapMoveEnd}
+                  reusableContainerClassName={css.map}
                 />
               ) : null}
             </div>

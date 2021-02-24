@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
@@ -20,7 +20,6 @@ import {
   Form,
   StripeBankAccountTokenInputField,
 } from '../../components';
-
 import css from './StripeConnectAccountForm.module.css';
 
 const supportedCountries = config.stripe.supportedCountries.map(c => c.code);
@@ -96,27 +95,27 @@ const CreateStripeAccountFields = props => {
       <div className={css.radioButtonRow}>
         <FieldRadioButton
           id="individual"
-          name="accountType"
           label={individualAccountLabel}
-          value="individual"
+          name="accountType"
           showAsRequired={showAsRequired}
+          value="individual"
         />
         <FieldRadioButton
           id="company"
-          name="accountType"
           label={companyAccountLabel}
-          value="company"
+          name="accountType"
           showAsRequired={showAsRequired}
+          value="company"
         />
       </div>
 
       <FieldSelect
-        id="country"
-        name="country"
-        disabled={disabled}
-        className={css.selectCountry}
         autoComplete="country"
+        className={css.selectCountry}
+        disabled={disabled}
+        id="country"
         label={countryLabel}
+        name="country"
         validate={countryRequired}
       >
         <option disabled value="">
@@ -132,11 +131,11 @@ const CreateStripeAccountFields = props => {
       {country ? (
         <StripeBankAccountTokenInputField
           className={css.bankDetailsStripeField}
-          disabled={disabled}
-          name="bankAccountToken"
-          formName="StripeConnectAccountForm"
           country={country}
           currency={countryCurrency(country)}
+          disabled={disabled}
+          formName="StripeConnectAccountForm"
+          name="bankAccountToken"
           validate={validators.required(' ')}
         />
       ) : null}
@@ -168,11 +167,11 @@ const UpdateStripeAccountFields = props => {
       {showCardUpdateInput && savedCountry ? (
         <StripeBankAccountTokenInputField
           className={css.bankDetailsStripeField}
-          disabled={disabled}
-          name="bankAccountToken"
-          formName="StripeConnectAccountForm"
           country={savedCountry}
           currency={countryCurrency(savedCountry)}
+          disabled={disabled}
+          formName="StripeConnectAccountForm"
+          name="bankAccountToken"
           validate={validators.required(' ')}
         />
       ) : !submitInProgress ? (
@@ -217,10 +216,10 @@ const StripeConnectAccountFormComponent = props => {
   return (
     <FinalForm
       {...restOfProps}
-      onSubmit={values => onSubmit(values, isUpdate)}
       mutators={{
         ...arrayMutators,
       }}
+      onSubmit={values => onSubmit(values, isUpdate)}
       render={fieldRenderProps => {
         const {
           className,
@@ -269,32 +268,32 @@ const StripeConnectAccountFormComponent = props => {
         // because Stripe doesn't allow user to change the country
         const stripeAccountFields = !stripeConnected ? (
           <CreateStripeAccountFields
-            stripeConnected={stripeConnected}
-            disabled={disabled}
-            showAsRequired={showAsRequired}
             countryLabel={countryLabel}
-            supportedCountries={supportedCountries}
             currentUserId={currentUserId}
+            disabled={disabled}
             form={form}
-            values={values}
             intl={intl}
+            showAsRequired={showAsRequired}
+            stripeConnected={stripeConnected}
+            supportedCountries={supportedCountries}
+            values={values}
           />
         ) : (
           <UpdateStripeAccountFields
-            disabled={disabled}
             countryLabel={countryLabel}
-            savedCountry={savedCountry}
-            stripeBankAccountLastDigits={stripeBankAccountLastDigits}
-            showCardUpdateInput={showCardUpdateInput}
-            values={values}
-            submitInProgress={submitInProgress}
-            setShowCardUpdateInput={setShowCardUpdateInput}
+            disabled={disabled}
             intl={intl}
+            savedCountry={savedCountry}
+            setShowCardUpdateInput={setShowCardUpdateInput}
+            showCardUpdateInput={showCardUpdateInput}
+            stripeBankAccountLastDigits={stripeBankAccountLastDigits}
+            submitInProgress={submitInProgress}
+            values={values}
           />
         );
 
         const stripeConnectedAccountTermsLink = (
-          <ExternalLink href="https://stripe.com/connect-account/legal" className={css.termsLink}>
+          <ExternalLink className={css.termsLink} href="https://stripe.com/connect-account/legal">
             <FormattedMessage id="StripeConnectAccountForm.stripeConnectedAccountTermsLink" />
           </ExternalLink>
         );
@@ -312,10 +311,10 @@ const StripeConnectAccountFormComponent = props => {
 
               <Button
                 className={css.submitButton}
-                type="submit"
-                inProgress={submitInProgress}
                 disabled={submitDisabled}
+                inProgress={submitInProgress}
                 ready={ready}
+                type="submit"
               >
                 {submitButtonText || (
                   <FormattedMessage id="StripeConnectAccountForm.submitButtonText" />

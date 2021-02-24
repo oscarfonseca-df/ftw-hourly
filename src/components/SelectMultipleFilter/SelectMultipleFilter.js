@@ -3,9 +3,7 @@ import { array, arrayOf, func, node, number, object, string } from 'prop-types';
 import classNames from 'classnames';
 import { injectIntl, intlShape } from '../../util/reactIntl';
 import { parseSelectFilterOptions } from '../../util/search';
-import { FieldCheckbox } from '../../components';
-
-import { FilterPopup, FilterPlain } from '../../components';
+import { FieldCheckbox , FilterPopup, FilterPlain } from "..";
 import css from './SelectMultipleFilter.module.css';
 
 // SelectMultipleFilter doesn't need array mutators since it doesn't require validation.
@@ -20,7 +18,7 @@ const GroupOfFieldCheckboxes = props => {
           const fieldId = `${id}.${option.key}`;
           return (
             <li key={fieldId} className={css.item}>
-              <FieldCheckbox id={fieldId} name={name} label={option.label} value={option.key} />
+              <FieldCheckbox id={fieldId} label={option.label} name={name} value={option.key} />
             </li>
           );
         })}
@@ -29,9 +27,7 @@ const GroupOfFieldCheckboxes = props => {
   );
 };
 
-const getQueryParamName = queryParamNames => {
-  return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
-};
+const getQueryParamName = queryParamNames => Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 
 // Format URI component's query param: { pub_key: 'has_all:a,b,c' }
 const format = (selectedOptions, queryParamName, searchMode) => {
@@ -129,43 +125,43 @@ class SelectMultipleFilter extends Component {
     return showAsPopup ? (
       <FilterPopup
         className={classes}
-        rootClassName={rootClassName}
-        popupClassName={css.popupSize}
-        name={name}
-        label={labelForPopup}
-        isSelected={hasInitialValues}
-        id={`${id}.popup`}
-        showAsPopup
         contentPlacementOffset={contentPlacementOffset}
-        onSubmit={handleSubmit}
+        id={`${id}.popup`}
         initialValues={namedInitialValues}
+        isSelected={hasInitialValues}
         keepDirtyOnReinitialize
+        label={labelForPopup}
+        name={name}
+        onSubmit={handleSubmit}
+        popupClassName={css.popupSize}
+        rootClassName={rootClassName}
+        showAsPopup
         {...rest}
       >
         <GroupOfFieldCheckboxes
           className={css.fieldGroup}
-          name={name}
           id={`${id}-checkbox-group`}
+          name={name}
           options={options}
         />
       </FilterPopup>
     ) : (
       <FilterPlain
         className={className}
-        rootClassName={rootClassName}
-        label={labelForPlain}
-        isSelected={hasInitialValues}
-        id={`${id}.plain`}
-        liveEdit
         contentPlacementOffset={contentStyle}
-        onSubmit={handleSubmit}
+        id={`${id}.plain`}
         initialValues={namedInitialValues}
+        isSelected={hasInitialValues}
+        label={labelForPlain}
+        liveEdit
+        onSubmit={handleSubmit}
+        rootClassName={rootClassName}
         {...rest}
       >
         <GroupOfFieldCheckboxes
           className={css.fieldGroupPlain}
-          name={name}
           id={`${id}-checkbox-group`}
+          name={name}
           options={options}
         />
       </FilterPlain>

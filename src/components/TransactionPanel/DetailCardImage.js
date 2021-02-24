@@ -1,9 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { createSlug, stringify } from '../../util/urlHelpers';
-import { AvatarMedium, NamedLink, ResponsiveImage } from '../../components';
-
+import { AvatarMedium, NamedLink, ResponsiveImage } from "..";
 import css from './TransactionPanel.module.css';
 
 const createListingLink = (
@@ -19,7 +18,7 @@ const createListingLink = (
     const to = { search: stringify(searchParams) };
     return (
       <NamedLink className={className} name="ListingPage" params={params} to={to}>
-        <AvatarMedium user={provider} disableProfileLink />
+        <AvatarMedium disableProfileLink user={provider} />
       </NamedLink>
     );
   } else {
@@ -49,9 +48,9 @@ const DetailCardImage = props => {
       <div className={classes}>
         <div className={css.aspectWrapper}>
           <ResponsiveImage
-            rootClassName={css.rootForImage}
             alt={listingTitle}
             image={image}
+            rootClassName={css.rootForImage}
             variants={['landscape-crop', 'landscape-crop2x']}
           />
         </div>

@@ -9,9 +9,8 @@ import {
   createUser,
   createCurrentUser,
   createMessage,
-} from '../../util/test-data';
+ fakeIntl } from '../../util/test-data';
 import { renderShallow } from '../../util/test-helpers';
-import { fakeIntl } from '../../util/test-data';
 import {
   TRANSITION_ACCEPT,
   TRANSITION_CANCELED,
@@ -29,7 +28,7 @@ const noop = () => null;
 
 const { Money } = sdkTypes;
 
-describe('TransactionPanel - Sale', () => {
+describe('transactionPanel - Sale', () => {
   const providerId = 'provider';
   const customerId = 'customer';
   const start = new Date(Date.UTC(2017, 5, 10));
@@ -230,7 +229,7 @@ describe('TransactionPanel - Sale', () => {
   });
 });
 
-describe('TransactionPanel - Order', () => {
+describe('transactionPanel - Order', () => {
   const providerId = 'provider';
   const customerId = 'customer';
   const start = new Date(Date.UTC(2017, 5, 10));

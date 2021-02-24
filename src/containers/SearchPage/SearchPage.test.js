@@ -16,7 +16,7 @@ import reducer, {
 const { LatLng } = sdkTypes;
 const noop = () => null;
 
-describe('SearchPageComponent', () => {
+describe('searchPageComponent', () => {
   it('matches snapshot', () => {
     const props = {
       location: { search: '' },

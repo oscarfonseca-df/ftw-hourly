@@ -7,10 +7,11 @@ export class LoggingAnalyticsHandler {
 export class GoogleAnalyticsHandler {
   constructor(ga) {
     if (typeof ga !== 'function') {
-      throw new Error('Variable `ga` missing for Google Analytics');
+      throw new TypeError('Variable `ga` missing for Google Analytics');
     }
     this.ga = ga;
   }
+
   trackPageView(url) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications#tracking_virtual_pageviews
     this.ga('set', 'page', url);

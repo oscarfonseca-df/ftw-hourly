@@ -13,8 +13,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
-import { Button, IconClose } from '../../components';
-
+import { Button, IconClose } from "..";
 import css from './Modal.module.css';
 
 const KEY_CODE_ESCAPE = 27;
@@ -162,8 +161,8 @@ export class ModalComponent extends Component {
         <div className={classes}>
           <div className={scrollLayerClasses}>
             <div
-              className={classNames(containerClasses, css.focusedDiv)}
               ref={this.refDiv}
+              className={classNames(containerClasses, css.focusedDiv)}
               tabIndex="-1"
             >
               {closeBtn}

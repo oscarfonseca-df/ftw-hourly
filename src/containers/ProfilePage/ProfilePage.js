@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { REVIEW_TYPE_OF_PROVIDER, REVIEW_TYPE_OF_CUSTOMER, propTypes } from '../../util/types';
 import { ensureCurrentUser, ensureUser } from '../../util/data';
@@ -22,10 +22,9 @@ import {
   Reviews,
   ButtonTabNavHorizontal,
 } from '../../components';
-import { TopbarContainer, NotFoundPage } from '../../containers';
-import { loadData } from './ProfilePage.duck';
+import { TopbarContainer, NotFoundPage } from "..";
 import config from '../../config';
-
+import { loadData } from './ProfilePage.duck';
 import css from './ProfilePage.module.css';
 
 const { UUID } = sdkTypes;
@@ -89,7 +88,7 @@ export class ProfilePageComponent extends Component {
 
     const asideContent = (
       <div className={css.asideContent}>
-        <AvatarLarge className={css.avatar} user={user} disableProfileLink />
+        <AvatarLarge className={css.avatar} disableProfileLink user={user} />
         <h1 className={css.mobileHeading}>
           {displayName ? (
             <FormattedMessage id="ProfilePage.mobileHeading" values={{ name: displayName }} />
@@ -208,13 +207,13 @@ export class ProfilePageComponent extends Component {
 
     return (
       <Page
-        scrollingDisabled={scrollingDisabled}
-        title={schemaTitle}
         schema={{
           '@context': 'http://schema.org',
           '@type': 'ProfilePage',
           name: schemaTitle,
         }}
+        scrollingDisabled={scrollingDisabled}
+        title={schemaTitle}
       >
         <LayoutSideNavigation>
           <LayoutWrapperTopbar>

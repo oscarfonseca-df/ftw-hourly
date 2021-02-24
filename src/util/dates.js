@@ -56,7 +56,7 @@ export const isTimeZoneSupported = () => {
  */
 export const getDefaultTimeZoneOnBrowser = () => {
   if (typeof window === 'undefined') {
-    throw new Error(
+    throw new TypeError(
       'Utility function: getDefaultTimeZoneOnBrowser() should be called on client-side only.'
     );
   }
@@ -160,9 +160,7 @@ export const localizeAndFormatTime = (
     minute: '2-digit',
     hour12: false,
   }
-) => {
-  return localizeAndFormatDate(intl, timeZone, date, formattingOptions);
-};
+) => localizeAndFormatDate(intl, timeZone, date, formattingOptions);
 
 // NOTE: If your customization is using different time-units than hours
 // and different boundaries than sharp hours, you need to modify these functions:
@@ -348,9 +346,7 @@ export const getEndHours = (intl, timeZone, startTime, endTime) => {
  *
  * @returns {Date} timestamp converted to date
  */
-export const timestampToDate = timestamp => {
-  return new Date(Number.parseInt(timestamp, 10));
-};
+export const timestampToDate = timestamp => new Date(Number.parseInt(timestamp, 10));
 
 /**
  * Returns a new date, which indicates the same time of day in a given time zone
@@ -361,9 +357,7 @@ export const timestampToDate = timestamp => {
  *
  * @returns {Date} date in given timezone
  */
-export const timeOfDayFromLocalToTimeZone = (date, timeZone) => {
-  return moment.tz(moment(date).format('YYYY-MM-DD HH:mm:ss'), timeZone).toDate();
-};
+export const timeOfDayFromLocalToTimeZone = (date, timeZone) => moment.tz(moment(date).format('YYYY-MM-DD HH:mm:ss'), timeZone).toDate();
 
 /**
  * Returns a new date, which indicates the same time of day in a local time zone
@@ -374,13 +368,11 @@ export const timeOfDayFromLocalToTimeZone = (date, timeZone) => {
  *
  * @returns {Date} date in given timezone
  */
-export const timeOfDayFromTimeZoneToLocal = (date, timeZone) => {
-  return moment(
+export const timeOfDayFromTimeZoneToLocal = (date, timeZone) => moment(
     moment(date)
       .tz(timeZone)
       .format('YYYY-MM-DD HH:mm:ss')
   ).toDate();
-};
 
 /**
  * Calculate the number of nights between the given dates
@@ -458,9 +450,7 @@ export const minutesBetween = (startDate, endDate) => {
  *
  * @returns {boolean} is the date same or after
  */
-export const dateIsAfter = (date, compareToDate) => {
-  return moment(date).isSameOrAfter(compareToDate);
-};
+export const dateIsAfter = (date, compareToDate) => moment(date).isSameOrAfter(compareToDate);
 
 /**
  * Check if the date is in the given range, start and end included.
@@ -492,14 +482,12 @@ export const isInRange = (date, start, end, scope, timeZone) => {
  *
  * @returns {Date} date with time 00:00:00 with given offset
  */
-export const resetToStartOfDay = (date, timeZone, offset = 0) => {
-  return moment(date)
+export const resetToStartOfDay = (date, timeZone, offset = 0) => moment(date)
     .clone()
     .tz(timeZone)
     .startOf('day')
     .add(offset, 'days')
     .toDate();
-};
 
 /**
  * Format the given date to month id/string
@@ -594,9 +582,7 @@ export const formatDate = (intl, todayString, d) => {
  *
  * @returns {Date} parsed date object
  */
-export const parseDateFromISO8601 = dateString => {
-  return moment(dateString, 'YYYY-MM-DD').toDate();
-};
+export const parseDateFromISO8601 = dateString => moment(dateString, 'YYYY-MM-DD').toDate();
 
 /**
  * Converts date to string ISO8601 format ('YYYY-MM-DD').
@@ -606,9 +592,7 @@ export const parseDateFromISO8601 = dateString => {
  *
  * @returns {String} string in 'YYYY-MM-DD'format
  */
-export const stringifyDateToISO8601 = date => {
-  return moment(date).format('YYYY-MM-DD');
-};
+export const stringifyDateToISO8601 = date => moment(date).format('YYYY-MM-DD');
 
 /**
  * Not used with time-based process...
@@ -619,9 +603,7 @@ export const stringifyDateToISO8601 = date => {
  *
  * @returns {String} string in '0000-00-00T00:00:00.000Z' format
  */
-export const formatDateStringToUTC = dateString => {
-  return moment.utc(dateString).toDate();
-};
+export const formatDateStringToUTC = dateString => moment.utc(dateString).toDate();
 
 /**
  * Format given date string ('YYYY-MM-DD') to a full date string in
@@ -639,9 +621,7 @@ export const formatDateStringToUTC = dateString => {
  *
  * @returns {String} string in '0000-00-00T00:00:00.000Z' format
  */
-export const formatDateStringToTz = (dateString, timeZone) => {
-  return moment.tz(dateString, timeZone).toDate();
-};
+export const formatDateStringToTz = (dateString, timeZone) => moment.tz(dateString, timeZone).toDate();
 
 /**
  * Not used with time-based process...
@@ -653,13 +633,11 @@ export const formatDateStringToTz = (dateString, timeZone) => {
  *
  * @returns {String} string in '0000-00-00T00:00:00.000Z' format
  */
-export const getExclusiveEndDate = dateString => {
-  return moment
+export const getExclusiveEndDate = dateString => moment
     .utc(dateString)
     .add(1, 'days')
     .startOf('day')
     .toDate();
-};
 
 /**
  * Format given date string ('YYYY-MM-DD') to a full date string in
@@ -672,13 +650,11 @@ export const getExclusiveEndDate = dateString => {
  *
  * @returns {String} string in '0000-00-00T00:00:00.000Z' format
  */
-export const getExclusiveEndDateWithTz = (dateString, timeZone) => {
-  return moment
+export const getExclusiveEndDateWithTz = (dateString, timeZone) => moment
     .tz(dateString, timeZone)
     .add(1, 'days')
     .startOf('day')
     .toDate();
-};
 
 /**
  * Return start of the month in given time zone.
@@ -688,8 +664,7 @@ export const getExclusiveEndDateWithTz = (dateString, timeZone) => {
  *
  * @returns {Date} start of the month in given time zone
  */
-export const getMonthStartInTimeZone = (date, timeZone) => {
-  return timeZone
+export const getMonthStartInTimeZone = (date, timeZone) => timeZone
     ? moment(date)
         .tz(timeZone)
         .startOf('month')
@@ -697,7 +672,6 @@ export const getMonthStartInTimeZone = (date, timeZone) => {
     : moment(date)
         .startOf('month')
         .toDate();
-};
 
 /**
  * Return start of the previous month in given time zone.
@@ -707,8 +681,7 @@ export const getMonthStartInTimeZone = (date, timeZone) => {
  *
  * @returns {Date} start of the next month in given time zone
  */
-export const prevMonthFn = (date, timeZone) => {
-  return timeZone
+export const prevMonthFn = (date, timeZone) => timeZone
     ? moment(date)
         .clone()
         .tz(timeZone)
@@ -720,7 +693,6 @@ export const prevMonthFn = (date, timeZone) => {
         .subtract(1, 'months')
         .startOf('month')
         .toDate();
-};
 
 /**
  * Return start of the next month in given time zone.
@@ -730,8 +702,7 @@ export const prevMonthFn = (date, timeZone) => {
  *
  * @returns {Date} start of the next month in given time zone
  */
-export const nextMonthFn = (currentMoment, timeZone) => {
-  return timeZone
+export const nextMonthFn = (currentMoment, timeZone) => timeZone
     ? moment(currentMoment)
         .clone()
         .tz(timeZone)
@@ -743,7 +714,6 @@ export const nextMonthFn = (currentMoment, timeZone) => {
         .add(1, 'months')
         .startOf('month')
         .toDate();
-};
 
 /**
  * Formats Date object to localized strings mapped inside object literal:
@@ -791,9 +761,7 @@ export const formatDateToText = (intl, date, timeZone) => {
  * @returns {int} quantity of hours between start and end
  *
  */
-export const calculateQuantityFromHours = (startDate, endDate) => {
-  return moment(endDate).diff(moment(startDate), 'hours', true);
-};
+export const calculateQuantityFromHours = (startDate, endDate) => moment(endDate).diff(moment(startDate), 'hours', true);
 
 // Checks if time-range contains a day (moment)
 // Returns true if the day is inside the range or if the time-range

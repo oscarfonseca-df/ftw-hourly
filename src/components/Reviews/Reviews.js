@@ -1,10 +1,9 @@
 import React from 'react';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import { arrayOf, string } from 'prop-types';
 import classNames from 'classnames';
-import { Avatar, ReviewRating, UserDisplayName } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { Avatar, ReviewRating, UserDisplayName } from "..";
 import { propTypes } from '../../util/types';
-
 import css from './Reviews.module.css';
 
 const Review = props => {
@@ -15,23 +14,23 @@ const Review = props => {
 
   return (
     <div className={css.review}>
-      <Avatar className={css.avatar} user={review.author} disableProfileLink />
+      <Avatar className={css.avatar} disableProfileLink user={review.author} />
       <div>
         <ReviewRating
-          rating={review.attributes.rating}
           className={css.mobileReviewRating}
+          rating={review.attributes.rating}
           reviewStarClassName={css.reviewRatingStar}
         />
         <p className={css.reviewContent}>{review.attributes.content}</p>
         <p className={css.reviewInfo}>
-          <UserDisplayName user={review.author} intl={intl} />
+          <UserDisplayName intl={intl} user={review.author} />
           <span className={css.separator}>•</span>
           {dateString}
           <span className={css.desktopSeparator}>•</span>
           <span className={css.desktopReviewRatingWrapper}>
             <ReviewRating
-              rating={review.attributes.rating}
               className={css.desktopReviewRating}
+              rating={review.attributes.rating}
               reviewStarClassName={css.reviewRatingStar}
             />
           </span>
@@ -52,13 +51,11 @@ const ReviewsComponent = props => {
 
   return (
     <ul className={classes}>
-      {reviews.map(r => {
-        return (
+      {reviews.map(r => (
           <li key={`Review_${r.id.uuid}`} className={css.reviewItem}>
-            <Review review={r} intl={intl} />
+            <Review intl={intl} review={r} />
           </li>
-        );
-      })}
+        ))}
     </ul>
   );
 };

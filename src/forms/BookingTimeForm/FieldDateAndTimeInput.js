@@ -24,7 +24,6 @@ import {
 import { propTypes } from '../../util/types';
 import { bookingDateRequired } from '../../util/validators';
 import { FieldDateInput, FieldSelect } from '../../components';
-
 import NextMonthIcon from './NextMonthIcon';
 import PreviousMonthIcon from './PreviousMonthIcon';
 import css from './FieldDateAndTimeInput.module.css';
@@ -41,9 +40,7 @@ const MAX_TIME_SLOTS_RANGE = config.dayCountAvailableForBooking;
 
 const TODAY = new Date();
 
-const endOfRange = (date, timeZone) => {
-  return resetToStartOfDay(date, timeZone, MAX_TIME_SLOTS_RANGE - 1);
-};
+const endOfRange = (date, timeZone) => resetToStartOfDay(date, timeZone, MAX_TIME_SLOTS_RANGE - 1);
 
 const getAvailableStartTimes = (intl, timeZone, bookingStart, timeSlotsOnSelectedDate) => {
   if (timeSlotsOnSelectedDate.length === 0 || !timeSlotsOnSelectedDate[0] || !bookingStart) {
@@ -111,11 +108,9 @@ const getAvailableEndTimes = (
   return getEndHours(intl, timeZone, startLimit, endLimit);
 };
 
-const getTimeSlots = (timeSlots, date, timeZone) => {
-  return timeSlots && timeSlots[0]
+const getTimeSlots = (timeSlots, date, timeZone) => timeSlots && timeSlots[0]
     ? timeSlots.filter(t => isInRange(date, t.attributes.start, t.attributes.end, 'day', timeZone))
     : [];
-};
 
 // Use start date to calculate the first possible start time or times, end date and end time or times.
 // If the selected value is passed to function it will be used instead of calculated value.
@@ -136,11 +131,9 @@ const getAllTimeValues = (
         getTimeSlots(timeSlots, startDate, timeZone)
       );
 
-  const startTime = selectedStartTime
-    ? selectedStartTime
-    : startTimes.length > 0 && startTimes[0] && startTimes[0].timestamp
+  const startTime = selectedStartTime || (startTimes.length > 0 && startTimes[0] && startTimes[0].timestamp
     ? startTimes[0].timestamp
-    : null;
+    : null);
 
   const startTimeAsDate = startTime ? timestampToDate(startTime) : null;
 
@@ -148,11 +141,9 @@ const getAllTimeValues = (
   // date would be the next day at 00:00 the day in the form is still correct.
   // Because we are only using the date and not the exact time we can remove the
   // 1ms.
-  const endDate = selectedEndDate
-    ? selectedEndDate
-    : startTimeAsDate
+  const endDate = selectedEndDate || (startTimeAsDate
     ? new Date(findNextBoundary(timeZone, startTimeAsDate).getTime() - 1)
-    : null;
+    : null);
 
   const selectedTimeSlot = timeSlots.find(t =>
     isInRange(startTimeAsDate, t.attributes.start, t.attributes.end)
@@ -189,9 +180,9 @@ const Prev = props => {
   return dateIsAfter(prevMonthDate, currentMonthDate) ? <PreviousMonthIcon /> : null;
 };
 
-/////////////////////////////////////
+// ///////////////////////////////////
 // FieldDateAndTimeInput component //
-/////////////////////////////////////
+// ///////////////////////////////////
 class FieldDateAndTimeInput extends Component {
   constructor(props) {
     super(props);
@@ -453,24 +444,24 @@ class FieldDateAndTimeInput extends Component {
           <div className={classNames(css.field, css.startDate)}>
             <FieldDateInput
               className={css.fieldDateInput}
-              name="bookingStartDate"
-              id={formId ? `${formId}.bookingStartDate` : 'bookingStartDate'}
-              label={startDateInputProps.label}
-              placeholderText={startDateInputProps.placeholderText}
               format={v =>
                 v && v.date ? { date: timeOfDayFromTimeZoneToLocal(v.date, timeZone) } : v
               }
+              id={formId ? `${formId}.bookingStartDate` : 'bookingStartDate'}
+              isDayBlocked={isDayBlocked}
+              label={startDateInputProps.label}
+              name="bookingStartDate"
+              navNext={<Next currentMonth={this.state.currentMonth} timeZone={timeZone} />}
+              navPrev={<Prev currentMonth={this.state.currentMonth} timeZone={timeZone} />}
+              onChange={this.onBookingStartDateChange}
+              onNextMonthClick={() => this.onMonthClick(nextMonthFn)}
+              onPrevMonthClick={() => this.onMonthClick(prevMonthFn)}
               parse={v =>
                 v && v.date ? { date: timeOfDayFromLocalToTimeZone(v.date, timeZone) } : v
               }
-              isDayBlocked={isDayBlocked}
-              onChange={this.onBookingStartDateChange}
-              onPrevMonthClick={() => this.onMonthClick(prevMonthFn)}
-              onNextMonthClick={() => this.onMonthClick(nextMonthFn)}
-              navNext={<Next currentMonth={this.state.currentMonth} timeZone={timeZone} />}
-              navPrev={<Prev currentMonth={this.state.currentMonth} timeZone={timeZone} />}
-              useMobileMargins
+              placeholderText={startDateInputProps.placeholderText}
               showErrorMessage={false}
+              useMobileMargins
               validate={bookingDateRequired('Required')}
             />
           </div>
@@ -479,43 +470,43 @@ class FieldDateAndTimeInput extends Component {
           <div className={classNames(css.field, css.endDateHidden)}>
             <FieldDateInput
               {...endDateInputProps}
-              name="bookingEndDate"
-              id={formId ? `${formId}.bookingEndDate` : 'bookingEndDate'}
               className={css.fieldDateInput}
-              label={endDateInputProps.label}
-              placeholderText={endDateInputProps.placeholderText}
+              disabled={endDateDisabled}
               format={v =>
                 v && v.date ? { date: timeOfDayFromTimeZoneToLocal(v.date, timeZone) } : v
               }
-              parse={v =>
-                v && v.date ? { date: timeOfDayFromLocalToTimeZone(v.date, timeZone) } : v
-              }
+              id={formId ? `${formId}.bookingEndDate` : 'bookingEndDate'}
               isDayBlocked={isDayBlocked}
-              onChange={this.onBookingEndDateChange}
-              onPrevMonthClick={() => this.onMonthClick(prevMonthFn)}
-              onNextMonthClick={() => this.onMonthClick(nextMonthFn)}
-              navNext={<Next currentMonth={this.state.currentMonth} timeZone={timeZone} />}
-              navPrev={<Prev currentMonth={this.state.currentMonth} timeZone={timeZone} />}
               isOutsideRange={day =>
                 this.isOutsideRange(day, bookingStartDate, selectedTimeSlot, timeZone)
               }
-              useMobileMargins
+              label={endDateInputProps.label}
+              name="bookingEndDate"
+              navNext={<Next currentMonth={this.state.currentMonth} timeZone={timeZone} />}
+              navPrev={<Prev currentMonth={this.state.currentMonth} timeZone={timeZone} />}
+              onChange={this.onBookingEndDateChange}
+              onNextMonthClick={() => this.onMonthClick(nextMonthFn)}
+              onPrevMonthClick={() => this.onMonthClick(prevMonthFn)}
+              parse={v =>
+                v && v.date ? { date: timeOfDayFromLocalToTimeZone(v.date, timeZone) } : v
+              }
+              placeholderText={endDateInputProps.placeholderText}
               showErrorMessage={false}
-              validate={bookingDateRequired('Required')}
-              disabled={endDateDisabled}
               showLabelAsDisabled={endDateDisabled}
+              useMobileMargins
+              validate={bookingDateRequired('Required')}
             />
           </div>
 
           <div className={css.field}>
             <FieldSelect
-              name="bookingStartTime"
-              id={formId ? `${formId}.bookingStartTime` : 'bookingStartTime'}
               className={bookingStartDate ? css.fieldSelect : css.fieldSelectDisabled}
-              selectClassName={bookingStartDate ? css.select : css.selectDisabled}
-              label={startTimeLabel}
               disabled={startTimeDisabled}
+              id={formId ? `${formId}.bookingStartTime` : 'bookingStartTime'}
+              label={startTimeLabel}
+              name="bookingStartTime"
               onChange={this.onBookingStartTimeChange}
+              selectClassName={bookingStartDate ? css.select : css.selectDisabled}
             >
               {bookingStartDate ? (
                 availableStartTimes.map(p => (
@@ -533,12 +524,12 @@ class FieldDateAndTimeInput extends Component {
 
           <div className={css.field}>
             <FieldSelect
-              name="bookingEndTime"
-              id={formId ? `${formId}.bookingEndTime` : 'bookingEndTime'}
               className={bookingStartDate ? css.fieldSelect : css.fieldSelectDisabled}
-              selectClassName={bookingStartDate ? css.select : css.selectDisabled}
-              label={endTimeLabel}
               disabled={endTimeDisabled}
+              id={formId ? `${formId}.bookingEndTime` : 'bookingEndTime'}
+              label={endTimeLabel}
+              name="bookingEndTime"
+              selectClassName={bookingStartDate ? css.select : css.selectDisabled}
             >
               {bookingStartDate && (bookingStartTime || startTime) ? (
                 availableEndTimes.map(p => (

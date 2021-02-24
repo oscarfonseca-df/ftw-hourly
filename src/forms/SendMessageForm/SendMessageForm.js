@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { string, bool, func } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form, FieldTextInput, SecondaryButton } from '../../components';
 import { propTypes } from '../../util/types';
-
 import css from './SendMessageForm.module.css';
 
 const BLUR_TIMEOUT_MS = 100;
 
-const IconSendMessage = () => {
-  return (
+const IconSendMessage = () => (
     <svg
       className={css.sendIcon}
-      width="14"
       height="14"
       viewBox="0 0 14 14"
+      width="14"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g className={css.strokeMatter} fill="none" fillRule="evenodd" strokeLinejoin="round">
@@ -27,7 +25,6 @@ const IconSendMessage = () => {
       </g>
     </svg>
   );
-};
 
 class SendMessageFormComponent extends Component {
   constructor(props) {
@@ -75,13 +72,13 @@ class SendMessageFormComponent extends Component {
           return (
             <Form className={classes} onSubmit={values => handleSubmit(values, form)}>
               <FieldTextInput
-                inputRootClass={css.textarea}
-                type="textarea"
                 id={formId ? `${formId}.message` : 'message'}
+                inputRootClass={css.textarea}
                 name="message"
-                placeholder={messagePlaceholder}
-                onFocus={this.handleFocus}
                 onBlur={this.handleBlur}
+                onFocus={this.handleFocus}
+                placeholder={messagePlaceholder}
+                type="textarea"
               />
               <div className={css.submitContainer}>
                 <div className={css.errorContainer}>
@@ -92,11 +89,11 @@ class SendMessageFormComponent extends Component {
                   ) : null}
                 </div>
                 <SecondaryButton
-                  rootClassName={css.submitButton}
-                  inProgress={submitInProgress}
                   disabled={submitDisabled}
-                  onFocus={this.handleFocus}
+                  inProgress={submitInProgress}
                   onBlur={this.handleBlur}
+                  onFocus={this.handleFocus}
+                  rootClassName={css.submitButton}
                 >
                   <IconSendMessage />
                   <FormattedMessage id="SendMessageForm.sendMessage" />

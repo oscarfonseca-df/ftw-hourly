@@ -6,7 +6,6 @@ import { withRouter, Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
-
 import routeConfiguration from '../../routeConfiguration';
 import { pathByRouteName } from '../../util/routes';
 import { apiBaseUrl } from '../../util/api';
@@ -36,12 +35,10 @@ import {
   TermsOfService,
 } from '../../components';
 import { ConfirmSignupForm, LoginForm, SignupForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
+import { TopbarContainer } from "..";
 import { login, authenticationInProgress, signup, signupWithIdp } from '../../ducks/Auth.duck';
-import { isScrollingDisabled } from '../../ducks/UI.duck';
+import { isScrollingDisabled , manageDisableScrolling } from '../../ducks/UI.duck';
 import { sendVerificationEmail } from '../../ducks/user.duck';
-import { manageDisableScrolling } from '../../ducks/UI.duck';
-
 import css from './AuthenticationPage.module.css';
 import { FacebookLogo, GoogleLogo } from './socialLoginLogos';
 
@@ -91,7 +88,7 @@ export class AuthenticationPageComponent extends Component {
     const locationFrom = location.state && location.state.from ? location.state.from : null;
     const authinfoFrom =
       this.state.authInfo && this.state.authInfo.from ? this.state.authInfo.from : null;
-    const from = locationFrom ? locationFrom : authinfoFrom ? authinfoFrom : null;
+    const from = locationFrom || (authinfoFrom || null);
 
     const user = ensureCurrentUser(currentUser);
     const currentUserLoaded = !!user.id;
@@ -247,12 +244,12 @@ export class AuthenticationPageComponent extends Component {
         </p>
         {confirmErrorMessage}
         <ConfirmSignupForm
+          authInfo={this.state.authInfo}
           className={css.form}
-          onSubmit={handleSubmitConfirm}
+          idp={idp}
           inProgress={authInProgress}
           onOpenTermsOfService={() => this.setState({ tosModalOpen: true })}
-          authInfo={this.state.authInfo}
-          idp={idp}
+          onSubmit={handleSubmitConfirm}
         />
       </div>
     );
@@ -308,13 +305,13 @@ export class AuthenticationPageComponent extends Component {
         {loginOrSignupError}
 
         {isLogin ? (
-          <LoginForm className={css.loginForm} onSubmit={submitLogin} inProgress={authInProgress} />
+          <LoginForm className={css.loginForm} inProgress={authInProgress} onSubmit={submitLogin} />
         ) : (
           <SignupForm
             className={css.signupForm}
-            onSubmit={handleSubmitSignup}
             inProgress={authInProgress}
             onOpenTermsOfService={() => this.setState({ tosModalOpen: true })}
+            onSubmit={handleSubmitSignup}
           />
         )}
 
@@ -328,7 +325,7 @@ export class AuthenticationPageComponent extends Component {
     const email = <span className={css.email}>{user.attributes.email}</span>;
 
     const resendEmailLink = (
-      <InlineTextButton rootClassName={css.modalHelperLink} onClick={onResendVerificationEmail}>
+      <InlineTextButton onClick={onResendVerificationEmail} rootClassName={css.modalHelperLink}>
         <FormattedMessage id="AuthenticationPage.resendEmailLinkText" />
       </InlineTextButton>
     );
@@ -392,13 +389,13 @@ export class AuthenticationPageComponent extends Component {
 
     return (
       <Page
-        title={schemaTitle}
-        scrollingDisabled={scrollingDisabled}
         schema={{
           '@context': 'http://schema.org',
           '@type': 'WebPage',
           name: schemaTitle,
         }}
+        scrollingDisabled={scrollingDisabled}
+        title={schemaTitle}
       >
         <LayoutSingleColumn>
           <LayoutWrapperTopbar>
@@ -412,8 +409,8 @@ export class AuthenticationPageComponent extends Component {
               id="AuthenticationPage.tos"
               isOpen={this.state.tosModalOpen}
               onClose={() => this.setState({ tosModalOpen: false })}
-              usePortal
               onManageDisableScrolling={onManageDisableScrolling}
+              usePortal
             >
               <div className={css.termsWrapper}>
                 <h2 className={css.termsHeading}>

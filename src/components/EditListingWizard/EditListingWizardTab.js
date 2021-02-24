@@ -18,8 +18,7 @@ import {
   EditListingPhotosPanel,
   EditListingPoliciesPanel,
   EditListingPricingPanel,
-} from '../../components';
-
+} from "..";
 import css from './EditListingWizard.module.css';
 
 export const AVAILABILITY = 'availability';
@@ -107,9 +106,7 @@ const EditListingWizardTab = props => {
   const isNewListingFlow = isNewURI || isDraftURI;
 
   const currentListing = ensureListing(listing);
-  const imageIds = images => {
-    return images ? images.map(img => img.imageId || img.id) : null;
-  };
+  const imageIds = images => images ? images.map(img => img.imageId || img.id) : null;
 
   const onCompleteEditListingWizardTab = (tab, updateValues, passThrownErrors = false) => {
     // Normalize images for API call
@@ -151,8 +148,7 @@ const EditListingWizardTab = props => {
     }
   };
 
-  const panelProps = tab => {
-    return {
+  const panelProps = tab => ({
       className: css.panel,
       errors,
       listing,
@@ -163,8 +159,7 @@ const EditListingWizardTab = props => {
       // newListingPublished and fetchInProgress are flags for the last wizard tab
       ready: newListingPublished,
       disabled: fetchInProgress,
-    };
-  };
+    });
 
   switch (tab) {
     case DESCRIPTION: {
@@ -174,10 +169,10 @@ const EditListingWizardTab = props => {
       return (
         <EditListingDescriptionPanel
           {...panelProps(DESCRIPTION)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
           }}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }
@@ -188,10 +183,10 @@ const EditListingWizardTab = props => {
       return (
         <EditListingFeaturesPanel
           {...panelProps(FEATURES)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
           }}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }
@@ -202,10 +197,10 @@ const EditListingWizardTab = props => {
       return (
         <EditListingPoliciesPanel
           {...panelProps(POLICY)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
           }}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }
@@ -216,10 +211,10 @@ const EditListingWizardTab = props => {
       return (
         <EditListingLocationPanel
           {...panelProps(LOCATION)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
           }}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }
@@ -230,10 +225,10 @@ const EditListingWizardTab = props => {
       return (
         <EditListingPricingPanel
           {...panelProps(PRICING)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);
           }}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }
@@ -244,19 +239,19 @@ const EditListingWizardTab = props => {
       return (
         <EditListingAvailabilityPanel
           {...panelProps(AVAILABILITY)}
-          fetchExceptionsInProgress={fetchExceptionsInProgress}
           availabilityExceptions={availabilityExceptions}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+          fetchExceptionsInProgress={fetchExceptionsInProgress}
           onAddAvailabilityException={onAddAvailabilityException}
           onDeleteAvailabilityException={onDeleteAvailabilityException}
-          onSubmit={values => {
-            // We want to return the Promise to the form,
-            // so that it doesn't close its modal if an error is thrown.
-            return onCompleteEditListingWizardTab(tab, values, true);
-          }}
           onNextTab={() =>
             redirectAfterDraftUpdate(listing.id.uuid, params, tab, marketplaceTabs, history)
           }
+          onSubmit={values => 
+            // We want to return the Promise to the form,
+            // so that it doesn't close its modal if an error is thrown.
+             onCompleteEditListingWizardTab(tab, values, true)
+          }
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }
@@ -268,7 +263,6 @@ const EditListingWizardTab = props => {
       return (
         <EditListingPhotosPanel
           {...panelProps(PHOTOS)}
-          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           images={images}
           onImageUpload={onImageUpload}
           onRemoveImage={onRemoveImage}
@@ -276,6 +270,7 @@ const EditListingWizardTab = props => {
             onCompleteEditListingWizardTab(tab, values);
           }}
           onUpdateImageOrder={onUpdateImageOrder}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
         />
       );
     }

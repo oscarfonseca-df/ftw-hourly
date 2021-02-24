@@ -6,7 +6,6 @@ import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { propTypes } from '../../util/types';
 import { createResourceLocatorString } from '../../util/routes';
-
 import { stripeCountryConfigs } from './PayoutDetailsForm';
 import PayoutDetailsAddress from './PayoutDetailsAddress';
 import PayoutDetailsBankDetails from './PayoutDetailsBankDetails';
@@ -56,24 +55,24 @@ const PayoutDetailsIndividualAccountComponent = props => {
   return (
     <React.Fragment>
       <PayoutDetailsPersonalDetails
-        intl={intl}
-        disabled={disabled}
-        values={values}
-        country={country}
-        fieldId="individual"
         accountType="individual"
+        country={country}
+        disabled={disabled}
+        fieldId="individual"
+        form={form}
+        intl={intl}
         showEmailField={showEmailField}
         showPersonalIdNumberField={showPersonalIdNumberField}
         showPhoneNumberField={showPhoneNumberField}
-        form={form}
+        values={values}
       />
 
       <PayoutDetailsAddress
         country={country}
-        intl={intl}
         disabled={disabled}
-        form={form}
         fieldId="individual.address"
+        form={form}
+        intl={intl}
       />
 
       {showBusinssProfileSection ? (
@@ -85,9 +84,9 @@ const PayoutDetailsIndividualAccountComponent = props => {
             disabled={disabled}
             fieldId="individual.businessProfile"
             form={form}
+            intl={intl}
             showBusinessURLField={showBusinessURLField}
             showMCCForUSField={showMCCForUSField}
-            intl={intl}
           />
         </div>
       ) : null}

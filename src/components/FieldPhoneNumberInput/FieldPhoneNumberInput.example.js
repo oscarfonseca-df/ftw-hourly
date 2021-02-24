@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import * as validators from '../../util/validators';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldPhoneNumberInput from './FieldPhoneNumberInput';
 
 const FormComponent = props => (
@@ -21,12 +21,12 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} />
           <FieldPhoneNumberInput
             id={`${formId}.phoneNumber`}
-            name="phoneNumber"
             label="Phone number"
+            name="phoneNumber"
             placeholder="Phone number"
             validate={required}
           />
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

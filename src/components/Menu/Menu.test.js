@@ -1,9 +1,9 @@
 import React from 'react';
 import { renderDeep } from '../../util/test-helpers';
-import { MenuItem, MenuLabel, MenuContent } from '../../components';
+import { MenuItem, MenuLabel, MenuContent } from "..";
 import Menu from './Menu';
 
-describe('Menu', () => {
+describe('menu', () => {
   it('matches snapshot', () => {
     const tree = renderDeep(
       <Menu>

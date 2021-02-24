@@ -21,13 +21,11 @@ const currencyConfigEUR = {
 const onChange = price => console.log('CurrencyInput - value:', price);
 
 // Different locales need to be initialized before their currency formatting is in use
-const CurrencyInputWithIntl = ({ locale, ...rest }) => {
-  return (
+const CurrencyInputWithIntl = ({ locale, ...rest }) => (
     <IntlProvider locale={locale} textComponent="span">
       <CurrencyInput {...rest} input={{ onChange }} />
     </IntlProvider>
   );
-};
 
 const { object, string } = PropTypes;
 
@@ -90,11 +88,11 @@ const FormComponent = props => (
         >
           <FormSpy onChange={onChange} />
           <FieldCurrencyInput
-            id="FieldCurrencyInput.price"
-            name="price"
-            label="Set price:"
-            placeholder="Type in amount in EUR..."
             currencyConfig={currencyConfigEUR}
+            id="FieldCurrencyInput.price"
+            label="Set price:"
+            name="price"
+            placeholder="Type in amount in EUR..."
             validate={required}
           />
         </form>

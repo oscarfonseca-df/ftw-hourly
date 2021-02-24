@@ -11,8 +11,7 @@ import React from 'react';
 import { arrayOf, bool, node, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { FieldArray } from 'react-final-form-arrays';
-import { FieldCheckbox, ValidationError } from '../../components';
-
+import { FieldCheckbox, ValidationError } from "..";
 import css from './FieldCheckboxGroup.module.css';
 
 const FieldCheckboxRenderer = props => {
@@ -31,8 +30,8 @@ const FieldCheckboxRenderer = props => {
             <li key={fieldId} className={css.item}>
               <FieldCheckbox
                 id={fieldId}
-                name={fields.name}
                 label={option.label}
+                name={fields.name}
                 value={option.key}
               />
             </li>

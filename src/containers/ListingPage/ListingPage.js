@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { array, arrayOf, bool, func, object, shape, string, oneOf } from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { findOptionsForSelectFilter } from '../../util/search';
@@ -42,8 +42,7 @@ import {
   BookingPanel,
 } from '../../components';
 import { EnquiryForm } from '../../forms';
-import { TopbarContainer, NotFoundPage } from '../../containers';
-
+import { TopbarContainer, NotFoundPage } from "..";
 import {
   sendEnquiry,
   loadData,
@@ -278,7 +277,7 @@ export class ListingPageComponent extends Component {
       });
 
       return (
-        <Page title={errorTitle} scrollingDisabled={scrollingDisabled}>
+        <Page scrollingDisabled={scrollingDisabled} title={errorTitle}>
           <LayoutSingleColumn className={css.pageRoot}>
             <LayoutWrapperTopbar>{topbar}</LayoutWrapperTopbar>
             <LayoutWrapperMain>
@@ -300,7 +299,7 @@ export class ListingPageComponent extends Component {
       });
 
       return (
-        <Page title={loadingTitle} scrollingDisabled={scrollingDisabled}>
+        <Page scrollingDisabled={scrollingDisabled} title={loadingTitle}>
           <LayoutSingleColumn className={css.pageRoot}>
             <LayoutWrapperTopbar>{topbar}</LayoutWrapperTopbar>
             <LayoutWrapperMain>
@@ -389,95 +388,95 @@ export class ListingPageComponent extends Component {
 
     return (
       <Page
-        title={schemaTitle}
-        scrollingDisabled={scrollingDisabled}
         author={authorDisplayName}
         contentType="website"
         description={description}
         facebookImages={facebookImages}
-        twitterImages={twitterImages}
         schema={{
           '@context': 'http://schema.org',
           '@type': 'ItemPage',
-          description: description,
+          description,
           name: schemaTitle,
           image: schemaImages,
         }}
+        scrollingDisabled={scrollingDisabled}
+        title={schemaTitle}
+        twitterImages={twitterImages}
       >
         <LayoutSingleColumn className={css.pageRoot}>
           <LayoutWrapperTopbar>{topbar}</LayoutWrapperTopbar>
           <LayoutWrapperMain>
             <div>
               <SectionImages
-                title={title}
-                listing={currentListing}
-                isOwnListing={isOwnListing}
                 editParams={{
                   id: listingId.uuid,
                   slug: listingSlug,
                   type: listingType,
                   tab: listingTab,
                 }}
-                imageCarouselOpen={this.state.imageCarouselOpen}
-                onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}
                 handleViewPhotosClick={handleViewPhotosClick}
+                imageCarouselOpen={this.state.imageCarouselOpen}
+                isOwnListing={isOwnListing}
+                listing={currentListing}
+                onImageCarouselClose={() => this.setState({ imageCarouselOpen: false })}
                 onManageDisableScrolling={onManageDisableScrolling}
+                title={title}
               />
               <div className={css.contentContainer}>
-                <SectionAvatar user={currentAuthor} params={params} />
+                <SectionAvatar params={params} user={currentAuthor} />
                 <div className={css.mainContent}>
                   <SectionHeading
-                    priceTitle={priceTitle}
-                    formattedPrice={formattedPrice}
-                    richTitle={richTitle}
-                    listingCertificate={publicData ? publicData.certificate : null}
                     certificateOptions={certificateOptions}
+                    formattedPrice={formattedPrice}
                     hostLink={hostLink}
-                    showContactUser={showContactUser}
+                    listingCertificate={publicData ? publicData.certificate : null}
                     onContactUser={this.onContactUser}
+                    priceTitle={priceTitle}
+                    richTitle={richTitle}
+                    showContactUser={showContactUser}
                   />
                   <SectionDescriptionMaybe description={description} />
                   <SectionFeaturesMaybe options={yogaStylesOptions} publicData={publicData} />
                   <SectionMapMaybe
                     geolocation={geolocation}
-                    publicData={publicData}
                     listingId={currentListing.id}
+                    publicData={publicData}
                   />
-                  <SectionReviews reviews={reviews} fetchReviewsError={fetchReviewsError} />
+                  <SectionReviews fetchReviewsError={fetchReviewsError} reviews={reviews} />
                 </div>
                 <BookingPanel
-                  className={css.bookingPanel}
-                  listing={currentListing}
-                  isOwnListing={isOwnListing}
-                  unitType={unitType}
-                  onSubmit={handleBookingSubmit}
-                  title={bookingTitle}
                   authorDisplayName={authorDisplayName}
-                  onManageDisableScrolling={onManageDisableScrolling}
+                  className={css.bookingPanel}
+                  fetchLineItemsError={fetchLineItemsError}
+                  fetchLineItemsInProgress={fetchLineItemsInProgress}
+                  isOwnListing={isOwnListing}
+                  lineItems={lineItems}
+                  listing={currentListing}
                   monthlyTimeSlots={monthlyTimeSlots}
                   onFetchTimeSlots={onFetchTimeSlots}
                   onFetchTransactionLineItems={onFetchTransactionLineItems}
-                  lineItems={lineItems}
-                  fetchLineItemsInProgress={fetchLineItemsInProgress}
-                  fetchLineItemsError={fetchLineItemsError}
+                  onManageDisableScrolling={onManageDisableScrolling}
+                  onSubmit={handleBookingSubmit}
+                  title={bookingTitle}
+                  unitType={unitType}
                 />
               </div>
             </div>
             <Modal
-              id="ListingPage.enquiry"
               contentClassName={css.enquiryModalContent}
+              id="ListingPage.enquiry"
               isOpen={isAuthenticated && this.state.enquiryModalOpen}
               onClose={() => this.setState({ enquiryModalOpen: false })}
               onManageDisableScrolling={onManageDisableScrolling}
             >
               <EnquiryForm
-                className={css.enquiryForm}
-                submitButtonWrapperClassName={css.enquirySubmitButtonWrapper}
-                listingTitle={title}
                 authorDisplayName={authorDisplayName}
-                sendEnquiryError={sendEnquiryError}
-                onSubmit={this.onSubmitEnquiry}
+                className={css.enquiryForm}
                 inProgress={sendEnquiryInProgress}
+                listingTitle={title}
+                onSubmit={this.onSubmitEnquiry}
+                sendEnquiryError={sendEnquiryError}
+                submitButtonWrapperClassName={css.enquirySubmitButtonWrapper}
               />
             </Modal>
           </LayoutWrapperMain>

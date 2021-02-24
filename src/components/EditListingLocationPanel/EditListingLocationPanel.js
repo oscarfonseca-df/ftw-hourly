@@ -4,9 +4,8 @@ import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ensureOwnListing } from '../../util/data';
-import { ListingLink } from '../../components';
+import { ListingLink } from "..";
 import { EditListingLocationForm } from '../../forms';
-
 import css from './EditListingLocationPanel.module.css';
 
 class EditListingLocationPanel extends Component {
@@ -83,7 +82,10 @@ class EditListingLocationPanel extends Component {
         <h1 className={css.title}>{panelTitle}</h1>
         <EditListingLocationForm
           className={css.form}
+          disabled={disabled}
+          fetchErrors={errors}
           initialValues={this.state.initialValues}
+          onChange={onChange}
           onSubmit={values => {
             const { building = '', location } = values;
             const {
@@ -103,13 +105,10 @@ class EditListingLocationPanel extends Component {
             });
             onSubmit(updateValues);
           }}
-          onChange={onChange}
-          saveActionMsg={submitButtonText}
-          disabled={disabled}
           ready={ready}
+          saveActionMsg={submitButtonText}
           updated={panelUpdated}
           updateInProgress={updateInProgress}
-          fetchErrors={errors}
         />
       </div>
     );

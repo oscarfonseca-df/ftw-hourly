@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import * as validators from '../../util/validators';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
-
 import css from './ConfirmSignupForm.module.css';
 
 const KEY_CODE_ENTER = 13;
@@ -82,9 +81,9 @@ const ConfirmSignupFormComponent = props => (
         <span
           className={css.termsLink}
           onClick={onOpenTermsOfService}
+          onKeyUp={handleTermsKeyUp}
           role="button"
           tabIndex="0"
-          onKeyUp={handleTermsKeyUp}
         >
           <FormattedMessage id="ConfirmSignupForm.termsAndConditionsLinkText" />
         </span>
@@ -102,36 +101,36 @@ const ConfirmSignupFormComponent = props => (
         <Form className={classes} onSubmit={handleSubmit}>
           <div>
             <FieldTextInput
-              type="email"
-              id={formId ? `${formId}.email` : 'email'}
-              name="email"
               autoComplete="email"
-              label={emailLabel}
-              placeholder={emailPlaceholder}
+              id={formId ? `${formId}.email` : 'email'}
               initialValue={email}
+              label={emailLabel}
+              name="email"
+              placeholder={emailPlaceholder}
+              type="email"
               validate={validators.composeValidators(emailRequired, emailValid)}
             />
             <div className={css.name}>
               <FieldTextInput
-                className={css.firstNameRoot}
-                type="text"
-                id={formId ? `${formId}.firstName` : 'firstName'}
-                name="firstName"
                 autoComplete="given-name"
-                label={firstNameLabel}
-                placeholder={firstNamePlaceholder}
+                className={css.firstNameRoot}
+                id={formId ? `${formId}.firstName` : 'firstName'}
                 initialValue={firstName}
+                label={firstNameLabel}
+                name="firstName"
+                placeholder={firstNamePlaceholder}
+                type="text"
                 validate={firstNameRequired}
               />
               <FieldTextInput
-                className={css.lastNameRoot}
-                type="text"
-                id={formId ? `${formId}.lastName` : 'lastName'}
-                name="lastName"
                 autoComplete="family-name"
-                label={lastNameLabel}
-                placeholder={lastNamePlaceholder}
+                className={css.lastNameRoot}
+                id={formId ? `${formId}.lastName` : 'lastName'}
                 initialValue={lastName}
+                label={lastNameLabel}
+                name="lastName"
+                placeholder={lastNamePlaceholder}
+                type="text"
                 validate={lastNameRequired}
               />
             </div>
@@ -146,8 +145,8 @@ const ConfirmSignupFormComponent = props => (
                 />
               </span>
             </p>
-            <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
-              <FormattedMessage id="ConfirmSignupForm.signUp" values={{ idp: idp }} />
+            <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
+              <FormattedMessage id="ConfirmSignupForm.signUp" values={{ idp }} />
             </PrimaryButton>
           </div>
         </Form>

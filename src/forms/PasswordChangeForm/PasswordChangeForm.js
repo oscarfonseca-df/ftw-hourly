@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import * as validators from '../../util/validators';
 import { ensureCurrentUser } from '../../util/data';
 import { isChangePasswordWrongPassword } from '../../util/errors';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
-
 import css from './PasswordChangeForm.module.css';
 
 const RESET_TIMEOUT = 800;
@@ -23,6 +22,7 @@ class PasswordChangeFormComponent extends Component {
     this.submittedValues = {};
     this.handleResetPassword = this.handleResetPassword.bind(this);
   }
+
   componentWillUnmount() {
     window.clearTimeout(this.resetTimeoutId);
   }
@@ -180,12 +180,12 @@ class PasswordChangeFormComponent extends Component {
             >
               <div className={css.newPasswordSection}>
                 <FieldTextInput
-                  type="password"
-                  id={formId ? `${formId}.newPassword` : 'newPassword'}
-                  name="newPassword"
                   autoComplete="new-password"
+                  id={formId ? `${formId}.newPassword` : 'newPassword'}
                   label={newPasswordLabel}
+                  name="newPassword"
                   placeholder={newPasswordPlaceholder}
+                  type="password"
                   validate={validators.composeValidators(
                     newPasswordRequired,
                     passwordMinLength,
@@ -208,28 +208,28 @@ class PasswordChangeFormComponent extends Component {
                 </p>
 
                 <FieldTextInput
-                  className={css.password}
-                  type="password"
-                  id="currentPassword"
-                  name="currentPassword"
                   autoComplete="current-password"
+                  className={css.password}
+                  customErrorText={passwordTouched ? null : passwordErrorText}
+                  id="currentPassword"
                   label={passwordLabel}
+                  name="currentPassword"
                   placeholder={passwordPlaceholder}
+                  type="password"
                   validate={validators.composeValidators(
                     passwordRequired,
                     passwordMinLength,
                     passwordMaxLength
                   )}
-                  customErrorText={passwordTouched ? null : passwordErrorText}
                 />
               </div>
               <div className={css.bottomWrapper}>
                 {genericFailure}
                 <PrimaryButton
-                  type="submit"
+                  disabled={submitDisabled}
                   inProgress={inProgress}
                   ready={ready}
-                  disabled={submitDisabled}
+                  type="submit"
                 >
                   <FormattedMessage id="PasswordChangeForm.saveChanges" />
                 </PrimaryButton>

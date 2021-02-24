@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { arrayOf, func, node, number, object, shape, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
-
+import { FormattedMessage } from '../../util/reactIntl';
 import { Menu, MenuContent, MenuItem, MenuLabel } from '..';
 import css from './SelectSingleFilterPopup.module.css';
 
@@ -11,9 +10,7 @@ const optionLabel = (options, key) => {
   return option ? option.label : key;
 };
 
-const getQueryParamName = queryParamNames => {
-  return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
-};
+const getQueryParamName = queryParamNames => Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 
 class SelectSingleFilterPopup extends Component {
   constructor(props) {
@@ -25,7 +22,7 @@ class SelectSingleFilterPopup extends Component {
   }
 
   onToggleActive(isOpen) {
-    this.setState({ isOpen: isOpen });
+    this.setState({ isOpen });
   }
 
   selectOption(queryParamName, option) {
@@ -57,10 +54,10 @@ class SelectSingleFilterPopup extends Component {
     return (
       <Menu
         className={classes}
-        useArrow={false}
         contentPlacementOffset={contentPlacementOffset}
-        onToggleActive={this.onToggleActive}
         isOpen={this.state.isOpen}
+        onToggleActive={this.onToggleActive}
+        useArrow={false}
       >
         <MenuLabel className={menuLabelClass}>{menuLabel}</MenuLabel>
         <MenuContent className={css.menuContent}>
@@ -82,12 +79,12 @@ class SelectSingleFilterPopup extends Component {
               </MenuItem>
             );
           })}
-          <MenuItem key={'clearLink'}>
+          <MenuItem key="clearLink">
             <button
               className={css.clearMenuItem}
               onClick={() => this.selectOption(queryParamName, null)}
             >
-              <FormattedMessage id={'SelectSingleFilter.popupClear'} />
+              <FormattedMessage id="SelectSingleFilter.popupClear" />
             </button>
           </MenuItem>
         </MenuContent>

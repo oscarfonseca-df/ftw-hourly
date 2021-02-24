@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
-import { ValidationError } from '../../components';
+import { ValidationError } from "..";
 import LocationAutocompleteInputImpl from './LocationAutocompleteInputImpl.js';
 
 class LocationAutocompleteInputComponent extends Component {
@@ -49,6 +49,4 @@ LocationAutocompleteInputComponent.propTypes = {
 
 export default LocationAutocompleteInputImpl;
 
-export const LocationAutocompleteInputField = props => {
-  return <Field component={LocationAutocompleteInputComponent} {...props} />;
-};
+export const LocationAutocompleteInputField = props => <Field component={LocationAutocompleteInputComponent} {...props} />;

@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
-
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ensureListing } from '../../util/data';
 import { EditListingFeaturesForm } from '../../forms';
-import { ListingLink } from '../../components';
-
+import { ListingLink } from "..";
 import css from './EditListingFeaturesPanel.module.css';
 
 const FEATURES_NAME = 'yogaStyles';
@@ -55,8 +53,11 @@ const EditListingFeaturesPanel = props => {
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingFeaturesForm
         className={css.form}
-        name={FEATURES_NAME}
+        disabled={disabled}
+        fetchErrors={errors}
         initialValues={initialValues}
+        name={FEATURES_NAME}
+        onChange={onChange}
         onSubmit={values => {
           const { yogaStyles = [] } = values;
 
@@ -65,13 +66,10 @@ const EditListingFeaturesPanel = props => {
           };
           onSubmit(updatedValues);
         }}
-        onChange={onChange}
-        saveActionMsg={submitButtonText}
-        disabled={disabled}
         ready={ready}
+        saveActionMsg={submitButtonText}
         updated={panelUpdated}
         updateInProgress={updateInProgress}
-        fetchErrors={errors}
       />
     </div>
   );

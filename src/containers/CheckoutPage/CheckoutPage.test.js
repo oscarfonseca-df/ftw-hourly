@@ -6,7 +6,7 @@ import checkoutPageReducer, { SET_INITIAL_VALUES, setInitialValues } from './Che
 
 const noop = () => null;
 
-describe('CheckoutPage', () => {
+describe('checkoutPage', () => {
   it('matches snapshot', () => {
     const listing = createListing(
       'listing1',
@@ -42,8 +42,8 @@ describe('CheckoutPage', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  describe('Duck', () => {
-    it('ActionCreator: setInitialValues(initialValues)', () => {
+  describe('duck', () => {
+    it('actionCreator: setInitialValues(initialValues)', () => {
       const listing = createListing(
         '00000000-0000-0000-0000-000000000000',
         {},
@@ -63,7 +63,7 @@ describe('CheckoutPage', () => {
       expect(setInitialValues({ listing, bookingDates })).toEqual(expectedAction);
     });
 
-    describe('Reducer', () => {
+    describe('reducer', () => {
       const initialValues = {
         initiateOrderError: null,
         listing: null,

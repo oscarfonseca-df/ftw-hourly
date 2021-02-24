@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { arrayOf, func, shape, string } from 'prop-types';
 import classNames from 'classnames';
-
 import css from './SortByPlain.module.css';
 
 class SortByPlain extends Component {

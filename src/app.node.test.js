@@ -16,14 +16,14 @@ const render = (url, context) => {
   const helmetContext = {};
 
   const body = ReactDOMServer.renderToString(
-    <ServerApp url={url} context={context} helmetContext={helmetContext} store={store} />
+    <ServerApp context={context} helmetContext={helmetContext} store={store} url={url} />
   );
 
   const { helmet: head } = helmetContext;
   return { head, body };
 };
 
-describe('Application - node environment', () => {
+describe('application - node environment', () => {
   it('renders in the server without crashing', () => {
     render('/', {});
   });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { bool, func, object, number, string } from 'prop-types';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
 import { propTypes } from '../../util/types';
 import {
@@ -15,9 +15,8 @@ import {
   NamedLink,
   ListingLink,
   OwnListingLink,
-} from '../../components';
+} from "..";
 import { TopbarSearchForm } from '../../forms';
-
 import css from './TopbarDesktop.module.css';
 
 const TopbarDesktop = props => {
@@ -51,8 +50,8 @@ const TopbarDesktop = props => {
     <TopbarSearchForm
       className={css.searchLink}
       desktopInputRoot={css.topbarSearchWithLeftPadding}
-      onSubmit={onSearchSubmit}
       initialValues={initialSearchFormValues}
+      onSubmit={onSearchSubmit}
     />
   );
 
@@ -80,14 +79,14 @@ const TopbarDesktop = props => {
   const profileMenu = authenticatedOnClientSide ? (
     <Menu>
       <MenuLabel className={css.profileMenuLabel} isOpenClassName={css.profileMenuIsOpen}>
-        <Avatar className={css.avatar} user={currentUser} disableProfileLink />
+        <Avatar className={css.avatar} disableProfileLink user={currentUser} />
       </MenuLabel>
       <MenuContent className={css.profileMenuContent}>
         <MenuItem key="EditListingPage">
           <OwnListingLink
+            className={css.yourListingsLink}
             listing={currentUserListing}
             listingFetched={currentUserListingFetched}
-            className={css.yourListingsLink}
           >
             <div>
               <span className={css.menuItemBorder} />
@@ -118,7 +117,7 @@ const TopbarDesktop = props => {
           </NamedLink>
         </MenuItem>
         <MenuItem key="logout">
-          <InlineTextButton rootClassName={css.logoutButton} onClick={onLogout}>
+          <InlineTextButton onClick={onLogout} rootClassName={css.logoutButton}>
             <span className={css.menuItemBorder} />
             <FormattedMessage id="TopbarDesktop.logout" />
           </InlineTextButton>
@@ -128,7 +127,7 @@ const TopbarDesktop = props => {
   ) : null;
 
   const signupLink = isAuthenticatedOrJustHydrated ? null : (
-    <NamedLink name="SignupPage" className={css.signupLink}>
+    <NamedLink className={css.signupLink} name="SignupPage">
       <span className={css.signup}>
         <FormattedMessage id="TopbarDesktop.signup" />
       </span>
@@ -136,7 +135,7 @@ const TopbarDesktop = props => {
   );
 
   const loginLink = isAuthenticatedOrJustHydrated ? null : (
-    <NamedLink name="LoginPage" className={css.loginLink}>
+    <NamedLink className={css.loginLink} name="LoginPage">
       <span className={css.login}>
         <FormattedMessage id="TopbarDesktop.login" />
       </span>
@@ -146,13 +145,13 @@ const TopbarDesktop = props => {
   const listingLink =
     authenticatedOnClientSide && currentUserListingFetched && currentUserListing ? (
       <ListingLink
-        className={css.createListingLink}
-        listing={currentUserListing}
         children={
           <span className={css.createListing}>
             <FormattedMessage id="TopbarDesktop.viewListing" />
           </span>
         }
+        className={css.createListingLink}
+        listing={currentUserListing}
       />
     ) : null;
 
@@ -169,9 +168,9 @@ const TopbarDesktop = props => {
     <nav className={classes}>
       <NamedLink className={css.logoLink} name="LandingPage">
         <Logo
-          format="desktop"
-          className={css.logo}
           alt={intl.formatMessage({ id: 'TopbarDesktop.logo' })}
+          className={css.logo}
+          format="desktop"
         />
       </NamedLink>
       {search}

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { intlShape, injectIntl } from '../../util/reactIntl';
 import { Form, LocationAutocompleteInput } from '../../components';
-
 import css from './TopbarSearchForm.module.css';
 
 const identity = v => v;
@@ -46,8 +45,8 @@ class TopbarSearchFormComponent extends Component {
           return (
             <Form className={classes} onSubmit={preventFormSubmit}>
               <Field
-                name="location"
                 format={identity}
+                name="location"
                 render={({ input, meta }) => {
                   const { onChange, ...restInput } = input;
 
@@ -64,21 +63,21 @@ class TopbarSearchFormComponent extends Component {
                   return (
                     <LocationAutocompleteInput
                       className={isMobile ? css.mobileInputRoot : desktopInputRootClass}
-                      iconClassName={isMobile ? css.mobileIcon : css.desktopIcon}
-                      inputClassName={isMobile ? css.mobileInput : css.desktopInput}
-                      predictionsClassName={
-                        isMobile ? css.mobilePredictions : css.desktopPredictions
-                      }
-                      predictionsAttributionClassName={
-                        isMobile ? css.mobilePredictionsAttribution : null
-                      }
-                      placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
                       closeOnBlur={!isMobile}
+                      iconClassName={isMobile ? css.mobileIcon : css.desktopIcon}
+                      input={searchInput}
+                      inputClassName={isMobile ? css.mobileInput : css.desktopInput}
                       inputRef={node => {
                         this.searchInput = node;
                       }}
-                      input={searchInput}
                       meta={meta}
+                      placeholder={intl.formatMessage({ id: 'TopbarSearchForm.placeholder' })}
+                      predictionsAttributionClassName={
+                        isMobile ? css.mobilePredictionsAttribution : null
+                      }
+                      predictionsClassName={
+                        isMobile ? css.mobilePredictions : css.desktopPredictions
+                      }
                     />
                   );
                 }}

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import * as validators from '../../util/validators';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldSelect from './FieldSelect';
 
 const FormComponent = props => (
@@ -20,12 +20,12 @@ const FormComponent = props => (
           }}
         >
           <FormSpy onChange={onChange} />
-          <FieldSelect id="select1" name="select1" label="Choose an option:" validate={required}>
+          <FieldSelect id="select1" label="Choose an option:" name="select1" validate={required}>
             <option value="">Pick something...</option>
             <option value="first">First option</option>
             <option value="second">Second option</option>
           </FieldSelect>
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

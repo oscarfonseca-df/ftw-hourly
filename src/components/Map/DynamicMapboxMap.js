@@ -44,9 +44,7 @@ const circleLayer = (center, mapsConfig, layerId) => {
   };
 };
 
-const generateFuzzyLayerId = () => {
-  return uniqueId('fuzzy_layer_');
-};
+const generateFuzzyLayerId = () => uniqueId('fuzzy_layer_');
 
 class DynamicMapboxMap extends Component {
   constructor(props) {
@@ -59,6 +57,7 @@ class DynamicMapboxMap extends Component {
 
     this.updateFuzzyCirclelayer = this.updateFuzzyCirclelayer.bind(this);
   }
+
   componentDidMount() {
     const { center, zoom, mapsConfig } = this.props;
     const position = [center.lng, center.lat];
@@ -82,6 +81,7 @@ class DynamicMapboxMap extends Component {
       this.centerMarker.setLngLat(position).addTo(this.map);
     }
   }
+
   componentWillUnmount() {
     if (this.map) {
       this.centerMarker = null;
@@ -89,6 +89,7 @@ class DynamicMapboxMap extends Component {
       this.map = null;
     }
   }
+
   componentDidUpdate(prevProps) {
     if (!this.map) {
       return;
@@ -122,6 +123,7 @@ class DynamicMapboxMap extends Component {
 
     // NOTE: mapsConfig changes are not handled
   }
+
   updateFuzzyCirclelayer() {
     if (!this.map) {
       // map already removed
@@ -139,11 +141,12 @@ class DynamicMapboxMap extends Component {
 
     this.map.setCenter(position);
   }
+
   render() {
     const { containerClassName, mapClassName } = this.props;
     return (
       <div className={containerClassName}>
-        <div className={mapClassName} ref={el => (this.mapContainer = el)} />
+        <div ref={el => (this.mapContainer = el)} className={mapClassName} />
       </div>
     );
   }

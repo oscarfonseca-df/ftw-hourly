@@ -4,8 +4,8 @@
  */
 import React from 'react';
 import { bool, func, number, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
 import { propTypes } from '../../util/types';
 import { ensureCurrentUser } from '../../util/data';
@@ -15,8 +15,7 @@ import {
   NamedLink,
   NotificationBadge,
   OwnListingLink,
-} from '../../components';
-
+} from "..";
 import css from './TopbarMobileMenu.module.css';
 
 const TopbarMobileMenu = props => {
@@ -35,13 +34,13 @@ const TopbarMobileMenu = props => {
 
   if (!isAuthenticated) {
     const signup = (
-      <NamedLink name="SignupPage" className={css.signupLink}>
+      <NamedLink className={css.signupLink} name="SignupPage">
         <FormattedMessage id="TopbarMobileMenu.signupLink" />
       </NamedLink>
     );
 
     const login = (
-      <NamedLink name="LoginPage" className={css.loginLink}>
+      <NamedLink className={css.loginLink} name="LoginPage">
         <FormattedMessage id="TopbarMobileMenu.loginLink" />
       </NamedLink>
     );
@@ -89,7 +88,7 @@ const TopbarMobileMenu = props => {
         <span className={css.greeting}>
           <FormattedMessage id="TopbarMobileMenu.greeting" values={{ displayName }} />
         </span>
-        <InlineTextButton rootClassName={css.logoutButton} onClick={onLogout}>
+        <InlineTextButton onClick={onLogout} rootClassName={css.logoutButton}>
           <FormattedMessage id="TopbarMobileMenu.logoutLink" />
         </InlineTextButton>
         <NamedLink
@@ -101,9 +100,9 @@ const TopbarMobileMenu = props => {
           {notificationCountBadge}
         </NamedLink>
         <OwnListingLink
+          className={css.navigationLink}
           listing={currentUserListing}
           listingFetched={currentUserListingFetched}
-          className={css.navigationLink}
         />
         <NamedLink
           className={classNames(css.navigationLink, currentPageClass('ProfileSettingsPage'))}

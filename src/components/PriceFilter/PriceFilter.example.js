@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { stringify, parse } from '../../util/urlHelpers';
-
 import PriceFilter from './PriceFilter';
 
 const URL_PARAM = 'pub_price';
@@ -17,7 +16,7 @@ const PriceFilterWrapper = withRouter(props => {
 
   const params = parse(location.search);
   const price = params[URL_PARAM];
-  const initialValues = { [URL_PARAM]: !!price ? price : null };
+  const initialValues = { [URL_PARAM]: price || null };
 
   return (
     <PriceFilter

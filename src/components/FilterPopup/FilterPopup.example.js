@@ -1,9 +1,9 @@
 import React from 'react';
-import { FieldTextInput } from '../../components';
+import { FieldTextInput } from "..";
 import FilterPopup from './FilterPopup';
 
 const id = 'FilterPopupExample';
-const field = <FieldTextInput type="text" id={`${id}.input1`} name="input1" label="Input:" />;
+const field = <FieldTextInput id={`${id}.input1`} label="Input:" name="input1" type="text" />;
 
 export const FilterPopupExample = {
   component: FilterPopup,

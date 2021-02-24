@@ -25,8 +25,7 @@ import {
   LayoutWrapperFooter,
   Footer,
 } from '../../components';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import {
   acceptSale,
   declineSale,
@@ -227,39 +226,39 @@ export const TransactionPageComponent = props => {
   // that currently handles showing everything inside layout's main view area.
   const panel = isDataAvailable ? (
     <TransactionPanel
+      acceptInProgress={acceptInProgress}
+      acceptSaleError={acceptSaleError}
       className={detailsClassName}
       currentUser={currentUser}
-      transaction={currentTransaction}
-      fetchMessagesInProgress={fetchMessagesInProgress}
-      totalMessagePages={totalMessagePages}
-      oldestMessagePageFetched={oldestMessagePageFetched}
-      messages={messages}
-      initialMessageFailed={initialMessageFailed}
-      savePaymentMethodFailed={savePaymentMethodFailed}
+      declineInProgress={declineInProgress}
+      declineSaleError={declineSaleError}
+      fetchLineItemsError={fetchLineItemsError}
+      fetchLineItemsInProgress={fetchLineItemsInProgress}
       fetchMessagesError={fetchMessagesError}
-      sendMessageInProgress={sendMessageInProgress}
-      sendMessageError={sendMessageError}
-      sendReviewInProgress={sendReviewInProgress}
-      sendReviewError={sendReviewError}
-      onFetchTimeSlots={onFetchTimeSlots}
-      onManageDisableScrolling={onManageDisableScrolling}
-      onShowMoreMessages={onShowMoreMessages}
-      onSendMessage={onSendMessage}
-      onSendReview={onSendReview}
-      transactionRole={transactionRole}
+      fetchMessagesInProgress={fetchMessagesInProgress}
+      initialMessageFailed={initialMessageFailed}
+      lineItems={lineItems}
+      messages={messages}
+      monthlyTimeSlots={monthlyTimeSlots}
+      nextTransitions={processTransitions}
+      oldestMessagePageFetched={oldestMessagePageFetched}
       onAcceptSale={onAcceptSale}
       onDeclineSale={onDeclineSale}
-      acceptInProgress={acceptInProgress}
-      declineInProgress={declineInProgress}
-      acceptSaleError={acceptSaleError}
-      declineSaleError={declineSaleError}
-      nextTransitions={processTransitions}
-      onSubmitBookingRequest={handleSubmitBookingRequest}
-      monthlyTimeSlots={monthlyTimeSlots}
+      onFetchTimeSlots={onFetchTimeSlots}
       onFetchTransactionLineItems={onFetchTransactionLineItems}
-      lineItems={lineItems}
-      fetchLineItemsInProgress={fetchLineItemsInProgress}
-      fetchLineItemsError={fetchLineItemsError}
+      onManageDisableScrolling={onManageDisableScrolling}
+      onSendMessage={onSendMessage}
+      onSendReview={onSendReview}
+      onShowMoreMessages={onShowMoreMessages}
+      onSubmitBookingRequest={handleSubmitBookingRequest}
+      savePaymentMethodFailed={savePaymentMethodFailed}
+      sendMessageError={sendMessageError}
+      sendMessageInProgress={sendMessageInProgress}
+      sendReviewError={sendReviewError}
+      sendReviewInProgress={sendReviewInProgress}
+      totalMessagePages={totalMessagePages}
+      transaction={currentTransaction}
+      transactionRole={transactionRole}
     />
   ) : (
     loadingOrFailedFetching
@@ -267,8 +266,8 @@ export const TransactionPageComponent = props => {
 
   return (
     <Page
-      title={intl.formatMessage({ id: 'TransactionPage.title' }, { title: listingTitle })}
       scrollingDisabled={scrollingDisabled}
+      title={intl.formatMessage({ id: 'TransactionPage.title' }, { title: listingTitle })}
     >
       <LayoutSingleColumn>
         <LayoutWrapperTopbar>
@@ -412,8 +411,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     onAcceptSale: transactionId => dispatch(acceptSale(transactionId)),
     onDeclineSale: transactionId => dispatch(declineSale(transactionId)),
     onShowMoreMessages: txId => dispatch(fetchMoreMessages(txId)),
@@ -428,8 +426,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchTimeSlots(listingId, start, end, timeZone)),
     onFetchTransactionLineItems: (bookingData, listingId, isOwnListing) =>
       dispatch(fetchTransactionLineItems(bookingData, listingId, isOwnListing)),
-  };
-};
+  });
 
 const TransactionPage = compose(
   withRouter,

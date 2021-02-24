@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react';
-import ListingCard from './ListingCard';
 import { createUser, createListing, fakeIntl } from '../../util/test-data';
+import ListingCard from './ListingCard';
 
 const listing = createListing('listing1', {}, { author: createUser('user1') });
 

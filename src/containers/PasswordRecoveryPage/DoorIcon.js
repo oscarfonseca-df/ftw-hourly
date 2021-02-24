@@ -7,16 +7,16 @@ const DoorIcon = props => {
   return (
     <svg
       className={className}
-      width="52"
       height="59"
       viewBox="0 0 52 59"
+      width="52"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g strokeWidth="2.5" fill="none" fillRule="evenodd" strokeLinejoin="round">
+      <g fill="none" fillRule="evenodd" strokeLinejoin="round" strokeWidth="2.5">
         <path
           className={css.strokeAndFill}
-          strokeLinecap="round"
           d="M28.182 42.364H50V26H28.182z"
+          strokeLinecap="round"
         />
         <path d="M39.09 38v-4.364" stroke="#FFF" strokeLinecap="round" />
         <path
@@ -30,8 +30,8 @@ const DoorIcon = props => {
         />
         <path
           className={css.stroke}
-          strokeLinecap="round"
           d="M23.818 7.455h19.637V14M43.455 47.818v4.364H23.818M2 52.798l21.818 4.838V2L2 6.838z"
+          strokeLinecap="round"
         />
         <path
           className={css.stroke}

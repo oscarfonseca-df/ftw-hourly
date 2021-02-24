@@ -1,12 +1,10 @@
 import React from 'react';
 import { bool, func, object, string } from 'prop-types';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { FieldArray } from 'react-final-form-arrays';
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { ExternalLink, IconAdd, IconClose, InlineTextButton } from '../../components';
-
 import PayoutDetailsAddress from './PayoutDetailsAddress';
 import PayoutDetailsPersonalDetails from './PayoutDetailsPersonalDetails';
-
 import css from './PayoutDetailsForm.module.css';
 
 const PayoutDetailsAdditionalPersons = props => {
@@ -28,8 +26,8 @@ const PayoutDetailsAdditionalPersons = props => {
 
   const additionalPersonInfoLink = (
     <ExternalLink
-      href="https://support.stripe.com/questions/owners-and-directors"
       className={css.termsLink}
+      href="https://support.stripe.com/questions/owners-and-directors"
     >
       <FormattedMessage id="PayoutDetailsForm.additionalPersonInfoLink" />
     </ExternalLink>
@@ -48,7 +46,7 @@ const PayoutDetailsAdditionalPersons = props => {
       <FieldArray id={`${fieldId}`} name={`${fieldId}`}>
         {({ fields }) =>
           fields.map((name, index) => (
-            <div className={css.additionalPersonWrapper} key={name}>
+            <div key={name} className={css.additionalPersonWrapper}>
               <div
                 className={css.fieldArrayRemove}
                 onClick={() => fields.remove(index)}
@@ -60,12 +58,12 @@ const PayoutDetailsAdditionalPersons = props => {
                 </span>
               </div>
               <PayoutDetailsPersonalDetails
-                intl={intl}
-                disabled={disabled}
-                values={values}
-                country={country}
-                fieldId={`${fieldId}.${index}`}
                 accountType="company"
+                country={country}
+                disabled={disabled}
+                fieldId={`${fieldId}.${index}`}
+                form={form}
+                intl={intl}
                 sectionTitle={intl.formatMessage({ id: 'PayoutDetailsForm.additionalPersonTitle' })}
                 showEmailField={showEmailField}
                 showOrganizationTitleField={showOrganizationTitleField}
@@ -74,16 +72,16 @@ const PayoutDetailsAdditionalPersons = props => {
                 showPersonalIdNumberField={showPersonalIdNumberField}
                 showPhoneNumberField={showPhoneNumberField}
                 showRoleField
-                form={form}
+                values={values}
               />
               {showPersonalAddressField ? (
                 <PayoutDetailsAddress
                   className={css.personalAddressContainer}
                   country={country}
-                  intl={intl}
                   disabled={disabled}
-                  form={form}
                   fieldId={`${fieldId}.${index}.address`}
+                  form={form}
+                  intl={intl}
                 />
               ) : null}
             </div>
@@ -93,9 +91,9 @@ const PayoutDetailsAdditionalPersons = props => {
 
       <React.Fragment>
         <InlineTextButton
-          type="button"
-          rootClassName={css.fieldArrayAdd}
           onClick={() => push(fieldId, undefined)}
+          rootClassName={css.fieldArrayAdd}
+          type="button"
         >
           <span className={css.additionalPersonLabel}>
             <IconAdd rootClassName={css.addIcon} />

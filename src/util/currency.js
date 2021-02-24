@@ -1,8 +1,8 @@
 import has from 'lodash/has';
 import trimEnd from 'lodash/trimEnd';
 import Decimal from 'decimal.js';
-import { types as sdkTypes } from './sdkLoader';
 import { subUnitDivisors } from '../currency-config';
+import { types as sdkTypes } from './sdkLoader';
 
 const { Money } = sdkTypes;
 
@@ -14,7 +14,7 @@ export const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 2 ** 53 - 1;
 
 export const isSafeNumber = decimalValue => {
   if (!(decimalValue instanceof Decimal)) {
-    throw new Error('Value must be a Decimal');
+    throw new TypeError('Value must be a Decimal');
   }
   return decimalValue.gte(MIN_SAFE_INTEGER) && decimalValue.lte(MAX_SAFE_INTEGER);
 };
@@ -29,7 +29,7 @@ export const unitDivisor = currency => {
   return subUnitDivisors[currency];
 };
 
-////////// Currency manipulation in string format //////////
+// //////// Currency manipulation in string format //////////
 
 /**
  * Ensures that the given string uses only dots or commas
@@ -54,9 +54,7 @@ export const ensureSeparator = (str, useComma = false) => {
  *
  * @return {String} converted string
  */
-export const ensureDotSeparator = str => {
-  return ensureSeparator(str, false);
-};
+export const ensureDotSeparator = str => ensureSeparator(str, false);
 
 /**
  * Convert string to Decimal object (from Decimal.js math library)
@@ -150,7 +148,7 @@ export const truncateToSubUnitPrecision = (inputString, subUnitDivisor, useComma
   }
 };
 
-////////// Currency - Money helpers //////////
+// //////// Currency - Money helpers //////////
 
 /**
  * Converts given value to sub unit value and returns it as a number
@@ -186,16 +184,12 @@ export const convertUnitToSubUnit = (value, subUnitDivisor, useComma = false) =>
   }
 };
 
-const isNumber = value => {
-  return typeof value === 'number' && !isNaN(value);
-};
+const isNumber = value => typeof value === 'number' && !isNaN(value);
 
 /* eslint-disable no-underscore-dangle */
 // Detect if the given value is a goog.math.Long object
 // See: https://google.github.io/closure-library/api/goog.math.Long.html
-const isGoogleMathLong = value => {
-  return typeof value === 'object' && isNumber(value.low_) && isNumber(value.high_);
-};
+const isGoogleMathLong = value => typeof value === 'object' && isNumber(value.low_) && isNumber(value.high_);
 /* eslint-enable no-underscore-dangle */
 
 /**
@@ -207,7 +201,7 @@ const isGoogleMathLong = value => {
  */
 export const convertMoneyToNumber = value => {
   if (!(value instanceof Money)) {
-    throw new Error('Value must be a Money type');
+    throw new TypeError('Value must be a Money type');
   }
   const subUnitDivisorAsDecimal = convertDivisorToDecimal(unitDivisor(value.currency));
   let amount;
@@ -244,7 +238,7 @@ export const convertMoneyToNumber = value => {
  */
 export const formatMoney = (intl, value) => {
   if (!(value instanceof Money)) {
-    throw new Error('Value must be a Money type');
+    throw new TypeError('Value must be a Money type');
   }
   const valueAsNumber = convertMoneyToNumber(value);
 

@@ -2,9 +2,9 @@
 // so, they are not directly calling Marketplace API or Integration API.
 // You can find these api endpoints from 'server/api/...' directory
 
-import { types as sdkTypes, transit } from './sdkLoader';
-import config from '../config';
 import Decimal from 'decimal.js';
+import config from '../config';
+import { types as sdkTypes, transit } from './sdkLoader';
 
 export const apiBaseUrl = () => {
   const port = process.env.REACT_APP_DEV_API_SERVER_PORT;
@@ -32,13 +32,9 @@ export const typeHandlers = [
   },
 ];
 
-const serialize = data => {
-  return transit.write(data, { typeHandlers, verbose: config.sdk.transitVerbose });
-};
+const serialize = data => transit.write(data, { typeHandlers, verbose: config.sdk.transitVerbose });
 
-const deserialize = str => {
-  return transit.read(str, { typeHandlers });
-};
+const deserialize = str => transit.read(str, { typeHandlers });
 
 const post = (path, body) => {
   const url = `${apiBaseUrl()}${path}`;
@@ -75,9 +71,7 @@ const post = (path, body) => {
 //
 // See `server/api/transaction-line-items.js` to see what data should
 // be sent in the body.
-export const transactionLineItems = body => {
-  return post('/api/transaction-line-items', body);
-};
+export const transactionLineItems = body => post('/api/transaction-line-items', body);
 
 // Initiate a privileged transaction.
 //
@@ -87,9 +81,7 @@ export const transactionLineItems = body => {
 //
 // See `server/api/initiate-privileged.js` to see what data should be
 // sent in the body.
-export const initiatePrivileged = body => {
-  return post('/api/initiate-privileged', body);
-};
+export const initiatePrivileged = body => post('/api/initiate-privileged', body);
 
 // Transition a transaction with a privileged transition.
 //
@@ -99,9 +91,7 @@ export const initiatePrivileged = body => {
 //
 // See `server/api/transition-privileged.js` to see what data should
 // be sent in the body.
-export const transitionPrivileged = body => {
-  return post('/api/transition-privileged', body);
-};
+export const transitionPrivileged = body => post('/api/transition-privileged', body);
 
 // Create user with identity provider (e.g. Facebook or Google)
 //
@@ -112,6 +102,4 @@ export const transitionPrivileged = body => {
 //
 // See `server/api/auth/createUserWithIdp.js` to see what data should
 // be sent in the body.
-export const createUserWithIdp = body => {
-  return post('/api/auth/create-user-with-idp', body);
-};
+export const createUserWithIdp = body => post('/api/auth/create-user-with-idp', body);

@@ -2,8 +2,7 @@ import React from 'react';
 import { func, node, object, string } from 'prop-types';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError } from '../../components';
-
+import { ValidationError } from "..";
 import css from './FieldSelect.module.css';
 
 const handleChange = (propsOnChange, inputOnChange) => event => {
@@ -96,8 +95,6 @@ FieldSelectComponent.propTypes = {
   children: node,
 };
 
-const FieldSelect = props => {
-  return <Field component={FieldSelectComponent} {...props} />;
-};
+const FieldSelect = props => <Field component={FieldSelectComponent} {...props} />;
 
 export default FieldSelect;

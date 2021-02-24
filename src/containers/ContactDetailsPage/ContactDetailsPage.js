@@ -17,8 +17,7 @@ import {
   UserNav,
 } from '../../components';
 import { ContactDetailsForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import {
   saveContactDetails,
@@ -54,27 +53,27 @@ export const ContactDetailsPageComponent = props => {
   const contactInfoForm = user.id ? (
     <ContactDetailsForm
       className={css.form}
-      initialValues={{ email: currentEmail, phoneNumber: currentPhoneNumber }}
-      saveEmailError={saveEmailError}
-      savePhoneNumberError={savePhoneNumberError}
       currentUser={currentUser}
+      initialValues={{ email: currentEmail, phoneNumber: currentPhoneNumber }}
+      inProgress={saveContactDetailsInProgress}
+      onChange={onChange}
       onResendVerificationEmail={onResendVerificationEmail}
       onResetPassword={onResetPassword}
       onSubmit={values => onSubmitContactDetails({ ...values, currentEmail, currentPhoneNumber })}
-      onChange={onChange}
-      inProgress={saveContactDetailsInProgress}
       ready={contactDetailsChanged}
-      sendVerificationEmailInProgress={sendVerificationEmailInProgress}
-      sendVerificationEmailError={sendVerificationEmailError}
-      resetPasswordInProgress={resetPasswordInProgress}
       resetPasswordError={resetPasswordError}
+      resetPasswordInProgress={resetPasswordInProgress}
+      saveEmailError={saveEmailError}
+      savePhoneNumberError={savePhoneNumberError}
+      sendVerificationEmailError={sendVerificationEmailError}
+      sendVerificationEmailInProgress={sendVerificationEmailInProgress}
     />
   ) : null;
 
   const title = intl.formatMessage({ id: 'ContactDetailsPage.title' });
 
   return (
-    <Page title={title} scrollingDisabled={scrollingDisabled}>
+    <Page scrollingDisabled={scrollingDisabled} title={title}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
           <TopbarContainer
@@ -82,7 +81,7 @@ export const ContactDetailsPageComponent = props => {
             desktopClassName={css.desktopTopbar}
             mobileClassName={css.mobileTopbar}
           />
-          <UserNav selectedPageName="ContactDetailsPage" listing={currentUserListing} />
+          <UserNav listing={currentUserListing} selectedPageName="ContactDetailsPage" />
         </LayoutWrapperTopbar>
         <LayoutWrapperAccountSettingsSideNav currentTab="ContactDetailsPage" />
         <LayoutWrapperMain>
@@ -176,9 +175,9 @@ const ContactDetailsPage = compose(
   injectIntl
 )(ContactDetailsPageComponent);
 
-ContactDetailsPage.loadData = () => {
+ContactDetailsPage.loadData = () => 
   // Since verify email happens in separate tab, current user's data might be updated
-  return fetchCurrentUser();
-};
+   fetchCurrentUser()
+;
 
 export default ContactDetailsPage;

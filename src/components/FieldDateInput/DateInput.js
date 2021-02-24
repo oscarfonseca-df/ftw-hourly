@@ -12,12 +12,9 @@ import { SingleDatePicker, isInclusivelyAfterDay, isInclusivelyBeforeDay } from 
 // The full data included in moment-timezone dependency is mostly irrelevant
 // and slows down the first paint.
 import moment from 'moment-timezone/builds/moment-timezone-with-data-10-year-range.min';
-
 import classNames from 'classnames';
 import config from '../../config';
-
 import { intlShape, injectIntl } from '../../util/reactIntl';
-
 import NextMonthIcon from './NextMonthIcon';
 import PreviousMonthIcon from './PreviousMonthIcon';
 import css from './DateInput.module.css';
@@ -75,9 +72,7 @@ const defaultProps = {
   // day presentation and interaction related props
   renderCalendarDay: undefined, // If undefined, renders react-dates/lib/components/CalendarDay
   // day presentation and interaction related props
-  renderDayContents: day => {
-    return <span className="renderedDay">{day.format('D')}</span>;
-  },
+  renderDayContents: day => <span className="renderedDay">{day.format('D')}</span>,
   enableOutsideDays: false,
   isDayBlocked: () => false,
 
@@ -182,13 +177,13 @@ class DateInputComponent extends Component {
       <div className={classes}>
         <SingleDatePicker
           {...datePickerProps}
-          focused={this.state.focused}
-          onFocusChange={this.onFocusChange}
           date={date}
+          focused={this.state.focused}
           onDateChange={this.onDateChange}
+          onFocusChange={this.onFocusChange}
+          phrases={{ closeDatePicker: closeDatePickerText, clearDate: clearDateText }}
           placeholder={placeholder}
           screenReaderInputMessage={screenReaderInputText}
-          phrases={{ closeDatePicker: closeDatePickerText, clearDate: clearDateText }}
         />
       </div>
     );

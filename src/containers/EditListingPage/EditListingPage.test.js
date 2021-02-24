@@ -5,42 +5,42 @@ import { EditListingPageComponent } from './EditListingPage';
 
 const noop = () => null;
 
-describe('EditListingPageComponent', () => {
+describe('editListingPageComponent', () => {
   it('matches snapshot', () => {
     const getOwnListing = () => null;
     const tree = renderShallow(
       <EditListingPageComponent
-        params={{ id: 'id', slug: 'slug', type: 'new', tab: 'description' }}
-        currentUserHasListings={false}
-        isAuthenticated={false}
         authInProgress={false}
+        currentUserHasListings={false}
         fetchInProgress={false}
-        location={{ search: '' }}
-        history={{ push: noop }}
         getOwnListing={getOwnListing}
+        history={{ push: noop }}
         images={[]}
         intl={fakeIntl}
-        onManageDisableScrolling={noop}
+        isAuthenticated={false}
+        location={{ search: '' }}
         onAddAvailabilityException={noop}
-        onDeleteAvailabilityException={noop}
+        onChange={noop}
         onCreateListingDraft={noop}
-        onPublishListingDraft={noop}
-        onUpdateListing={noop}
+        onDeleteAvailabilityException={noop}
+        onGetStripeConnectAccountLink={noop}
         onImageUpload={noop}
-        onRemoveListingImage={noop}
+        onManageDisableScrolling={noop}
         onManageDisableScrolling={noop}
         onPayoutDetailsFormChange={noop}
-        onPayoutDetailsSubmit={noop}
-        onUpdateImageOrder={noop}
-        onChange={noop}
-        onGetStripeConnectAccountLink={noop}
         onPayoutDetailsFormSubmit={noop}
+        onPayoutDetailsSubmit={noop}
+        onPublishListingDraft={noop}
+        onRemoveListingImage={noop}
+        onResendVerificationEmail={noop}
+        onUpdateImageOrder={noop}
+        onUpdateListing={noop}
         page={{ imageOrder: [], images: {} }}
+        params={{ id: 'id', slug: 'slug', type: 'new', tab: 'description' }}
         scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
         tab="description"
         type="new"
-        sendVerificationEmailInProgress={false}
-        onResendVerificationEmail={noop}
       />
     );
     expect(tree).toMatchSnapshot();

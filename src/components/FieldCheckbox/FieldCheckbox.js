@@ -2,13 +2,12 @@ import React from 'react';
 import { node, string } from 'prop-types';
 import classNames from 'classnames';
 import { Field } from 'react-final-form';
-
 import css from './FieldCheckbox.module.css';
 
 const IconCheckbox = props => {
   const { className, checkedClassName, boxClassName } = props;
   return (
-    <svg className={className} width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+    <svg className={className} height="14" width="14" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd">
         <g transform="translate(2 2)">
           <path
@@ -17,8 +16,8 @@ const IconCheckbox = props => {
           />
           <path
             className={boxClassName || css.box}
-            strokeWidth="2"
             d="M10.9992947 1.507634l-.0194518 6.9993137C10.9760133 9.8849417 9.8578519 11 8.4798526 11H1.5001008c-1.3807119 0-2.5-1.1192881-2.5-2.4999827L-1.0000202 1.5c0-1.3807119 1.119288-2.5 2.500098-2.5l6.9994284.0006862c1.3807118.0001115 2.4999096 1.11949 2.4997981 2.5002019-.0000018.003373-.0000018.003373-.0000096.0067458z"
+            strokeWidth="2"
           />
         </g>
         <path
@@ -70,15 +69,15 @@ const FieldCheckboxComponent = props => {
           const input = props.input;
           return (
             <input
-              id={id}
               className={css.input}
+              id={id}
               {...input}
               onChange={event => handleOnChange(input, event)}
             />
           );
         }}
       </Field>
-      <label htmlFor={id} className={css.label}>
+      <label className={css.label} htmlFor={id}>
         <span className={css.checkboxWrapper}>
           <IconCheckbox className={svgClassName} {...successColorVariantMaybe} />
         </span>

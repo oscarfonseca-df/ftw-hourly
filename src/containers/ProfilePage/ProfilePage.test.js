@@ -5,16 +5,16 @@ import { ProfilePageComponent } from './ProfilePage';
 
 const noop = () => null;
 
-describe('ProfilePage', () => {
+describe('profilePage', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <ProfilePageComponent
+        intl={fakeIntl}
+        listings={[]}
         scrollingDisabled={false}
         user={createUser('test-user')}
         userShowInProgress={false}
-        listings={[]}
         viewport={fakeViewport}
-        intl={fakeIntl}
       />
     );
     expect(tree).toMatchSnapshot();

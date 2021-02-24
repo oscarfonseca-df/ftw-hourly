@@ -6,21 +6,21 @@ const EditIcon = props => {
   return (
     <svg
       className={className}
-      width="16px"
       height="16px"
-      viewBox="0 0 16 16"
       version="1.1"
+      viewBox="0 0 16 16"
+      width="16px"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
-        stroke="none"
-        strokeWidth="1"
         fill="none"
         fillRule="evenodd"
+        stroke="none"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="1"
       >
-        <g transform="translate(-255.000000, -76.000000)" stroke="#FFFFFF">
+        <g stroke="#FFFFFF" transform="translate(-255.000000, -76.000000)">
           <g transform="translate(0.000000, 60.000000)">
             <g transform="translate(256.000000, 16.000000)">
               <polygon points="5.1611 12.8804 0.2121 15.0004 2.3331 10.0504 11.1721 1.2124 14.0001 4.0404" />

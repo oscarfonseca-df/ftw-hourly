@@ -1,13 +1,12 @@
 import React from 'react';
-import { InlineTextButton, MenuContent, MenuLabel, MenuItem } from '../../components';
+import { InlineTextButton, MenuContent, MenuLabel, MenuItem } from "..";
 import Menu from './Menu';
 
 const noop = () => null;
 const style = { padding: '24px' };
 const btnStyle = { whiteSpace: 'nowrap', padding: '6px 0' };
 
-const MenuWrapper = () => {
-  return (
+const MenuWrapper = () => (
     <Menu>
       <MenuLabel>
         <span>Menu</span>
@@ -26,15 +25,12 @@ const MenuWrapper = () => {
       </MenuContent>
     </Menu>
   );
-};
 
-const MenuOnLeft = () => {
-  return (
+const MenuOnLeft = () => (
     <div style={{ width: '50px' }}>
       <MenuWrapper />
     </div>
   );
-};
 
 export const MenuBasic = {
   component: MenuOnLeft,
@@ -42,13 +38,11 @@ export const MenuBasic = {
   group: 'navigation',
 };
 
-const MenuOnRight = () => {
-  return (
+const MenuOnRight = () => (
     <div style={{ width: '68px', marginLeft: 'auto', marginRight: '36x' }}>
       <MenuWrapper />
     </div>
   );
-};
 
 export const MenuBasicOnRight = {
   component: MenuOnRight,

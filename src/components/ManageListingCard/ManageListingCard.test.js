@@ -5,20 +5,20 @@ import { ManageListingCardComponent } from './ManageListingCard';
 
 const noop = () => null;
 
-describe('ManageListingCard', () => {
+describe('manageListingCard', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <ManageListingCardComponent
+        availabilityEnabled
+        hasClosingError={false}
+        hasOpeningError={false}
         history={{ push: noop }}
-        listing={createOwnListing('listing1')}
         intl={fakeIntl}
         isMenuOpen={false}
+        listing={createOwnListing('listing1')}
         onCloseListing={noop}
         onOpenListing={noop}
         onToggleMenu={noop}
-        hasClosingError={false}
-        hasOpeningError={false}
-        availabilityEnabled={true}
       />
     );
     expect(tree).toMatchSnapshot();

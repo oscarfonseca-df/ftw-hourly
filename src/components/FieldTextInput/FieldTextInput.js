@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { bool, func, object, shape, string } from 'prop-types';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { ValidationError, ExpandingTextarea } from '../../components';
-
+import { ValidationError, ExpandingTextarea } from "..";
 import css from './FieldTextInput.module.css';
 
 const CONTENT_MAX_LENGTH = 5000;

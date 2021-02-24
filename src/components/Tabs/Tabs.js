@@ -18,8 +18,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TabNav } from '../../components';
-
+import { TabNav } from "..";
 import css from './Tabs.module.css';
 
 const Tabs = props => {
@@ -61,8 +60,8 @@ const Tabs = props => {
     <div className={classes}>
       <TabNav
         rootClassName={navRootClassName}
-        tabs={tabNavTabs}
         tabRootClassName={tabRootClassName}
+        tabs={tabNavTabs}
       />
       {selectedTabPanel}
     </div>

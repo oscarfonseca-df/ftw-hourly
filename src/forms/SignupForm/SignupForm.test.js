@@ -5,7 +5,7 @@ import SignupForm from './SignupForm';
 
 const noop = () => null;
 
-describe('SignupForm', () => {
+describe('signupForm', () => {
   it('matches snapshot', () => {
     const tree = renderDeep(
       <SignupForm intl={fakeIntl} onOpenTermsOfService={noop} onSubmit={noop} />

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { arrayOf, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { withDimensions } from '../../util/contextHelpers';
-
 import Handle from './Handle';
 import Track from './Track';
 import css from './RangeSlider.module.css';
@@ -62,14 +61,14 @@ class RangeSliderComponent extends Component {
           return (
             <Handle
               key={index}
-              className={classes}
-              value={h}
-              min={index === 0 ? min : handles[index - 1]}
-              max={index === handles.length - 1 ? max : handles[index + 1]}
-              valueToPosition={this.toPosition}
-              positionToValue={this.toValue}
               changeActive={() => this.changeActive(index)}
+              className={classes}
+              max={index === handles.length - 1 ? max : handles[index + 1]}
+              min={index === 0 ? min : handles[index - 1]}
               onChange={value => this.onChange(value, index)}
+              positionToValue={this.toValue}
+              value={h}
+              valueToPosition={this.toPosition}
             />
           );
         })}

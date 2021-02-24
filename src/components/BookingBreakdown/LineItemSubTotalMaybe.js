@@ -1,7 +1,7 @@
 import React from 'react';
 import { string } from 'prop-types';
-import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import Decimal from 'decimal.js';
+import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
 import config from '../../config';
 import { types as sdkTypes } from '../../util/sdkLoader';
@@ -10,7 +10,6 @@ import {
   LINE_ITEM_CUSTOMER_COMMISSION,
   LINE_ITEM_PROVIDER_COMMISSION,
 } from '../../util/types';
-
 import css from './BookingBreakdown.module.css';
 
 const { Money } = sdkTypes;
@@ -19,9 +18,7 @@ const { Money } = sdkTypes;
  * Calculates the total price in sub units for multiple line items.
  */
 const lineItemsTotal = lineItems => {
-  const amount = lineItems.reduce((total, item) => {
-    return total.plus(item.lineTotal.amount);
-  }, new Decimal(0));
+  const amount = lineItems.reduce((total, item) => total.plus(item.lineTotal.amount), new Decimal(0));
   const currency = lineItems[0] ? lineItems[0].lineTotal.currency : config.currency;
   return new Money(amount, currency);
 };
@@ -29,19 +26,15 @@ const lineItemsTotal = lineItems => {
 /**
  * Checks if line item represents commission
  */
-const isCommission = lineItem => {
-  return (
+const isCommission = lineItem => (
     lineItem.code === LINE_ITEM_PROVIDER_COMMISSION ||
     lineItem.code === LINE_ITEM_CUSTOMER_COMMISSION
   );
-};
 
 /**
  * Returns non-commission, non-reversal line items
  */
-const nonCommissionNonReversalLineItems = transaction => {
-  return transaction.attributes.lineItems.filter(item => !isCommission(item) && !item.reversal);
-};
+const nonCommissionNonReversalLineItems = transaction => transaction.attributes.lineItems.filter(item => !isCommission(item) && !item.reversal);
 
 /**
  * Checks if a transaction has a commission line-item for

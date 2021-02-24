@@ -110,7 +110,7 @@ export const ServerApp = props => {
     <IntlProvider locale={config.locale} messages={localeMessages} textComponent="span">
       <Provider store={store}>
         <HelmetProvider context={helmetContext}>
-          <StaticRouter location={url} context={context}>
+          <StaticRouter context={context} location={url}>
             <Routes routes={routeConfiguration()} />
           </StaticRouter>
         </HelmetProvider>
@@ -140,7 +140,7 @@ export const renderApp = (url, serverContext, preloadedState) => {
   const helmetContext = {};
 
   const body = ReactDOMServer.renderToString(
-    <ServerApp url={url} context={serverContext} helmetContext={helmetContext} store={store} />
+    <ServerApp context={serverContext} helmetContext={helmetContext} store={store} url={url} />
   );
   const { helmet: head } = helmetContext;
   return { head, body };

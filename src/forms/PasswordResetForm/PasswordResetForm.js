@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form, PrimaryButton, FieldTextInput } from '../../components';
 import * as validators from '../../util/validators';
-
 import css from './PasswordResetForm.module.css';
 
 const PasswordResetFormComponent = props => (
@@ -67,20 +66,20 @@ const PasswordResetFormComponent = props => (
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           <FieldTextInput
-            className={css.password}
-            type="password"
-            id={formId ? `${formId}.password` : 'password'}
-            name="password"
             autoComplete="new-password"
+            className={css.password}
+            id={formId ? `${formId}.password` : 'password'}
             label={passwordLabel}
+            name="password"
             placeholder={passwordPlaceholder}
+            type="password"
             validate={validators.composeValidators(
               passwordRequired,
               passwordMinLength,
               passwordMaxLength
             )}
           />
-          <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
+          <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
             <FormattedMessage id="PasswordResetForm.submitButtonText" />
           </PrimaryButton>
         </Form>

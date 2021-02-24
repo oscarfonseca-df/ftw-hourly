@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, oneOfType, bool } from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import {
   ensureUser,
@@ -9,8 +9,7 @@ import {
   userDisplayNameAsString,
   userAbbreviatedName,
 } from '../../util/data';
-import { ResponsiveImage, IconBannedUser, NamedLink } from '../../components/';
-
+import { ResponsiveImage, IconBannedUser, NamedLink } from "..";
 import css from './Avatar.module.css';
 
 // Responsive image sizes hint
@@ -87,11 +86,11 @@ export const AvatarComponent = props => {
     return (
       <NamedLink {...rootProps} {...linkProps}>
         <ResponsiveImage
-          rootClassName={css.avatarImage}
           alt={displayName}
           image={avatarUser.profileImage}
-          variants={AVATAR_IMAGE_VARIANTS}
+          rootClassName={css.avatarImage}
           sizes={renderSizes}
+          variants={AVATAR_IMAGE_VARIANTS}
         />
       </NamedLink>
     );
@@ -99,11 +98,11 @@ export const AvatarComponent = props => {
     return (
       <div {...rootProps}>
         <ResponsiveImage
-          rootClassName={css.avatarImage}
           alt={displayName}
           image={avatarUser.profileImage}
-          variants={AVATAR_IMAGE_VARIANTS}
+          rootClassName={css.avatarImage}
           sizes={renderSizes}
+          variants={AVATAR_IMAGE_VARIANTS}
         />
       </div>
     );
@@ -151,11 +150,11 @@ const Avatar = injectIntl(AvatarComponent);
 export default Avatar;
 
 export const AvatarMedium = props => (
-  <Avatar rootClassName={css.mediumAvatar} renderSizes={AVATAR_SIZES_MEDIUM} {...props} />
+  <Avatar renderSizes={AVATAR_SIZES_MEDIUM} rootClassName={css.mediumAvatar} {...props} />
 );
 AvatarMedium.displayName = 'AvatarMedium';
 
 export const AvatarLarge = props => (
-  <Avatar rootClassName={css.largeAvatar} renderSizes={AVATAR_SIZES_LARGE} {...props} />
+  <Avatar renderSizes={AVATAR_SIZES_LARGE} rootClassName={css.largeAvatar} {...props} />
 );
 AvatarLarge.displayName = 'AvatarLarge';

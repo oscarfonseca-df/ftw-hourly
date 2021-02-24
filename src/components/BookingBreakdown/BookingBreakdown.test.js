@@ -37,13 +37,18 @@ const exampleTransaction = params => {
   };
 };
 
-describe('BookingBreakdown', () => {
+describe('bookingBreakdown', () => {
   it('pretransaction data matches snapshot', () => {
     const tree = renderDeep(
       <BookingBreakdownComponent
-        userRole="customer"
-        unitType={LINE_ITEM_NIGHT}
+        booking={createBooking('example-booking', {
+          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+        })}
         dateType={DATE_TYPE_DATE}
+        intl={fakeIntl}
         transaction={exampleTransaction({
           payinTotal: new Money(2000, 'USD'),
           payoutTotal: new Money(2000, 'USD'),
@@ -58,13 +63,8 @@ describe('BookingBreakdown', () => {
             },
           ],
         })}
-        booking={createBooking('example-booking', {
-          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-        })}
-        intl={fakeIntl}
+        unitType={LINE_ITEM_NIGHT}
+        userRole="customer"
       />
     );
     expect(tree).toMatchSnapshot();
@@ -73,9 +73,14 @@ describe('BookingBreakdown', () => {
   it('customer transaction data matches snapshot', () => {
     const tree = renderDeep(
       <BookingBreakdownComponent
-        userRole="customer"
-        unitType={LINE_ITEM_NIGHT}
+        booking={createBooking('example-booking', {
+          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+        })}
         dateType={DATE_TYPE_DATE}
+        intl={fakeIntl}
         transaction={exampleTransaction({
           payinTotal: new Money(2000, 'USD'),
           payoutTotal: new Money(2000, 'USD'),
@@ -90,13 +95,8 @@ describe('BookingBreakdown', () => {
             },
           ],
         })}
-        booking={createBooking('example-booking', {
-          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-        })}
-        intl={fakeIntl}
+        unitType={LINE_ITEM_NIGHT}
+        userRole="customer"
       />
     );
     expect(tree).toMatchSnapshot();
@@ -105,9 +105,14 @@ describe('BookingBreakdown', () => {
   it('provider transaction data matches snapshot', () => {
     const tree = renderDeep(
       <BookingBreakdownComponent
-        userRole="provider"
-        unitType={LINE_ITEM_NIGHT}
+        booking={createBooking('example-booking', {
+          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+        })}
         dateType={DATE_TYPE_DATE}
+        intl={fakeIntl}
         transaction={exampleTransaction({
           payinTotal: new Money(2000, 'USD'),
           payoutTotal: new Money(1800, 'USD'),
@@ -129,13 +134,8 @@ describe('BookingBreakdown', () => {
             },
           ],
         })}
-        booking={createBooking('example-booking', {
-          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-        })}
-        intl={fakeIntl}
+        unitType={LINE_ITEM_NIGHT}
+        userRole="provider"
       />
     );
     expect(tree).toMatchSnapshot();
@@ -143,9 +143,14 @@ describe('BookingBreakdown', () => {
   it('provider canceled transaction data matches snapshot', () => {
     const tree = renderDeep(
       <BookingBreakdownComponent
-        userRole="provider"
-        unitType={LINE_ITEM_NIGHT}
+        booking={createBooking('example-booking', {
+          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
+          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
+        })}
         dateType={DATE_TYPE_DATE}
+        intl={fakeIntl}
         transaction={exampleTransaction({
           lastTransition: TRANSITION_CANCEL,
           payinTotal: new Money(0, 'USD'),
@@ -185,13 +190,8 @@ describe('BookingBreakdown', () => {
             },
           ],
         })}
-        booking={createBooking('example-booking', {
-          start: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          displayStart: new Date(Date.UTC(2017, 3, 14, 12, 0, 0)),
-          end: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-          displayEnd: new Date(Date.UTC(2017, 3, 16, 12, 0, 0)),
-        })}
-        intl={fakeIntl}
+        unitType={LINE_ITEM_NIGHT}
+        userRole="provider"
       />
     );
     expect(tree).toMatchSnapshot();

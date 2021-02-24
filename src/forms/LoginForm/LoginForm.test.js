@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 
 const noop = () => null;
 
-describe('LoginForm', () => {
+describe('loginForm', () => {
   it('matches snapshot', () => {
     const tree = renderDeep(<LoginForm intl={fakeIntl} onSubmit={noop} />);
     expect(tree).toMatchSnapshot();

@@ -31,27 +31,27 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} />
           <FieldRadioButton
             id={`${id}-option-id1`}
-            name="option-group"
             label="option 1"
-            value="option1"
+            name="option-group"
             showAsRequired={showAsRequired}
+            value="option1"
           />
           <FieldRadioButton
             id={`${id}-option-id2`}
-            name="option-group"
             label="option 2"
-            value="option2"
+            name="option-group"
             showAsRequired={showAsRequired}
+            value="option2"
           />
           <FieldRadioButton
             id={`${id}-option-id3`}
-            name="option-group"
             label="option 3"
-            value="option3"
+            name="option-group"
             showAsRequired={showAsRequired}
+            value="option3"
           />
 
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

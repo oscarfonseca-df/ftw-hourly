@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet-async';
 import { withRouter } from 'react-router-dom';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { injectIntl, intlShape } from '../../util/reactIntl';
 import routeConfiguration from '../../routeConfiguration';
 import config from '../../config';
 import { metaTagProps } from '../../util/seo';
 import { canonicalRoutePath } from '../../util/routes';
-import { CookieConsent } from '../../components';
-
+import { CookieConsent } from "..";
 import facebookImage from '../../assets/yogatimeFacebook-1200x630.jpg';
 import twitterImage from '../../assets/yogatimeTwitter-600x314.jpg';
 import css from './Page.module.css';
@@ -95,7 +94,7 @@ class PageComponent extends Component {
     });
 
     this.scrollingDisabledChanged(scrollingDisabled);
-    const referrerMeta = referrer ? <meta name="referrer" content={referrer} /> : null;
+    const referrerMeta = referrer ? <meta content={referrer} name="referrer" /> : null;
 
     const canonicalRootURL = config.canonicalRootURL;
     const shouldReturnPathOnly = referrer && referrer !== 'unsafe-url';
@@ -201,9 +200,9 @@ class PageComponent extends Component {
         >
           <title>{title}</title>
           {referrerMeta}
-          <link rel="canonical" href={canonicalUrl} />
-          <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
-          <meta httpEquiv="Content-Language" content={intl.locale} />
+          <link href={canonicalUrl} rel="canonical" />
+          <meta content="text/html; charset=UTF-8" httpEquiv="Content-Type" />
+          <meta content={intl.locale} httpEquiv="Content-Language" />
           {metaTags}
           <script id="page-schema" type="application/ld+json">
             {schemaArrayJSONString.replace(/</g, '\\u003c')}
@@ -211,11 +210,11 @@ class PageComponent extends Component {
         </Helmet>
         <CookieConsent />
         <div
-          className={css.content}
-          style={scrollPositionStyles}
           ref={c => {
             this.contentDiv = c;
           }}
+          className={css.content}
+          style={scrollPositionStyles}
         >
           {children}
         </div>

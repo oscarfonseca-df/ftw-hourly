@@ -15,8 +15,7 @@ import {
   LISTING_PAGE_PENDING_APPROVAL_VARIANT,
   createSlug,
 } from '../../util/urlHelpers';
-import { NamedLink } from '../../components';
-
+import { NamedLink } from "..";
 import css from './ListingLink.module.css';
 
 const MIN_LENGTH_FOR_LONG_WORDS = 16;
@@ -46,7 +45,7 @@ const ListingLink = props => {
     : isDraft
     ? LISTING_PAGE_DRAFT_VARIANT
     : null;
-  const linkProps = !!variant
+  const linkProps = variant
     ? {
         name: 'ListingPageVariant',
         params: {
@@ -61,7 +60,7 @@ const ListingLink = props => {
       };
   return (
     <NamedLink className={className} {...linkProps}>
-      {children ? children : richTitle || ''}
+      {children || richTitle || ''}
     </NamedLink>
   );
 };

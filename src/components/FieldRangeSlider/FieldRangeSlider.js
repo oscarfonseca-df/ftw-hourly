@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
-import { RangeSlider } from '../../components';
+import { RangeSlider } from "..";
 
 const RangeSliderInput = props => {
   const { input, handles, ...rest } = props;

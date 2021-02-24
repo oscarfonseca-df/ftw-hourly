@@ -1,8 +1,8 @@
 import React, { Component, useEffect } from 'react';
 import { array, bool, func, number, object, oneOf, shape, string } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
@@ -14,10 +14,8 @@ import {
   LISTING_PAGE_PARAM_TYPES,
 } from '../../util/urlHelpers';
 import { ensureCurrentUser, ensureListing } from '../../util/data';
-
-import { Modal, NamedRedirect, Tabs, StripeConnectAccountStatusBox } from '../../components';
+import { Modal, NamedRedirect, Tabs, StripeConnectAccountStatusBox } from "..";
 import { StripeConnectAccountForm } from '../../forms';
-
 import EditListingWizardTab, {
   AVAILABILITY,
   DESCRIPTION,
@@ -41,7 +39,7 @@ const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
 export const TABS = [
   DESCRIPTION,
   FEATURES,
-  //POLICY,
+  // POLICY,
   LOCATION,
   PRICING,
   ...availabilityMaybe,
@@ -123,14 +121,12 @@ const tabCompleted = (tab, listing) => {
  *
  * @return object containing activity / editability of different tabs of this wizard
  */
-const tabsActive = (isNew, listing) => {
-  return TABS.reduce((acc, tab) => {
+const tabsActive = (isNew, listing) => TABS.reduce((acc, tab) => {
     const previousTabIndex = TABS.findIndex(t => t === tab) - 1;
     const isActive =
       previousTabIndex >= 0 ? !isNew || tabCompleted(TABS[previousTabIndex], listing) : true;
     return { ...acc, [tab]: isActive };
   }, {});
-};
 
 const scrollToTab = (tabPrefix, tabId) => {
   const el = document.querySelector(`#${tabPrefix}_${tabId}`);
@@ -316,9 +312,7 @@ class EditListingWizard extends Component {
       this.hasScrolledToTab = true;
     }
 
-    const tabLink = tab => {
-      return { name: 'EditListingPage', params: { ...params, tab } };
-    };
+    const tabLink = tab => ({ name: 'EditListingPage', params: { ...params, tab } });
 
     const setPortalRootAfterInitialRender = () => {
       if (!this.state.portalRoot) {
@@ -375,35 +369,33 @@ class EditListingWizard extends Component {
     }
 
     return (
-      <div className={classes} ref={setPortalRootAfterInitialRender}>
+      <div ref={setPortalRootAfterInitialRender} className={classes}>
         <Tabs
-          rootClassName={css.tabsContainer}
           navRootClassName={css.nav}
+          rootClassName={css.tabsContainer}
           tabRootClassName={css.tab}
         >
-          {TABS.map(tab => {
-            return (
+          {TABS.map(tab => (
               <EditListingWizardTab
                 {...rest}
                 key={tab}
+                disabled={isNewListingFlow && !tabsStatus[tab]}
+                errors={errors}
+                fetchInProgress={fetchInProgress}
+                handleCreateFlowTabScrolling={this.handleCreateFlowTabScrolling}
+                handlePublishListing={this.handlePublishListing}
+                intl={intl}
+                listing={listing}
+                marketplaceTabs={TABS}
+                onManageDisableScrolling={onManageDisableScrolling}
+                params={params}
+                selected={selectedTab === tab}
+                tab={tab}
                 tabId={`${id}_${tab}`}
                 tabLabel={tabLabel(intl, tab)}
                 tabLinkProps={tabLink(tab)}
-                selected={selectedTab === tab}
-                disabled={isNewListingFlow && !tabsStatus[tab]}
-                tab={tab}
-                intl={intl}
-                params={params}
-                listing={listing}
-                marketplaceTabs={TABS}
-                errors={errors}
-                handleCreateFlowTabScrolling={this.handleCreateFlowTabScrolling}
-                handlePublishListing={this.handlePublishListing}
-                fetchInProgress={fetchInProgress}
-                onManageDisableScrolling={onManageDisableScrolling}
               />
-            );
-          })}
+            ))}
         </Tabs>
         <Modal
           id="EditListingWizard.payoutModal"
@@ -430,39 +422,39 @@ class EditListingWizard extends Component {
                   <FormattedMessage id="EditListingWizard.payoutModalInfo" />
                 </p>
                 <StripeConnectAccountForm
+                  currentUser={ensuredCurrentUser}
                   disabled={formDisabled}
                   inProgress={payoutDetailsSaveInProgress}
+                  onChange={onPayoutDetailsFormChange}
+                  onGetStripeConnectAccountLink={handleGetStripeConnectAccountLink}
+                  onSubmit={rest.onPayoutDetailsSubmit}
                   ready={payoutDetailsSaved}
-                  currentUser={ensuredCurrentUser}
-                  stripeBankAccountLastDigits={getBankAccountLast4Digits(stripeAccountData)}
                   savedCountry={savedCountry}
-                  submitButtonText={intl.formatMessage({
-                    id: 'StripePayoutPage.submitButtonText',
-                  })}
                   stripeAccountError={stripeAccountError}
                   stripeAccountFetched={stripeAccountFetched}
                   stripeAccountLinkError={stripeAccountLinkError}
-                  onChange={onPayoutDetailsFormChange}
-                  onSubmit={rest.onPayoutDetailsSubmit}
-                  onGetStripeConnectAccountLink={handleGetStripeConnectAccountLink}
+                  stripeBankAccountLastDigits={getBankAccountLast4Digits(stripeAccountData)}
                   stripeConnected={stripeConnected}
+                  submitButtonText={intl.formatMessage({
+                    id: 'StripePayoutPage.submitButtonText',
+                  })}
                 >
                   {stripeConnected && !returnedAbnormallyFromStripe && showVerificationNeeded ? (
                     <StripeConnectAccountStatusBox
-                      type="verificationNeeded"
                       inProgress={getAccountLinkInProgress}
                       onGetStripeConnectAccountLink={handleGetStripeConnectAccountLink(
                         'custom_account_verification'
                       )}
+                      type="verificationNeeded"
                     />
                   ) : stripeConnected && savedCountry && !returnedAbnormallyFromStripe ? (
                     <StripeConnectAccountStatusBox
-                      type="verificationSuccess"
-                      inProgress={getAccountLinkInProgress}
                       disabled={payoutDetailsSaveInProgress}
+                      inProgress={getAccountLinkInProgress}
                       onGetStripeConnectAccountLink={handleGetStripeConnectAccountLink(
                         'custom_account_update'
                       )}
+                      type="verificationSuccess"
                     />
                   ) : null}
                 </StripeConnectAccountForm>

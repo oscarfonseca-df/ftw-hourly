@@ -2,9 +2,8 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import * as validators from '../../util/validators';
-import { Button } from '../../components';
+import { Button } from "..";
 import FieldTextInput from './FieldTextInput';
-
 import css from './FieldTextInputExample.module.css';
 
 const FormComponent = props => (
@@ -24,47 +23,47 @@ const FormComponent = props => (
           <FormSpy onChange={onChange} />
           <FieldTextInput
             className={css.field}
-            type="text"
             id={`${formName}.input1`}
-            name="input1"
             label="Input that requires a value:"
+            name="input1"
+            type="text"
             validate={required}
           />
           <FieldTextInput
             className={css.field}
-            type="text"
             id={`${formName}.input2`}
-            name="input2"
             label="Input that does not require a value:"
+            name="input2"
+            type="text"
           />
           <FieldTextInput
             className={css.field}
-            type="text"
             name="input3"
             placeholder="Input without label..."
+            type="text"
           />
           <FieldTextInput
             className={css.field}
-            type="textarea"
             id={`${formName}.textarea1`}
-            name="textarea1"
             label="Textarea that requires a value:"
+            name="textarea1"
+            type="textarea"
             validate={required}
           />
           <FieldTextInput
             className={css.field}
-            type="textarea"
             id={`${formName}.textarea2`}
-            name="textarea2"
             label="Textarea that does not require a value:"
+            name="textarea2"
+            type="textarea"
           />
           <FieldTextInput
             className={css.field}
-            type="textarea"
             name="textarea3"
             placeholder="Textarea without label..."
+            type="textarea"
           />
-          <Button className={css.submit} type="submit" disabled={submitDisabled}>
+          <Button className={css.submit} disabled={submitDisabled} type="submit">
             Submit
           </Button>
         </form>

@@ -9,3 +9,13 @@ exports[`SearchResultsPanel matches snapshot 1`] = `
   />
 </div>
 `;
+
+exports[`searchResultsPanel matches snapshot 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="listingCards"
+  />
+</div>
+`;

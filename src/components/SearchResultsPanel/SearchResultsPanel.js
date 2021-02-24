@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import { ListingCard, PaginationLinks } from '../../components';
+import { ListingCard, PaginationLinks } from "..";
 import css from './SearchResultsPanel.module.css';
 
 const SearchResultsPanel = props => {
@@ -34,8 +34,8 @@ const SearchResultsPanel = props => {
       <div className={css.listingCards}>
         {listings.map(l => (
           <ListingCard
-            className={css.listingCard}
             key={l.id.uuid}
+            className={css.listingCard}
             listing={l}
             renderSizes={cardRenderSizes}
             setActiveListing={setActiveListing}

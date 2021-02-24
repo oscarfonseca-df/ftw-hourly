@@ -24,12 +24,12 @@ const FormComponent = props => (
         >
           <FormSpy onChange={onChange} />
           <FieldBirthdayInput
-            id={`birthday`}
-            name="birthday"
-            label="Date of birth"
             format={identity}
-            valueFromForm={values.birthday}
+            id="birthday"
+            label="Date of birth"
+            name="birthday"
             validate={validators.composeValidators(required, minAgeRequired)}
+            valueFromForm={values.birthday}
           />
         </form>
       );

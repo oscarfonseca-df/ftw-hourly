@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { ResponsiveImage, IconSpinner } from '../../components';
+import { injectIntl, intlShape } from '../../util/reactIntl';
+import { ResponsiveImage, IconSpinner } from "..";
 import { propTypes } from '../../util/types';
-
 import css from './ImageCarousel.module.css';
 
 const KEY_CODE_LEFT_ARROW = 37;
@@ -18,12 +17,15 @@ class ImageCarousel extends Component {
     this.prev = this.prev.bind(this);
     this.next = this.next.bind(this);
   }
+
   componentDidMount() {
     window.addEventListener('keyup', this.onKeyUp);
   }
+
   componentWillUnmount() {
     window.removeEventListener('keyup', this.onKeyUp);
   }
+
   onKeyUp(e) {
     if (e.keyCode === KEY_CODE_LEFT_ARROW) {
       this.prev();
@@ -31,6 +33,7 @@ class ImageCarousel extends Component {
       this.next();
     }
   }
+
   prev() {
     const count = this.props.images.length;
     if (count < 2) {
@@ -41,6 +44,7 @@ class ImageCarousel extends Component {
       return { selectedImageIndex: newIndex, selectedImageLoaded: false };
     });
   }
+
   next() {
     const count = this.props.images.length;
     if (count < 2) {
@@ -51,6 +55,7 @@ class ImageCarousel extends Component {
       return { selectedImageIndex: newIndex, selectedImageLoaded: false };
     });
   }
+
   render() {
     const { rootClassName, className, images, intl } = this.props;
     const classes = classNames(rootClassName || css.root, className);
@@ -102,13 +107,13 @@ class ImageCarousel extends Component {
         <div className={css.imageWrapper}>
           <IconSpinner className={loadingIconClasses} />
           <ResponsiveImage
-            className={imageClasses}
             alt={imageAltText}
+            className={imageClasses}
             image={images[this.state.selectedImageIndex]}
-            onLoad={markImageLoaded(this.state.selectedImageIndex)}
             onError={markImageLoaded(this.state.selectedImageIndex)}
-            variants={['scaled-small', 'scaled-medium', 'scaled-large', 'scaled-xlarge']}
+            onLoad={markImageLoaded(this.state.selectedImageIndex)}
             sizes="(max-width: 767px) 100vw, 80vw"
+            variants={['scaled-small', 'scaled-medium', 'scaled-large', 'scaled-xlarge']}
           />
         </div>
         {imageIndex}

@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { Field, Form as FinalForm, FormSpy } from 'react-final-form';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
-
 import { Form, RangeSlider } from '../../components';
 import css from './PriceFilterForm.module.css';
 
@@ -116,10 +115,10 @@ const PriceFilterFormComponent = props => {
         return (
           <Form
             className={classes}
-            onSubmit={handleSubmit}
-            tabIndex="0"
             contentRef={contentRef}
+            onSubmit={handleSubmit}
             style={{ minWidth: '300px', ...style }}
+            tabIndex="0"
           >
             <div className={css.contentWrapper}>
               <span className={css.label}>
@@ -128,42 +127,42 @@ const PriceFilterFormComponent = props => {
               <div className={css.inputsWrapper}>
                 <Field
                   className={css.minPrice}
-                  id={`${id}.minPrice`}
-                  name="minPrice"
                   component="input"
-                  type="number"
-                  placeholder={min}
-                  min={min}
+                  id={`${id}.minPrice`}
                   max={max}
-                  step={step}
+                  min={min}
+                  name="minPrice"
                   parse={parseMin(min, maxPrice)}
+                  placeholder={min}
+                  step={step}
+                  type="number"
                 />
                 <span className={css.priceSeparator}>-</span>
                 <Field
                   className={css.maxPrice}
-                  id={`${id}.maxPrice`}
-                  name="maxPrice"
                   component="input"
-                  type="number"
-                  placeholder={max}
-                  min={min}
+                  id={`${id}.maxPrice`}
                   max={max}
-                  step={step}
+                  min={min}
+                  name="maxPrice"
                   parse={parseMax(max, minPrice)}
+                  placeholder={max}
+                  step={step}
+                  type="number"
                 />
               </div>
             </div>
 
             <div className={css.sliderWrapper}>
               <RangeSlider
-                min={min}
-                max={max}
-                step={step}
                 handles={[minPrice, maxPrice]}
+                max={max}
+                min={min}
                 onChange={handles => {
                   form.change('minPrice', handles[0]);
                   form.change('maxPrice', handles[1]);
                 }}
+                step={step}
               />
             </div>
 
@@ -171,10 +170,10 @@ const PriceFilterFormComponent = props => {
               <FormSpy onChange={handleChange} subscription={{ values: true, dirty: true }} />
             ) : (
               <div className={css.buttonsWrapper}>
-                <button className={css.clearButton} type="button" onClick={onClear}>
+                <button className={css.clearButton} onClick={onClear} type="button">
                   {clear}
                 </button>
-                <button className={css.cancelButton} type="button" onClick={handleCancel}>
+                <button className={css.cancelButton} onClick={handleCancel} type="button">
                   {cancel}
                 </button>
                 <button className={css.submitButton} type="submit">

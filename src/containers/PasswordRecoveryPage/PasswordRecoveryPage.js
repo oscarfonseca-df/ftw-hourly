@@ -17,8 +17,7 @@ import {
   Footer,
 } from '../../components';
 import { PasswordRecoveryForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import {
   recoverPassword,
   retypePasswordRecoveryEmail,
@@ -45,13 +44,13 @@ export const PasswordRecoveryPageComponent = props => {
   });
 
   const resendEmailLink = (
-    <InlineTextButton rootClassName={css.helperLink} onClick={() => onSubmitEmail(submittedEmail)}>
+    <InlineTextButton onClick={() => onSubmitEmail(submittedEmail)} rootClassName={css.helperLink}>
       <FormattedMessage id="PasswordRecoveryPage.resendEmailLinkText" />
     </InlineTextButton>
   );
 
   const fixEmailLink = (
-    <InlineTextButton rootClassName={css.helperLink} onClick={onRetypeEmail}>
+    <InlineTextButton onClick={onRetypeEmail} rootClassName={css.helperLink}>
       <FormattedMessage id="PasswordRecoveryPage.fixEmailLinkText" />
     </InlineTextButton>
   );
@@ -66,10 +65,10 @@ export const PasswordRecoveryPageComponent = props => {
         <FormattedMessage id="PasswordRecoveryPage.forgotPasswordMessage" />
       </p>
       <PasswordRecoveryForm
+        initialValues={{ email: initialEmail }}
         inProgress={recoveryInProgress}
         onChange={onChange}
         onSubmit={values => onSubmitEmail(values.email)}
-        initialValues={{ email: initialEmail }}
         recoveryError={recoveryError}
       />
     </div>
@@ -135,7 +134,7 @@ export const PasswordRecoveryPageComponent = props => {
   }
 
   return (
-    <Page title={title} scrollingDisabled={scrollingDisabled}>
+    <Page scrollingDisabled={scrollingDisabled} title={title}>
       <LayoutSingleColumn>
         <LayoutWrapperTopbar>
           <TopbarContainer />

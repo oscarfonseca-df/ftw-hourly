@@ -210,7 +210,7 @@ const config = {
   currencyConfig,
   listingMinimumPriceSubUnits,
   stripe: {
-    defaultMCC: defaultMCC,
+    defaultMCC,
     publishableKey: stripePublishableKey,
     supportedCountries: stripeCountryDetails,
   },

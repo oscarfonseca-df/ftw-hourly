@@ -1,6 +1,5 @@
 import React from 'react';
 import { FieldSelect } from '../../components';
-
 import css from './EditListingDescriptionForm.module.css';
 
 const CustomCertificateSelectFieldMaybe = props => {
@@ -10,7 +9,7 @@ const CustomCertificateSelectFieldMaybe = props => {
   });
 
   return certificateOptions ? (
-    <FieldSelect className={css.certificate} name={name} id={id} label={certificateLabel}>
+    <FieldSelect className={css.certificate} id={id} label={certificateLabel} name={name}>
       {certificateOptions.map(c => (
         <option key={c.key} value={c.key}>
           {c.label}

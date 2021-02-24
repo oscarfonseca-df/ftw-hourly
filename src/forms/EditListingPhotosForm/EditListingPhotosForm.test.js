@@ -5,24 +5,24 @@ import { EditListingPhotosFormComponent } from './EditListingPhotosForm';
 
 const noop = () => null;
 
-describe('EditListingPhotosForm', () => {
+describe('editListingPhotosForm', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <EditListingPhotosFormComponent
+        disabled={false}
+        dispatch={noop}
         initialValues={{ country: 'US', images: [] }}
         intl={fakeIntl}
-        dispatch={noop}
         onImageUpload={v => v}
+        onRemoveImage={noop}
         onSubmit={v => v}
-        saveActionMsg="Save photos"
         onUpdateImageOrder={v => v}
+        ready={false}
+        ready={false}
+        saveActionMsg="Save photos"
         stripeConnected={false}
         updated={false}
-        ready={false}
         updateInProgress={false}
-        disabled={false}
-        ready={false}
-        onRemoveImage={noop}
       />
     );
     expect(tree).toMatchSnapshot();

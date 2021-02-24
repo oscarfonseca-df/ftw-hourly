@@ -1,7 +1,6 @@
 import React from 'react';
 import { oneOf, string } from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconArrowHead.module.css';
 
 const DIRECTION_RIGHT = 'right';
@@ -26,9 +25,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="9"
         height="13"
         viewBox="0 0 9 13"
+        width="9"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -41,9 +40,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="9"
         height="13"
         viewBox="0 0 9 13"
+        width="9"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -56,9 +55,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="13"
         height="9"
         viewBox="0 0 13 9"
+        width="13"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -71,9 +70,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="13"
         height="9"
         viewBox="0 0 13 9"
+        width="13"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -86,9 +85,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="11"
         height="15"
         viewBox="0 0 11 15"
+        width="11"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -101,9 +100,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="11"
         height="15"
         viewBox="0 0 11 15"
+        width="11"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -116,9 +115,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="15"
         height="11"
         viewBox="0 0 15 11"
+        width="15"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -131,9 +130,9 @@ const IconArrowHead = props => {
     return (
       <svg
         className={classes}
-        width="15"
         height="11"
         viewBox="0 0 15 11"
+        width="15"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

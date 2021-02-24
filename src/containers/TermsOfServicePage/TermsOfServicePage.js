@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
-import { TopbarContainer } from '../../containers';
+import { TopbarContainer } from "..";
 import {
   Page,
   LayoutSideNavigation,
@@ -16,7 +16,6 @@ import {
   TermsOfService,
 } from '../../components';
 import config from '../../config';
-
 import css from './TermsOfServicePage.module.css';
 
 const TermsOfServicePageComponent = props => {
@@ -46,7 +45,7 @@ const TermsOfServicePageComponent = props => {
     name: schemaTitle,
   };
   return (
-    <Page title={schemaTitle} scrollingDisabled={scrollingDisabled} schema={schema}>
+    <Page schema={schema} scrollingDisabled={scrollingDisabled} title={schemaTitle}>
       <LayoutSideNavigation>
         <LayoutWrapperTopbar>
           <TopbarContainer currentPage="TermsOfServicePage" />
@@ -77,11 +76,9 @@ TermsOfServicePageComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     scrollingDisabled: isScrollingDisabled(state),
-  };
-};
+  });
 
 const TermsOfServicePage = compose(
   connect(mapStateToProps),

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { string, func, arrayOf, shape, number } from 'prop-types';
 import classNames from 'classnames';
-
-import { Menu, MenuContent, MenuItem, MenuLabel } from '../../components';
+import { Menu, MenuContent, MenuItem, MenuLabel } from "..";
 import css from './SortByPopup.module.css';
 
 const optionLabel = (options, key) => {
@@ -10,22 +9,20 @@ const optionLabel = (options, key) => {
   return option ? option.label : key;
 };
 
-const SortByIcon = () => {
-  return (
-    <svg className={css.icon} width="10" height="16" xmlns="http://www.w3.org/2000/svg">
+const SortByIcon = () => (
+    <svg className={css.icon} height="16" width="10" xmlns="http://www.w3.org/2000/svg">
       <g
-        stroke="#4a4a4a"
-        strokeWidth="1.5"
         fill="none"
         fillRule="evenodd"
+        stroke="#4a4a4a"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="1.5"
       >
         <path d="M3.25 7.125v7.438M5 12.813l-1.75 1.75-1.75-1.75M6.75 8.875V1.438M5 3.188l1.75-1.75 1.75 1.75" />
       </g>
     </svg>
   );
-};
 
 class SortByPopup extends Component {
   constructor(props) {
@@ -37,7 +34,7 @@ class SortByPopup extends Component {
   }
 
   onToggleActive(isOpen) {
-    this.setState({ isOpen: isOpen });
+    this.setState({ isOpen });
   }
 
   selectOption(urlParam, option) {
@@ -66,10 +63,10 @@ class SortByPopup extends Component {
     return (
       <Menu
         className={classes}
-        useArrow={false}
         contentPlacementOffset={contentPlacementOffset}
-        onToggleActive={this.onToggleActive}
         isOpen={this.state.isOpen}
+        onToggleActive={this.onToggleActive}
+        useArrow={false}
       >
         <MenuLabel className={menuLabelClasses}>
           <SortByIcon />

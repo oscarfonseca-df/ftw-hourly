@@ -17,9 +17,7 @@ export default function reducer(state = initialState, action = {}) {
       const componentIdExists = disableScrollRequests.find(c => c.componentId === componentId);
 
       if (componentIdExists) {
-        const disableScrollRequestArray = disableScrollRequests.map(c => {
-          return c.componentId === componentId ? { ...c, disableScrolling } : c;
-        });
+        const disableScrollRequestArray = disableScrollRequests.map(c => c.componentId === componentId ? { ...c, disableScrolling } : c);
         return { ...state, disableScrollRequests: [...disableScrollRequestArray] };
       }
 

@@ -1,12 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import { Field } from 'react-final-form';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
+import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import config from '../../config';
-
 import {
   BANK_ACCOUNT_INPUTS,
   formatFieldMessage,
@@ -157,9 +156,7 @@ class TokenInputFieldComponent extends Component {
 
         // Handle response only if the input values haven't changed
         if (this._isMounted && valuesAreUnchanged) {
-          this.setState(prevState => {
-            return { stripeError: null };
-          });
+          this.setState(prevState => ({ stripeError: null }));
 
           onChange(token);
         }
@@ -240,9 +237,7 @@ class TokenInputFieldComponent extends Component {
       );
     }
 
-    const hasInputErrors = requiredInputs(country).some(inputType => {
-      return (this.state[inputType].touched || formMeta.touched) && !!this.state[inputType].error;
-    });
+    const hasInputErrors = requiredInputs(country).some(inputType => (this.state[inputType].touched || formMeta.touched) && !!this.state[inputType].error);
 
     // Only show Stripe and form errors when the fields don't have
     // more specific errors.
@@ -263,25 +258,23 @@ class TokenInputFieldComponent extends Component {
 
     return (
       <div className={classNames(rootClassName || css.root, className)}>
-        {inputConfiguration.map(inputType => {
-          return (
+        {inputConfiguration.map(inputType => (
             <StripeBankAccountRequiredInput
-              disabled={disabled}
               key={inputType}
-              inputType={inputType}
+              disabled={disabled}
               formName={formName}
-              value={this.state[inputType].value}
-              placeholder={formatFieldMessage(intl, inputType, 'placeholder')}
+              inputError={this.state[inputType].error}
+              inputType={inputType}
+              isTouched={this.state[inputType].touched || formMeta.touched}
+              onBlur={() => this.handleInputBlur(inputType)}
               onChange={e => this.handleInputChange(e, inputType, country, intl)}
               onFocus={this.handleInputFocus}
-              onBlur={() => this.handleInputBlur(inputType)}
-              isTouched={this.state[inputType].touched || formMeta.touched}
-              showStripeError={showStripeError}
-              inputError={this.state[inputType].error}
+              placeholder={formatFieldMessage(intl, inputType, 'placeholder')}
               showInColumns={showInColumns}
+              showStripeError={showStripeError}
+              value={this.state[inputType].value}
             />
-          );
-        })}
+          ))}
 
         {showStripeError ? <p className={css.error}>{this.state.stripeError}</p> : null}
         {showFormError ? <p className={css.error}>{formMeta.error}</p> : null}
@@ -320,8 +313,6 @@ TokenInputFieldComponent.propTypes = {
 
 const EnhancedTokenInputFieldComponent = injectIntl(TokenInputFieldComponent);
 
-const StripeBankAccountTokenInputField = props => {
-  return <Field component={EnhancedTokenInputFieldComponent} {...props} />;
-};
+const StripeBankAccountTokenInputField = props => <Field component={EnhancedTokenInputFieldComponent} {...props} />;
 
 export default StripeBankAccountTokenInputField;

@@ -1,6 +1,6 @@
 import reducer, { CHANGE_LOCATION, changeLocationFilter } from './LocationFilter.duck';
 
-describe('LocationFilterDuck', () => {
+describe('locationFilterDuck', () => {
   describe('actions', () => {
     it('should create an action to change the filter', () => {
       const expectedAction = { type: CHANGE_LOCATION, payload: 'helsinki' };

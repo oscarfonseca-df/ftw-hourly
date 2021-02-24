@@ -133,8 +133,7 @@ export function uploadImage(actionPayload) {
   };
 }
 
-export const updateProfile = actionPayload => {
-  return (dispatch, getState, sdk) => {
+export const updateProfile = actionPayload => (dispatch, getState, sdk) => {
     dispatch(updateProfileRequest());
 
     const queryParams = {
@@ -159,4 +158,3 @@ export const updateProfile = actionPayload => {
       })
       .catch(e => dispatch(updateProfileError(storableError(e))));
   };
-};

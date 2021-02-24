@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import config from '../../config';
 import { DATE_TYPE_DATETIME } from '../../util/types';
 import { ensureListing } from '../../util/data';
-import { BookingBreakdown } from '../../components';
-
+import { BookingBreakdown } from "..";
 import css from './TransactionPanel.module.css';
 
 // Functional component as a helper to build BookingBreakdown
@@ -23,13 +22,13 @@ const BreakdownMaybe = props => {
   return loaded ? (
     <div className={classes}>
       <BookingBreakdown
-        className={breakdownClasses}
-        userRole={transactionRole}
-        unitType={config.bookingUnitType}
-        transaction={transaction}
         booking={transaction.booking}
+        className={breakdownClasses}
         dateType={DATE_TYPE_DATETIME}
         timeZone={timeZone}
+        transaction={transaction}
+        unitType={config.bookingUnitType}
+        userRole={transactionRole}
       />
     </div>
   ) : null;

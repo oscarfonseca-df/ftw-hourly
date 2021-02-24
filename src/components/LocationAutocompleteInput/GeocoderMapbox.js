@@ -110,12 +110,10 @@ class GeocoderMapbox {
         language: [config.locale],
       })
       .send()
-      .then(response => {
-        return {
+      .then(response => ({
           search,
           predictions: response.body.features,
-        };
-      });
+        }));
   }
 
   /**
@@ -146,13 +144,11 @@ class GeocoderMapbox {
    */
   getPlaceDetails(prediction) {
     if (this.getPredictionId(prediction) === CURRENT_LOCATION_ID) {
-      return userLocation().then(latlng => {
-        return {
+      return userLocation().then(latlng => ({
           address: '',
           origin: latlng,
           bounds: locationBounds(latlng, config.maps.search.currentLocationBoundsDistance),
-        };
-      });
+        }));
     }
 
     if (prediction.predictionPlace) {

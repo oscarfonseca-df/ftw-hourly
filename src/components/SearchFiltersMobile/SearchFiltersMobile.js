@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { bool, func, object, node, number, shape, string } from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { withRouter } from 'react-router-dom';
-
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import routeConfiguration from '../../routeConfiguration';
 import { createResourceLocatorString } from '../../util/routes';
-import { ModalInMobile, Button } from '../../components';
+import { ModalInMobile, Button } from "..";
 import css from './SearchFiltersMobile.module.css';
 
 class SearchFiltersMobileComponent extends Component {
@@ -101,30 +100,30 @@ class SearchFiltersMobileComponent extends Component {
           {searchInProgress ? loadingResults : null}
         </div>
         <div className={css.buttons}>
-          <Button rootClassName={filtersButtonClasses} onClick={this.openFilters}>
+          <Button onClick={this.openFilters} rootClassName={filtersButtonClasses}>
             <FormattedMessage
-              id="SearchFiltersMobile.filtersButtonLabel"
               className={css.mapIconText}
+              id="SearchFiltersMobile.filtersButtonLabel"
             />
           </Button>
           {sortByComponent}
           <div className={css.mapIcon} onClick={onMapIconClick}>
-            <FormattedMessage id="SearchFiltersMobile.openMapView" className={css.mapIconText} />
+            <FormattedMessage className={css.mapIconText} id="SearchFiltersMobile.openMapView" />
           </div>
         </div>
         <ModalInMobile
+          closeButtonMessage={modalCloseButtonMessage}
+          containerClassName={css.modalContainer}
           id="SearchFiltersMobile.filters"
           isModalOpenOnMobile={this.state.isFiltersOpenOnMobile}
           onClose={this.cancelFilters}
-          showAsModalMaxWidth={showAsModalMaxWidth}
           onManageDisableScrolling={onManageDisableScrolling}
-          containerClassName={css.modalContainer}
-          closeButtonMessage={modalCloseButtonMessage}
+          showAsModalMaxWidth={showAsModalMaxWidth}
         >
           <div className={css.modalHeadingWrapper}>
             <span className={css.modalHeading}>{filtersHeading}</span>
             <button className={css.resetAllButton} onClick={e => this.resetAll(e)}>
-              <FormattedMessage id={'SearchFiltersMobile.resetAll'} />
+              <FormattedMessage id="SearchFiltersMobile.resetAll" />
             </button>
           </div>
           {this.state.isFiltersOpenOnMobile ? (

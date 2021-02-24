@@ -1,9 +1,9 @@
 import React from 'react';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import { Button } from '../../components';
-import FieldCheckboxGroup from './FieldCheckboxGroup';
+import { Button } from "..";
 import { requiredFieldArrayCheckbox } from '../../util/validators';
+import FieldCheckboxGroup from './FieldCheckboxGroup';
 
 const formName = 'Styleguide.FieldCheckboxGroup';
 const formNameRequired = 'Styleguide.FieldCheckboxGroupRequired';
@@ -11,7 +11,7 @@ const formNameRequired = 'Styleguide.FieldCheckboxGroupRequired';
 const label = <h3>Yoga styles</h3>;
 
 const commonProps = {
-  label: label,
+  label,
   options: [
     { key: 'ashtanga', label: 'Ashtanga' },
     { key: 'hatha', label: 'Hatha' },
@@ -66,7 +66,7 @@ const formComponent = country => props => (
           <FormSpy onChange={onChange} subscription={{ values: true, dirty: true }} />
           <FieldCheckboxGroup {...componentProps} />
 
-          <Button style={{ marginTop: 24 }} type="submit" disabled={submitDisabled}>
+          <Button disabled={submitDisabled} style={{ marginTop: 24 }} type="submit">
             Submit
           </Button>
         </form>

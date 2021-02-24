@@ -1,8 +1,8 @@
 import React from 'react';
 import { bool } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl } from '../../util/reactIntl';
 import { Form as FinalForm, Field } from 'react-final-form';
+import { FormattedMessage, injectIntl } from '../../util/reactIntl';
 import {
   Form,
   NamedLink,
@@ -11,7 +11,6 @@ import {
   PrimaryButton,
 } from '../../components';
 import { propTypes } from '../../util/types';
-
 import css from './EmailVerificationForm.module.css';
 
 const EmailVerificationFormComponent = props => (
@@ -52,10 +51,10 @@ const EmailVerificationFormComponent = props => (
           </div>
 
           <Form onSubmit={handleSubmit}>
-            <Field component="input" type="hidden" name="verificationToken" />
+            <Field component="input" name="verificationToken" type="hidden" />
 
             <div className={css.bottomWrapper}>
-              <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
+              <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
                 {inProgress ? (
                   <FormattedMessage id="EmailVerificationForm.verifying" />
                 ) : (

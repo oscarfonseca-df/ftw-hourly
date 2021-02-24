@@ -18,8 +18,7 @@ import {
   LayoutWrapperFooter,
   Footer,
 } from '../../components';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import facebookImage from '../../assets/yogatimeFacebook-1200x630.jpg';
 import twitterImage from '../../assets/yogatimeTwitter-600x314.jpg';
 import css from './LandingPage.module.css';
@@ -45,14 +44,9 @@ export const LandingPageComponent = props => {
   return (
     <Page
       className={css.root}
-      scrollingDisabled={scrollingDisabled}
       contentType="website"
       description={schemaDescription}
-      title={schemaTitle}
       facebookImages={[{ url: facebookImage, width: 1200, height: 630 }]}
-      twitterImages={[
-        { url: `${config.canonicalRootURL}${twitterImage}`, width: 600, height: 314 },
-      ]}
       schema={{
         '@context': 'http://schema.org',
         '@type': 'WebPage',
@@ -60,6 +54,11 @@ export const LandingPageComponent = props => {
         name: schemaTitle,
         image: [schemaImage],
       }}
+      scrollingDisabled={scrollingDisabled}
+      title={schemaTitle}
+      twitterImages={[
+        { url: `${config.canonicalRootURL}${twitterImage}`, width: 600, height: 314 },
+      ]}
     >
       <LayoutSingleColumn>
         <LayoutWrapperTopbar>

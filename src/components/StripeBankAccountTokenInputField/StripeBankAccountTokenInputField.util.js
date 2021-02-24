@@ -282,6 +282,4 @@ export const formatFieldMessage = (intl, inputType, messageType) => {
  *
  * @return {String} cleaned string
  */
-export const cleanedString = str => {
-  return str ? str.replace(/\s/g, '') : '';
-};
+export const cleanedString = str => str ? str.replace(/\s/g, '') : '';

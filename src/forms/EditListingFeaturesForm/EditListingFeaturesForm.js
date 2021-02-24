@@ -8,7 +8,6 @@ import { findOptionsForSelectFilter } from '../../util/search';
 import { propTypes } from '../../util/types';
 import config from '../../config';
 import { Button, FieldCheckboxGroup, Form } from '../../components';
-
 import css from './EditListingFeaturesForm.module.css';
 
 const EditListingFeaturesFormComponent = props => (
@@ -59,10 +58,10 @@ const EditListingFeaturesFormComponent = props => (
 
           <Button
             className={css.submitButton}
-            type="submit"
-            inProgress={submitInProgress}
             disabled={submitDisabled}
+            inProgress={submitInProgress}
             ready={submitReady}
+            type="submit"
           >
             {saveActionMsg}
           </Button>

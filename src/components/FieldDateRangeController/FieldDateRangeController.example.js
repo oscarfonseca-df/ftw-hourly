@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form as FinalForm } from 'react-final-form';
-
 import FieldDateRangeController from './FieldDateRangeController';
 
 const FormComponent = props => (
@@ -12,11 +11,11 @@ const FormComponent = props => (
       const handleChange = dirty ? onChange : () => null;
       return (
         <form
-          style={style}
           onSubmit={e => {
             e.preventDefault();
             handleSubmit(e);
           }}
+          style={style}
         >
           <FieldDateRangeController name="dates" onChange={handleChange} />
         </form>

@@ -51,3 +51,55 @@ exports[`BookingDateRangeFilter matches popup snapshot 1`] = `
   />
 </injectIntl(FilterPopup)>
 `;
+
+exports[`bookingDateRangeFilter matches plain snapshot 1`] = `
+<injectIntl(FilterPlainComponent)
+  className={null}
+  contentPlacementOffset={-14}
+  id="BookingDateRangeFilter.plain"
+  initialValues={
+    Object {
+      "dates": null,
+    }
+  }
+  isSelected={false}
+  label="BookingDateRangeFilter.labelPlain"
+  liveEdit={true}
+  onSubmit={[Function]}
+  rootClassName={null}
+>
+  <FieldDateRangeController
+    className={null}
+    controllerRef={[Function]}
+    name="dates"
+    rootClassName={null}
+  />
+</injectIntl(FilterPlainComponent)>
+`;
+
+exports[`bookingDateRangeFilter matches popup snapshot 1`] = `
+<injectIntl(FilterPopup)
+  className={null}
+  contentPlacementOffset={-14}
+  id="BookingDateRangeFilter.popup"
+  initialValues={
+    Object {
+      "dates": null,
+    }
+  }
+  isSelected={false}
+  label="BookingDateRangeFilter.labelPopup"
+  liveEdit={false}
+  onSubmit={[Function]}
+  popupClassName="popupSize"
+  rootClassName={null}
+  showAsPopup={true}
+>
+  <FieldDateRangeController
+    className={null}
+    controllerRef={[Function]}
+    name="dates"
+    rootClassName={null}
+  />
+</injectIntl(FilterPopup)>
+`;

@@ -105,7 +105,7 @@ class DynamicGoogleMap extends Component {
     const { containerClassName, mapClassName } = this.props;
     return (
       <div className={containerClassName}>
-        <div className={mapClassName} ref={el => (this.mapContainer = el)} />
+        <div ref={el => (this.mapContainer = el)} className={mapClassName} />
       </div>
     );
   }

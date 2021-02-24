@@ -41,24 +41,29 @@ export const withViewport = Component => {
       this.handleWindowResize = this.handleWindowResize.bind(this);
       this.setViewport = throttle(this.setViewport.bind(this), WAIT_MS);
     }
+
     componentDidMount() {
       this.setViewport();
       window.addEventListener('resize', this.handleWindowResize);
       window.addEventListener('orientationchange', this.handleWindowResize);
     }
+
     componentWillUnmount() {
       window.removeEventListener('resize', this.handleWindowResize);
       window.removeEventListener('orientationchange', this.handleWindowResize);
     }
+
     handleWindowResize() {
       this.setViewport();
     }
+
     setViewport() {
       this.setState({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     }
+
     render() {
       const viewport = this.state;
       const props = { ...this.props, viewport };

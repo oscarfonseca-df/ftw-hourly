@@ -5,27 +5,27 @@ import { PasswordRecoveryPageComponent } from './PasswordRecoveryPage';
 
 const noop = () => null;
 
-describe('ContactDetailsPage', () => {
+describe('contactDetailsPage', () => {
   it('matches snapshot', () => {
     const tree = renderShallow(
       <PasswordRecoveryPageComponent
-        params={{ displayName: 'my-shop' }}
-        history={{ push: noop }}
-        location={{ search: '' }}
-        scrollingDisabled={false}
         authInProgress={false}
         currentUserHasListings={false}
+        history={{ push: noop }}
+        intl={fakeIntl}
         isAuthenticated={false}
+        location={{ search: '' }}
+        onChange={noop}
         onLogout={noop}
         onManageDisableScrolling={noop}
-        sendVerificationEmailInProgress={false}
         onResendVerificationEmail={noop}
-        recoveryInProgress={false}
-        passwordRequested={false}
-        onChange={noop}
-        onSubmitEmail={noop}
         onRetypeEmail={noop}
-        intl={fakeIntl}
+        onSubmitEmail={noop}
+        params={{ displayName: 'my-shop' }}
+        passwordRequested={false}
+        recoveryInProgress={false}
+        scrollingDisabled={false}
+        sendVerificationEmailInProgress={false}
       />
     );
     expect(tree).toMatchSnapshot();

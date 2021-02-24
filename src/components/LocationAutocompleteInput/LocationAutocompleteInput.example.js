@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
 import { Form as FinalForm, Field } from 'react-final-form';
 import { propTypes } from '../../util/types';
-import { Button } from '../../components';
+import { Button } from "..";
 import LocationAutocompleteInput from './LocationAutocompleteInput';
 
 const identity = v => v;
 
-const Form = props => {
-  return (
+const Form = props => (
     <FinalForm
       {...props}
-      render={({ handleSubmit, pristine }) => {
-        return (
+      render={({ handleSubmit, pristine }) => (
           <form onSubmit={handleSubmit}>
             <label htmlFor="location">Select location:</label>
-            <Field name="location" format={identity} component={LocationAutocompleteInput} />
-            <Button type="submit" style={{ marginTop: '24px' }} disabled={pristine}>
+            <Field component={LocationAutocompleteInput} format={identity} name="location" />
+            <Button disabled={pristine} style={{ marginTop: '24px' }} type="submit">
               Submit
             </Button>
           </form>
-        );
-      }}
+        )}
     />
   );
-};
 
 const PlaceInfo = props => {
   const { place } = props;
@@ -49,6 +45,7 @@ class FormContainer extends Component {
     super(props);
     this.state = { location: {} };
   }
+
   render() {
     const onSubmit = values => {
       this.setState({ location: values.location });

@@ -3,9 +3,9 @@ import { storableError } from '../util/errors';
 import { transitionsToRequested } from '../util/transaction';
 import { LISTING_STATE_DRAFT } from '../util/types';
 import * as log from '../util/log';
+import { util as sdkUtil } from '../util/sdkLoader';
 import { authInfo } from './Auth.duck';
 import { stripeAccountCreateSuccess } from './stripeConnectAccount.duck';
-import { util as sdkUtil } from '../util/sdkLoader';
 
 // ================ Action types ================ //
 
@@ -159,9 +159,7 @@ export const hasCurrentUserErrors = state => {
   );
 };
 
-export const verificationSendingInProgress = state => {
-  return state.user.sendVerificationEmailInProgress;
-};
+export const verificationSendingInProgress = state => state.user.sendVerificationEmailInProgress;
 
 // ================ Action creators ================ //
 

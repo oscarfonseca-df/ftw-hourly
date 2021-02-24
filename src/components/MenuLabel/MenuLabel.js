@@ -5,7 +5,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './MenuLabel.module.css';
 
 class MenuLabel extends Component {
@@ -32,9 +31,7 @@ class MenuLabel extends Component {
   }
 
   onBlur() {
-    this.setState(() => {
-      return { clickedWithMouse: false };
-    });
+    this.setState(() => ({ clickedWithMouse: false }));
   }
 
   render() {
@@ -48,7 +45,7 @@ class MenuLabel extends Component {
     });
 
     return (
-      <button className={classes} onClick={this.onClick} onBlur={this.onBlur}>
+      <button className={classes} onBlur={this.onBlur} onClick={this.onClick}>
         {children}
       </button>
     );

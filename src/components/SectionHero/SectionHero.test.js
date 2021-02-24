@@ -4,7 +4,7 @@ import SectionHero from './SectionHero';
 
 const noop = () => null;
 
-describe('SectionHero', () => {
+describe('sectionHero', () => {
   it('matches snapshot', () => {
     window.google = { maps: {} };
     const heroProps = {

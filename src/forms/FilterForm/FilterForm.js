@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import { injectIntl, intlShape } from '../../util/reactIntl';
-
 import { Form } from '../../components';
 import css from './FilterForm.module.css';
 
@@ -65,10 +64,10 @@ const FilterFormComponent = props => {
 
         const buttons = !liveEdit ? (
           <div className={css.buttonsWrapper}>
-            <button className={css.clearButton} type="button" onClick={onClear}>
+            <button className={css.clearButton} onClick={onClear} type="button">
               {clear}
             </button>
-            <button className={css.cancelButton} type="button" onClick={handleCancel}>
+            <button className={css.cancelButton} onClick={handleCancel} type="button">
               {cancel}
             </button>
             <button className={css.submitButton} type="submit">
@@ -79,11 +78,11 @@ const FilterFormComponent = props => {
 
         return (
           <Form
-            id={id}
             className={classes}
+            id={id}
             onSubmit={handleSubmit}
-            tabIndex="0"
             style={{ ...style }}
+            tabIndex="0"
           >
             <div className={classNames(paddingClasses || css.contentWrapper)}>{children}</div>
             {spy}

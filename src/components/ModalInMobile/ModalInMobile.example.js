@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { Button } from '../../components';
+import { Button } from "..";
 import ModalInMobile from './ModalInMobile';
 import css from './ModalInMobileExample.module.css';
 
@@ -21,17 +21,17 @@ const ModalInMobileWrapper = props => {
       <div style={{ margin: '1rem' }}>Wrapper text before ModalInMobile</div>
       <ModalInMobile
         {...props}
+        isModalOpenOnMobile={isOpen}
         onClose={() => {
           setOpen(false);
           console.log('Closing modal');
         }}
-        isModalOpenOnMobile={isOpen}
         onManageDisableScrolling={onManageDisableScrolling}
       >
         <div style={{ margin: '1rem' }}>Some content inside ModalInMobile component</div>
       </ModalInMobile>
       <div style={{ margin: '1rem' }}>
-        <Button onClick={handleOpen} className={css.visibleOnMobileLayout}>
+        <Button className={css.visibleOnMobileLayout} onClick={handleOpen}>
           Open
         </Button>
       </div>

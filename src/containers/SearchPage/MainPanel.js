@@ -15,10 +15,8 @@ import {
   SearchFiltersSecondary,
   SortBy,
 } from '../../components';
-
 import FilterComponent from './FilterComponent';
 import { validFilterParams } from './SearchPage.helpers';
-
 import css from './SearchPage.module.css';
 
 // Primary filters have their content in dropdown-popup.
@@ -106,9 +104,7 @@ class MainPanel extends Component {
     // { amenities: "has_any:towel,jacuzzi" }
     const isArray = Array.isArray(queryParamNames);
     return isArray
-      ? queryParamNames.reduce((acc, paramName) => {
-          return { ...acc, [paramName]: getInitialValue(paramName) };
-        }, {})
+      ? queryParamNames.reduce((acc, paramName) => ({ ...acc, [paramName]: getInitialValue(paramName) }), {})
       : {};
   }
 
@@ -225,11 +221,11 @@ class MainPanel extends Component {
       return sortConfig.active ? (
         <SortBy
           {...mobileClassesMaybe}
-          sort={urlQueryParams[sortConfig.queryParamName]}
+          contentPlacementOffset={FILTER_DROPDOWN_OFFSET}
           isConflictingFilterActive={!!conflictingFilterActive}
           onSelect={this.handleSortBy}
           showAsPopup
-          contentPlacementOffset={FILTER_DROPDOWN_OFFSET}
+          sort={urlQueryParams[sortConfig.queryParamName]}
         />
       ) : null;
     };
@@ -240,82 +236,76 @@ class MainPanel extends Component {
       <div className={classes}>
         <SearchFiltersPrimary
           className={css.searchFiltersPrimary}
-          sortByComponent={sortBy('desktop')}
           listingsAreLoaded={listingsAreLoaded}
           resultsCount={totalItems}
           searchInProgress={searchInProgress}
           searchListingsError={searchListingsError}
+          sortByComponent={sortBy('desktop')}
           {...propsForSecondaryFiltersToggle}
         >
-          {primaryFilters.map(config => {
-            return (
+          {primaryFilters.map(config => (
               <FilterComponent
                 key={`SearchFiltersPrimary.${config.id}`}
-                idPrefix="SearchFiltersPrimary"
-                filterConfig={config}
-                urlQueryParams={urlQueryParams}
-                initialValues={this.initialValues}
-                getHandleChangedValueFn={this.getHandleChangedValueFn}
-                showAsPopup
                 contentPlacementOffset={FILTER_DROPDOWN_OFFSET}
+                filterConfig={config}
+                getHandleChangedValueFn={this.getHandleChangedValueFn}
+                idPrefix="SearchFiltersPrimary"
+                initialValues={this.initialValues}
+                showAsPopup
+                urlQueryParams={urlQueryParams}
               />
-            );
-          })}
+            ))}
         </SearchFiltersPrimary>
         <SearchFiltersMobile
           className={css.searchFiltersMobile}
-          urlQueryParams={urlQueryParams}
-          sortByComponent={sortBy('mobile')}
           listingsAreLoaded={listingsAreLoaded}
+          onCloseModal={onCloseModal}
+          onManageDisableScrolling={onManageDisableScrolling}
+          onMapIconClick={onMapIconClick}
+          onOpenModal={onOpenModal}
+          resetAll={this.resetAll}
           resultsCount={totalItems}
           searchInProgress={searchInProgress}
           searchListingsError={searchListingsError}
-          showAsModalMaxWidth={showAsModalMaxWidth}
-          onMapIconClick={onMapIconClick}
-          onManageDisableScrolling={onManageDisableScrolling}
-          onOpenModal={onOpenModal}
-          onCloseModal={onCloseModal}
-          resetAll={this.resetAll}
           selectedFiltersCount={selectedFiltersCount}
+          showAsModalMaxWidth={showAsModalMaxWidth}
+          sortByComponent={sortBy('mobile')}
+          urlQueryParams={urlQueryParams}
         >
-          {filterConfig.map(config => {
-            return (
+          {filterConfig.map(config => (
               <FilterComponent
                 key={`SearchFiltersMobile.${config.id}`}
-                idPrefix="SearchFiltersMobile"
                 filterConfig={config}
-                urlQueryParams={urlQueryParams}
-                initialValues={this.initialValues}
                 getHandleChangedValueFn={this.getHandleChangedValueFn}
+                idPrefix="SearchFiltersMobile"
+                initialValues={this.initialValues}
                 liveEdit
                 showAsPopup={false}
+                urlQueryParams={urlQueryParams}
               />
-            );
-          })}
+            ))}
         </SearchFiltersMobile>
         {isSecondaryFiltersOpen ? (
           <div className={classNames(css.searchFiltersPanel)}>
             <SearchFiltersSecondary
-              urlQueryParams={urlQueryParams}
-              listingsAreLoaded={listingsAreLoaded}
               applyFilters={this.applyFilters}
               cancelFilters={this.cancelFilters}
-              resetAll={this.resetAll}
+              listingsAreLoaded={listingsAreLoaded}
               onClosePanel={() => this.setState({ isSecondaryFiltersOpen: false })}
+              resetAll={this.resetAll}
+              urlQueryParams={urlQueryParams}
             >
-              {secondaryFilters.map(config => {
-                return (
+              {secondaryFilters.map(config => (
                   <FilterComponent
                     key={`SearchFiltersSecondary.${config.id}`}
-                    idPrefix="SearchFiltersSecondary"
                     filterConfig={config}
-                    urlQueryParams={urlQueryParams}
-                    initialValues={this.initialValues}
                     getHandleChangedValueFn={this.getHandleChangedValueFn}
+                    idPrefix="SearchFiltersSecondary"
+                    initialValues={this.initialValues}
                     showAsPopup={false}
+                    urlQueryParams={urlQueryParams}
                   />
-                );
-              })}
+                ))}
             </SearchFiltersSecondary>
           </div>
         ) : (

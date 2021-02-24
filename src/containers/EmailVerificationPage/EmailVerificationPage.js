@@ -19,8 +19,7 @@ import {
   NamedRedirect,
 } from '../../components';
 import { EmailVerificationForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-
+import { TopbarContainer } from "..";
 import css from './EmailVerificationPage.module.css';
 
 /**
@@ -73,7 +72,7 @@ export const EmailVerificationPageComponent = props => {
   }
 
   return (
-    <Page title={title} scrollingDisabled={scrollingDisabled} referrer="origin">
+    <Page referrer="origin" scrollingDisabled={scrollingDisabled} title={title}>
       <LayoutSingleColumn>
         <LayoutWrapperTopbar>
           <TopbarContainer />
@@ -83,10 +82,10 @@ export const EmailVerificationPageComponent = props => {
             <div className={css.content}>
               {user.id ? (
                 <EmailVerificationForm
-                  initialValues={initialValues}
-                  onSubmit={submitVerification}
                   currentUser={user}
+                  initialValues={initialValues}
                   inProgress={emailVerificationInProgress}
+                  onSubmit={submitVerification}
                   verificationError={verificationError}
                 />
               ) : (
@@ -138,9 +137,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  submitVerification: ({ verificationToken }) => {
-    return dispatch(verify(verificationToken));
-  },
+  submitVerification: ({ verificationToken }) => dispatch(verify(verificationToken)),
 });
 
 // Note: it is important that the withRouter HOC is **outside** the

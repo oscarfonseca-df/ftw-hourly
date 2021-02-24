@@ -31,7 +31,7 @@ export const YogaStyles = {
   props: {
     name: NAME,
     onSubmit: values => console.log('EditListingFeaturesForm submit:', values),
-    initialValues: initialValues,
+    initialValues,
     saveActionMsg: 'Save yoga styles',
     updated: false,
     updateInProgress: false,

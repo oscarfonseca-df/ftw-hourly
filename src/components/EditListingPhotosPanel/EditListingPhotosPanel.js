@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { array, bool, func, object, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { EditListingPhotosForm } from '../../forms';
 import { ensureOwnListing } from '../../util/data';
-import { ListingLink } from '../../components';
-
+import { ListingLink } from "..";
 import css from './EditListingPhotosPanel.module.css';
 
 class EditListingPhotosPanel extends Component {
@@ -56,18 +55,18 @@ class EditListingPhotosPanel extends Component {
         <EditListingPhotosForm
           className={css.form}
           disabled={disabled}
-          ready={ready}
           fetchErrors={errors}
-          initialValues={{ images }}
           images={images}
+          initialValues={{ images }}
+          onChange={onChange}
           onImageUpload={onImageUpload}
+          onRemoveImage={onRemoveImage}
           onSubmit={values => {
             const { addImage, ...updateValues } = values;
             onSubmit(updateValues);
           }}
-          onChange={onChange}
           onUpdateImageOrder={onUpdateImageOrder}
-          onRemoveImage={onRemoveImage}
+          ready={ready}
           saveActionMsg={submitButtonText}
           updated={panelUpdated}
           updateInProgress={updateInProgress}

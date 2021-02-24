@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { ACCOUNT_SETTINGS_PAGES } from '../../routeConfiguration';
-import { LinkTabNavHorizontal } from '../../components';
+import { LinkTabNavHorizontal } from "..";
 import { ensureOwnListing } from '../../util/data';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { getListingType, createSlug } from '../../util/urlHelpers';
-
 import css from './UserNav.module.css';
 
 const listingTab = (listing, selectedPageName) => {
@@ -68,7 +67,7 @@ const UserNav = props => {
   ];
 
   return (
-    <LinkTabNavHorizontal className={classes} tabRootClassName={css.tab} tabs={tabs} skin="dark" />
+    <LinkTabNavHorizontal className={classes} skin="dark" tabRootClassName={css.tab} tabs={tabs} />
   );
 };
 

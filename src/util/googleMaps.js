@@ -1,4 +1,4 @@
-import { types as sdkTypes } from '../util/sdkLoader';
+import { types as sdkTypes } from "./sdkLoader";
 
 const { LatLng: SDKLatLng, LatLngBounds: SDKLatLngBounds } = sdkTypes;
 
@@ -239,16 +239,12 @@ const getLayoutStylesByPosition = (mapCanvasProjection, offset, position) => {
  * @return styles to render an area or a single coordinate pair within the projection.
  */
 export const getLayoutStyles = (mapCanvasProjection, offset, props) => {
-  const createLatLng = (inst, Type) => {
-    return new Type(inst.lat, inst.lng);
-  };
+  const createLatLng = (inst, Type) => new Type(inst.lat, inst.lng);
 
-  const createLatLngBounds = (inst, Type) => {
-    return new Type(
+  const createLatLngBounds = (inst, Type) => new Type(
       new window.google.maps.LatLng(inst.ne.lat, inst.ne.lng),
       new window.google.maps.LatLng(inst.sw.lat, inst.sw.lng)
     );
-  };
 
   const ensureOfType = (inst, type, factory) => {
     if (inst instanceof type) {

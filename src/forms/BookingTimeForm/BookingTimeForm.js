@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { array, bool, func, object, string } from 'prop-types';
 import { compose } from 'redux';
 import { Form as FinalForm, FormSpy } from 'react-final-form';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { timestampToDate } from '../../util/dates';
 import { propTypes } from '../../util/types';
 import config from '../../config';
 import { IconSpinner, Form, PrimaryButton } from '../../components';
 import EstimatedBreakdownMaybe from './EstimatedBreakdownMaybe';
 import FieldDateAndTimeInput from './FieldDateAndTimeInput';
-
 import css from './BookingTimeForm.module.css';
 
 export class BookingTimeFormComponent extends Component {
@@ -72,7 +71,6 @@ export class BookingTimeFormComponent extends Component {
     return (
       <FinalForm
         {...rest}
-        unitPrice={unitPrice}
         onSubmit={this.handleFormSubmit}
         render={fieldRenderProps => {
           const {
@@ -162,26 +160,26 @@ export class BookingTimeFormComponent extends Component {
           };
 
           return (
-            <Form onSubmit={handleSubmit} className={classes}>
+            <Form className={classes} onSubmit={handleSubmit}>
               <FormSpy
-                subscription={{ values: true }}
                 onChange={values => {
                   this.handleOnChange(values);
                 }}
+                subscription={{ values: true }}
               />
               {monthlyTimeSlots && timeZone ? (
                 <FieldDateAndTimeInput
                   {...dateInputProps}
-                  className={css.bookingDates}
-                  listingId={listingId}
                   bookingStartLabel={bookingStartLabel}
-                  onFetchTimeSlots={onFetchTimeSlots}
-                  monthlyTimeSlots={monthlyTimeSlots}
-                  values={values}
-                  intl={intl}
+                  className={css.bookingDates}
                   form={form}
+                  intl={intl}
+                  listingId={listingId}
+                  monthlyTimeSlots={monthlyTimeSlots}
+                  onFetchTimeSlots={onFetchTimeSlots}
                   pristine={pristine}
                   timeZone={timeZone}
+                  values={values}
                 />
               ) : null}
 
@@ -206,6 +204,7 @@ export class BookingTimeFormComponent extends Component {
             </Form>
           );
         }}
+        unitPrice={unitPrice}
       />
     );
   }

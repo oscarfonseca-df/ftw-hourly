@@ -75,21 +75,17 @@ export default function reducer(state = initialState, action = {}) {
     case PERSON_CREATE_SUCCESS:
       return {
         ...state,
-        persons: state.persons.map(p => {
-          return p.personToken === payload.personToken
+        persons: state.persons.map(p => p.personToken === payload.personToken
             ? { ...payload, createStripePersonInProgress: false }
-            : p;
-        }),
+            : p),
       };
     case PERSON_CREATE_ERROR:
       console.error(payload);
       return {
         ...state,
-        persons: state.persons.map(p => {
-          return p.personToken === payload.personToken
+        persons: state.persons.map(p => p.personToken === payload.personToken
             ? { ...p, createStripePersonInProgress: false, createStripePersonError: payload.error }
-            : p;
-        }),
+            : p),
       };
 
     case HANDLE_CARD_PAYMENT_REQUEST:

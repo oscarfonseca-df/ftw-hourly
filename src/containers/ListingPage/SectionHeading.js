@@ -1,12 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from '../../util/reactIntl';
 import { InlineTextButton } from '../../components';
-
 import css from './ListingPage.module.css';
 
-const getCertificateInfo = (certificateOptions, key) => {
-  return certificateOptions.find(c => c.key === key);
-};
+const getCertificateInfo = (certificateOptions, key) => certificateOptions.find(c => c.key === key);
 
 const SectionHeading = props => {
   const {
@@ -28,7 +25,7 @@ const SectionHeading = props => {
           {showContactUser ? (
             <span className={css.contactWrapper}>
               {showCertificate ? <span className={css.separator}>•</span> : null}
-              <InlineTextButton rootClassName={css.contactLink} onClick={onContactUser}>
+              <InlineTextButton onClick={onContactUser} rootClassName={css.contactLink}>
                 <FormattedMessage id="ListingPage.contactUser" />
               </InlineTextButton>
             </span>

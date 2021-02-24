@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { array, bool, func, number, shape, string } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import pickBy from 'lodash/pickBy';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import config from '../../config';
 import routeConfiguration from '../../routeConfiguration';
 import { withViewport } from '../../util/contextHelpers';
@@ -19,9 +19,8 @@ import {
   NamedLink,
   TopbarDesktop,
   TopbarMobileMenu,
-} from '../../components';
+} from "..";
 import { TopbarSearchForm } from '../../forms';
-
 import MenuIcon from './MenuIcon';
 import SearchIcon from './SearchIcon';
 import css from './Topbar.module.css';
@@ -38,9 +37,7 @@ const redirectToURLWithModalState = (props, modalStateParam) => {
 const redirectToURLWithoutModalState = (props, modalStateParam) => {
   const { history, location } = props;
   const { pathname, search, state } = location;
-  const queryParams = pickBy(parse(search), (v, k) => {
-    return k !== modalStateParam;
-  });
+  const queryParams = pickBy(parse(search), (v, k) => k !== modalStateParam);
   const stringified = stringify(queryParams);
   const searchString = stringified ? `?${stringified}` : '';
   history.push(`${pathname}${searchString}`, state);
@@ -165,14 +162,14 @@ class TopbarComponent extends Component {
 
     const mobileMenu = (
       <TopbarMobileMenu
-        isAuthenticated={isAuthenticated}
+        currentPage={currentPage}
+        currentUser={currentUser}
         currentUserHasListings={currentUserHasListings}
         currentUserListing={currentUserListing}
         currentUserListingFetched={currentUserListingFetched}
-        currentUser={currentUser}
-        onLogout={this.handleLogout}
+        isAuthenticated={isAuthenticated}
         notificationCount={notificationCount}
-        currentPage={currentPage}
+        onLogout={this.handleLogout}
       />
     );
 
@@ -194,16 +191,16 @@ class TopbarComponent extends Component {
     return (
       <div className={classes}>
         <LimitedAccessBanner
-          isAuthenticated={isAuthenticated}
           authScopes={authScopes}
-          currentUser={currentUser}
-          onLogout={this.handleLogout}
           currentPage={currentPage}
+          currentUser={currentUser}
+          isAuthenticated={isAuthenticated}
+          onLogout={this.handleLogout}
         />
         <div className={classNames(mobileRootClassName || css.container, mobileClassName)}>
           <Button
-            rootClassName={css.menu}
             onClick={this.handleMobileMenuOpen}
+            rootClassName={css.menu}
             title={intl.formatMessage({ id: 'Topbar.menuIcon' })}
           >
             <MenuIcon className={css.menuIcon} />
@@ -217,8 +214,8 @@ class TopbarComponent extends Component {
             <Logo format="mobile" />
           </NamedLink>
           <Button
-            rootClassName={css.searchMenu}
             onClick={this.handleMobileSearchOpen}
+            rootClassName={css.searchMenu}
             title={intl.formatMessage({ id: 'Topbar.searchIcon' })}
           >
             <SearchIcon className={css.searchMenuIcon} />
@@ -227,11 +224,11 @@ class TopbarComponent extends Component {
         <div className={css.desktop}>
           <TopbarDesktop
             className={desktopClassName}
+            currentPage={currentPage}
+            currentUser={currentUser}
             currentUserHasListings={currentUserHasListings}
             currentUserListing={currentUserListing}
             currentUserListingFetched={currentUserListingFetched}
-            currentUser={currentUser}
-            currentPage={currentPage}
             initialSearchFormValues={initialSearchFormValues}
             intl={intl}
             isAuthenticated={isAuthenticated}
@@ -244,24 +241,24 @@ class TopbarComponent extends Component {
           id="TopbarMobileMenu"
           isOpen={isMobileMenuOpen}
           onClose={this.handleMobileMenuClose}
-          usePortal
           onManageDisableScrolling={onManageDisableScrolling}
+          usePortal
         >
           {authInProgress ? null : mobileMenu}
         </Modal>
         <Modal
-          id="TopbarMobileSearch"
           containerClassName={css.modalContainer}
+          id="TopbarMobileSearch"
           isOpen={isMobileSearchOpen}
           onClose={this.handleMobileSearchClose}
-          usePortal
           onManageDisableScrolling={onManageDisableScrolling}
+          usePortal
         >
           <div className={css.searchContainer}>
             <TopbarSearchForm
-              onSubmit={this.handleSubmit}
               initialValues={initialSearchFormValues}
               isMobile
+              onSubmit={this.handleSubmit}
             />
             <p className={css.mobileHelp}>
               <FormattedMessage id="Topbar.mobileSearchHelp" />
@@ -269,16 +266,16 @@ class TopbarComponent extends Component {
           </div>
         </Modal>
         <ModalMissingInformation
-          id="MissingInformationReminder"
           containerClassName={css.missingInformationModal}
           currentUser={currentUser}
           currentUserHasListings={currentUserHasListings}
           currentUserHasOrders={currentUserHasOrders}
+          id="MissingInformationReminder"
           location={location}
           onManageDisableScrolling={onManageDisableScrolling}
           onResendVerificationEmail={onResendVerificationEmail}
-          sendVerificationEmailInProgress={sendVerificationEmailInProgress}
           sendVerificationEmailError={sendVerificationEmailError}
+          sendVerificationEmailInProgress={sendVerificationEmailInProgress}
         />
 
         <GenericError show={showGenericError} />

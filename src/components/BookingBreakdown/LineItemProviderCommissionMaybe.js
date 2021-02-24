@@ -4,16 +4,13 @@ import { FormattedMessage, intlShape } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
 import { types as sdkTypes } from '../../util/sdkLoader';
 import { LINE_ITEM_PROVIDER_COMMISSION, propTypes } from '../../util/types';
-
 import css from './BookingBreakdown.module.css';
 
 const { Money } = sdkTypes;
 
 // Validate the assumption that the commission exists and the amount
 // is zero or negative.
-const isValidCommission = commissionLineItem => {
-  return commissionLineItem.lineTotal instanceof Money && commissionLineItem.lineTotal.amount <= 0;
-};
+const isValidCommission = commissionLineItem => commissionLineItem.lineTotal instanceof Money && commissionLineItem.lineTotal.amount <= 0;
 
 const LineItemProviderCommissionMaybe = props => {
   const { transaction, isProvider, intl } = props;

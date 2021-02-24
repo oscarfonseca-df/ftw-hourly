@@ -7,9 +7,7 @@ import { addMarketplaceEntities } from '../../ducks/marketplaceData.duck';
 
 const sortedTransactions = txs =>
   reverse(
-    sortBy(txs, tx => {
-      return tx.attributes ? tx.attributes.lastTransitionedAt : null;
-    })
+    sortBy(txs, tx => tx.attributes ? tx.attributes.lastTransitionedAt : null)
   );
 
 // ================ Action types ================ //

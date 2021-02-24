@@ -5,7 +5,7 @@ import TopbarDesktop from './TopbarDesktop';
 
 const noop = () => null;
 
-describe('TopbarDesktop', () => {
+describe('topbarDesktop', () => {
   it('data matches snapshot', () => {
     window.google = { maps: {} };
     const topbarProps = {

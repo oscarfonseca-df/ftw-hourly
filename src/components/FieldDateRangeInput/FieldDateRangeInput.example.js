@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import React from 'react';
-//import { Form as FinalForm, FormSpy } from 'react-final-form';
-//import moment from 'moment';
-//import { Button } from '../../components';
-//import { required, bookingDatesRequired, composeValidators } from '../../util/validators';
-//import { LINE_ITEM_NIGHT, LINE_ITEM_DAY } from '../../util/types';
-//import { createTimeSlots } from '../../util/test-data';
-//import FieldDateRangeInput from './FieldDateRangeInput';
+// import { Form as FinalForm, FormSpy } from 'react-final-form';
+// import moment from 'moment';
+// import { Button } from '../../components';
+// import { required, bookingDatesRequired, composeValidators } from '../../util/validators';
+// import { LINE_ITEM_NIGHT, LINE_ITEM_DAY } from '../../util/types';
+// import { createTimeSlots } from '../../util/test-data';
+// import FieldDateRangeInput from './FieldDateRangeInput';
 
 // NOTE: We haven't updated this component to work with time-based availability
 export const Empty = {

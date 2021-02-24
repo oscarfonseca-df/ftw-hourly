@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import css from './IconKeys.module.css';
 
 const IconKeys = props => {
@@ -8,19 +7,19 @@ const IconKeys = props => {
   return (
     <svg
       className={className}
-      width="50px"
       height="57px"
-      viewBox="0 0 50 57"
       version="1.1"
+      viewBox="0 0 50 57"
+      width="50px"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
-        stroke="none"
-        strokeWidth="1"
         fill="none"
         fillRule="evenodd"
+        stroke="none"
         strokeLinecap="round"
         strokeLinejoin="round"
+        strokeWidth="1"
       >
         <g className={css.strokeMarketplaceColor} transform="translate(-538.000000, -240.000000)">
           <g transform="translate(540.000000, 242.000000)">

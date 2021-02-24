@@ -22,7 +22,7 @@ export const zwspAroundSpecialCharsSplit = (wordToBreak, breakChars = '/') => {
   // Escape special regular expression chars
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
   const escapedBCArray = bcArray.map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  const reSplit = new RegExp('([' + escapedBCArray.join('') + '])');
+  const reSplit = new RegExp(`([${  escapedBCArray.join('')  }])`);
 
   const zwsp = '​';
   return wordToBreak.split(reSplit).map(w => (bcArray.includes(w) ? `${zwsp}${w}${zwsp}` : w));
@@ -86,11 +86,10 @@ export const linkifyOrWrapLinkSplit = (word, key, options = {}) => {
   const urlRegex = /(\bhttps?:\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
   if (word.match(urlRegex)) {
     // Split strings like "(http://www.example.com)" to ["(","http://www.example.com",")"]
-    return word.split(urlRegex).map(w => {
-      return !w.match(urlRegex) ? (
+    return word.split(urlRegex).map(w => !w.match(urlRegex) ? (
         w
       ) : linkify ? (
-        <ExternalLink key={key} href={w} className={linkClass}>
+        <ExternalLink key={key} className={linkClass} href={w}>
           {w}
         </ExternalLink>
       ) : linkClass ? (
@@ -99,8 +98,7 @@ export const linkifyOrWrapLinkSplit = (word, key, options = {}) => {
         </span>
       ) : (
         w
-      );
-    });
+      ));
   } else {
     return word;
   }
@@ -123,7 +121,7 @@ export const richText = (text, options) => {
   // longWordMinLength & longWordClass are needed for long words to be spanned
   // linkify = true is needed for links to be linkified (linkClass is optional)
   const { longWordMinLength, longWordClass, linkify = false, linkClass } = options;
-  const linkOrLongWordClass = linkClass ? linkClass : longWordClass;
+  const linkOrLongWordClass = linkClass || longWordClass;
   const nonWhiteSpaceSequence = /([^\s]+)/gi;
 
   return text.split(nonWhiteSpaceSequence).reduce((acc, nextChild, i) => {

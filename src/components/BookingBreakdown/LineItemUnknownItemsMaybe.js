@@ -14,7 +14,6 @@ import { intlShape } from '../../util/reactIntl';
 import { formatMoney } from '../../util/currency';
 import { humanizeLineItemCode } from '../../util/data';
 import { LINE_ITEMS, propTypes } from '../../util/types';
-
 import css from './BookingBreakdown.module.css';
 
 const LineItemUnknownItemsMaybe = props => {

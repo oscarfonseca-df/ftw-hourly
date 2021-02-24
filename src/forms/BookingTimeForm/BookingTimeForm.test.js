@@ -82,33 +82,33 @@ const monthlyTimeSlots = {
   },
 };
 
-describe('BookingTimeForm', () => {
+describe('bookingTimeForm', () => {
   it('matches snapshot without selected dates', () => {
     const tree = renderShallow(
       <BookingTimeFormComponent
-        unitType={LINE_ITEM_UNITS}
+        endDateInputProps={endDateInputProps}
+        endTimeInputProps={endTimeInputProps}
+        fetchLineItemsInProgress={false}
+        initialValues={{ bookingStartDate: { date: new Date('2019-10-14T00:00:00Z') } }}
+        intl={fakeIntl}
+        lineItems={lineItems}
+        monthlyTimeSlots={monthlyTimeSlots}
+        onChange={noop}
+        onFetchTimeSlots={noop}
+        onFetchTransactionLineItems={noop}
+        onSubmit={noop}
         price={new Money(1234, 'USD')}
         startDateInputProps={startDateInputProps}
-        endDateInputProps={endDateInputProps}
         startTimeInputProps={startTimeInputProps}
-        endTimeInputProps={endTimeInputProps}
         timeZone="Etc/UTC"
-        monthlyTimeSlots={monthlyTimeSlots}
-        initialValues={{ bookingStartDate: { date: new Date('2019-10-14T00:00:00Z') } }}
-        onChange={noop}
-        onSubmit={noop}
-        onFetchTimeSlots={noop}
-        intl={fakeIntl}
-        fetchLineItemsInProgress={false}
-        onFetchTransactionLineItems={noop}
-        lineItems={lineItems}
+        unitType={LINE_ITEM_UNITS}
       />
     );
     expect(tree).toMatchSnapshot();
   });
 });
 
-describe('EstimatedBreakdownMaybe', () => {
+describe('estimatedBreakdownMaybe', () => {
   it('renders nothing if missing start and end date', () => {
     const data = {
       unitType: LINE_ITEM_UNITS,

@@ -13,7 +13,7 @@ import { TransactionPageComponent } from './TransactionPage';
 
 const noop = () => null;
 
-describe('TransactionPage - Sale', () => {
+describe('transactionPage - Sale', () => {
   it('matches snapshot', () => {
     const txId = 'tx-sale-1';
     const start = new Date(Date.UTC(2017, 5, 10));
@@ -73,7 +73,7 @@ describe('TransactionPage - Sale', () => {
   });
 });
 
-describe('TransactionPage - Order', () => {
+describe('transactionPage - Order', () => {
   it('matches snapshot', () => {
     const txId = 'tx-order-1';
     const start = new Date(Date.UTC(2017, 5, 10));

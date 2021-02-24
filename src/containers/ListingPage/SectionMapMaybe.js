@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import { obfuscatedCoordinates } from '../../util/maps';
 import { Map } from '../../components';
 import config from '../../config';
-
 import css from './ListingPage.module.css';
 
 class SectionMapMaybe extends Component {

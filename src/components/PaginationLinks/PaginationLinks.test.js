@@ -3,7 +3,7 @@ import { fakeIntl } from '../../util/test-data';
 import { renderShallow } from '../../util/test-helpers';
 import { PaginationLinksComponent as PaginationLinks } from './PaginationLinks';
 
-describe('PaginationLinks', () => {
+describe('paginationLinks', () => {
   it('should match snapshot with both links enabled', () => {
     const pagination = {
       page: 2,

@@ -14,9 +14,8 @@ import {
   ListingLink,
   Modal,
   TimeRange,
-} from '../../components';
+} from "..";
 import { EditListingAvailabilityPlanForm, EditListingAvailabilityExceptionForm } from '../../forms';
-
 import css from './EditListingAvailabilityPanel.module.css';
 
 const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -28,9 +27,9 @@ const MAX_EXCEPTIONS_COUNT = 100;
 const defaultTimeZone = () =>
   typeof window !== 'undefined' ? getDefaultTimeZoneOnBrowser() : 'Etc/UTC';
 
-/////////////
+// ///////////
 // Weekday //
-/////////////
+// ///////////
 const findEntry = (availabilityPlan, dayOfWeek) =>
   availabilityPlan.entries.find(d => d.dayOfWeek === dayOfWeek);
 
@@ -52,22 +51,20 @@ const Weekday = props => {
       </div>
       <div className={css.entries}>
         {availabilityPlan && hasEntry
-          ? getEntries(availabilityPlan, dayOfWeek).map(e => {
-              return (
-                <span className={css.entry} key={`${e.dayOfWeek}${e.startTime}`}>{`${
+          ? getEntries(availabilityPlan, dayOfWeek).map(e => (
+                <span key={`${e.dayOfWeek}${e.startTime}`} className={css.entry}>{`${
                   e.startTime
                 } - ${e.endTime === '00:00' ? '24:00' : e.endTime}`}</span>
-              );
-            })
+              ))
           : null}
       </div>
     </div>
   );
 };
 
-///////////////////////////////////////////////////
+// /////////////////////////////////////////////////
 // EditListingAvailabilityExceptionPanel - utils //
-///////////////////////////////////////////////////
+// /////////////////////////////////////////////////
 
 // Create initial entry mapping for form's initial values
 const createEntryDayGroups = (entries = {}) =>
@@ -129,13 +126,11 @@ const createAvailabilityPlan = values => ({
 //
 // Note: if you allow fetching more than 100 exception,
 // pagination kicks in and that makes client-side sorting impossible.
-const sortExceptionsByStartTime = (a, b) => {
-  return a.attributes.start.getTime() - b.attributes.start.getTime();
-};
+const sortExceptionsByStartTime = (a, b) => a.attributes.start.getTime() - b.attributes.start.getTime();
 
-//////////////////////////////////
+// ////////////////////////////////
 // EditListingAvailabilityPanel //
-//////////////////////////////////
+// ////////////////////////////////
 const EditListingAvailabilityPanel = props => {
   const {
     className,
@@ -177,9 +172,7 @@ const EditListingAvailabilityPanel = props => {
     ],
   };
   const availabilityPlan = currentListing.attributes.availabilityPlan || defaultAvailabilityPlan;
-  const initialValues = valuesFromLastSubmit
-    ? valuesFromLastSubmit
-    : createInitialValues(availabilityPlan);
+  const initialValues = valuesFromLastSubmit || createInitialValues(availabilityPlan);
 
   const handleSubmit = values => {
     setValuesFromLastSubmit(values);
@@ -253,9 +246,9 @@ const EditListingAvailabilityPanel = props => {
         <div className={css.week}>
           {WEEKDAYS.map(w => (
             <Weekday
-              dayOfWeek={w}
               key={w}
               availabilityPlan={availabilityPlan}
+              dayOfWeek={w}
               openEditModal={setIsEditPlanModalOpen}
             />
           ))}
@@ -309,14 +302,14 @@ const EditListingAvailabilityPanel = props => {
                         onDeleteAvailabilityException({ id: availabilityException.id })
                       }
                     >
-                      <IconClose size="normal" className={css.removeIcon} />
+                      <IconClose className={css.removeIcon} size="normal" />
                     </button>
                   </div>
                   <TimeRange
                     className={css.timeRange}
-                    startDate={start}
-                    endDate={end}
                     dateType={DATE_TYPE_DATETIME}
+                    endDate={end}
+                    startDate={start}
                     timeZone={availabilityPlan.timezone}
                   />
                 </div>
@@ -327,8 +320,8 @@ const EditListingAvailabilityPanel = props => {
         {exceptionCount <= MAX_EXCEPTIONS_COUNT ? (
           <InlineTextButton
             className={css.addExceptionButton}
-            onClick={() => setIsEditExceptionsModalOpen(true)}
             disabled={disabled}
+            onClick={() => setIsEditExceptionsModalOpen(true)}
             ready={ready}
           >
             <FormattedMessage id="EditListingAvailabilityPanel.addException" />
@@ -345,49 +338,49 @@ const EditListingAvailabilityPanel = props => {
       {!isPublished ? (
         <Button
           className={css.goToNextTabButton}
-          onClick={onNextTab}
           disabled={isNextButtonDisabled}
+          onClick={onNextTab}
         >
           {submitButtonText}
         </Button>
       ) : null}
       {onManageDisableScrolling ? (
         <Modal
+          containerClassName={css.modalContainer}
           id="EditAvailabilityPlan"
           isOpen={isEditPlanModalOpen}
           onClose={() => setIsEditPlanModalOpen(false)}
           onManageDisableScrolling={onManageDisableScrolling}
-          containerClassName={css.modalContainer}
           usePortal
         >
           <EditListingAvailabilityPlanForm
-            formId="EditListingAvailabilityPlanForm"
-            listingTitle={currentListing.attributes.title}
             availabilityPlan={availabilityPlan}
-            weekdays={WEEKDAYS}
-            onSubmit={handleSubmit}
+            fetchErrors={errors}
+            formId="EditListingAvailabilityPlanForm"
             initialValues={initialValues}
             inProgress={updateInProgress}
-            fetchErrors={errors}
+            listingTitle={currentListing.attributes.title}
+            onSubmit={handleSubmit}
+            weekdays={WEEKDAYS}
           />
         </Modal>
       ) : null}
       {onManageDisableScrolling ? (
         <Modal
+          containerClassName={css.modalContainer}
           id="EditAvailabilityExceptions"
           isOpen={isEditExceptionsModalOpen}
           onClose={() => setIsEditExceptionsModalOpen(false)}
           onManageDisableScrolling={onManageDisableScrolling}
-          containerClassName={css.modalContainer}
           usePortal
         >
           <EditListingAvailabilityExceptionForm
+            availabilityExceptions={sortedAvailabilityExceptions}
+            fetchErrors={errors}
             formId="EditListingAvailabilityExceptionForm"
             onSubmit={saveException}
             timeZone={availabilityPlan.timezone}
-            availabilityExceptions={sortedAvailabilityExceptions}
             updateInProgress={updateInProgress}
-            fetchErrors={errors}
           />
         </Modal>
       ) : null}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '../../components';
-
+import { Button } from "..";
 import css from './Discussion.module.css';
 
 const Message = props => {
@@ -31,15 +30,18 @@ class Discussion extends Component {
     this.handleNewMessage = this.handleNewMessage.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
   }
+
   handleOnChange() {
     this.setState({ message: this.input.value });
   }
+
   handleNewMessage(e) {
     e.preventDefault();
     // eslint-disable-next-line no-console
     console.log('new message:', this.input.value);
     this.setState({ message: '' });
   }
+
   render() {
     return (
       <div className={this.props.className}>
@@ -50,14 +52,14 @@ class Discussion extends Component {
         </ul>
         <form className={css.sendMessageForm} onSubmit={this.handleNewMessage}>
           <input
-            className={css.sendMessageInput}
-            autoFocus
-            type="text"
             ref={input => {
               this.input = input;
             }}
-            value={this.state.message}
+            autoFocus
+            className={css.sendMessageInput}
             onChange={this.handleOnChange}
+            type="text"
+            value={this.state.message}
           />
           <Button className={css.sendMessageButton} type="submit">
             Send

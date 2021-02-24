@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { bool, string } from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Field, Form as FinalForm } from 'react-final-form';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { ensureCurrentUser } from '../../util/data';
 import { propTypes } from '../../util/types';
 import * as validators from '../../util/validators';
 import { isUploadImageOverLimitError } from '../../util/errors';
 import { Form, Avatar, Button, ImageFromFile, IconSpinner, FieldTextInput } from '../../components';
-
 import css from './ProfileSettingsForm.module.css';
 
 const ACCEPT_IMAGES = 'image/*';
@@ -116,11 +115,11 @@ class ProfileSettingsFormComponent extends Component {
           const imageFromFile =
             fileExists && (fileUploadInProgress || delayAfterUpload) ? (
               <ImageFromFile
-                id={profileImage.id}
-                className={errorClasses}
-                rootClassName={css.uploadingImage}
                 aspectRatioClassName={css.squareAspectRatio}
+                className={errorClasses}
                 file={profileImage.file}
+                id={profileImage.id}
+                rootClassName={css.uploadingImage}
               >
                 {uploadingOverlay}
               </ImageFromFile>
@@ -136,9 +135,9 @@ class ProfileSettingsFormComponent extends Component {
             !fileUploadInProgress && profileImage.imageId ? (
               <Avatar
                 className={avatarClasses}
+                disableProfileLink
                 renderSizes="(max-width: 767px) 96px, 240px"
                 user={transientUser}
-                disableProfileLink
               />
             ) : null;
 
@@ -189,13 +188,13 @@ class ProfileSettingsFormComponent extends Component {
                 </h3>
                 <Field
                   accept={ACCEPT_IMAGES}
-                  id="profileImage"
-                  name="profileImage"
-                  label={chooseAvatarLabel}
-                  type="file"
-                  form={null}
-                  uploadImageError={uploadImageError}
                   disabled={uploadInProgress}
+                  form={null}
+                  id="profileImage"
+                  label={chooseAvatarLabel}
+                  name="profileImage"
+                  type="file"
+                  uploadImageError={uploadImageError}
                 >
                   {fieldProps => {
                     const { accept, id, input, label, disabled, uploadImageError } = fieldProps;
@@ -233,10 +232,10 @@ class ProfileSettingsFormComponent extends Component {
                         </label>
                         <input
                           accept={accept}
-                          id={id}
-                          name={name}
                           className={css.uploadAvatarInput}
                           disabled={disabled}
+                          id={id}
+                          name={name}
                           onChange={onChange}
                           type={type}
                         />
@@ -259,20 +258,20 @@ class ProfileSettingsFormComponent extends Component {
                 <div className={css.nameContainer}>
                   <FieldTextInput
                     className={css.firstName}
-                    type="text"
                     id="firstName"
-                    name="firstName"
                     label={firstNameLabel}
+                    name="firstName"
                     placeholder={firstNamePlaceholder}
+                    type="text"
                     validate={firstNameRequired}
                   />
                   <FieldTextInput
                     className={css.lastName}
-                    type="text"
                     id="lastName"
-                    name="lastName"
                     label={lastNameLabel}
+                    name="lastName"
                     placeholder={lastNamePlaceholder}
+                    type="text"
                     validate={lastNameRequired}
                   />
                 </div>
@@ -282,11 +281,11 @@ class ProfileSettingsFormComponent extends Component {
                   <FormattedMessage id="ProfileSettingsForm.bioHeading" />
                 </h3>
                 <FieldTextInput
-                  type="textarea"
                   id="bio"
-                  name="bio"
                   label={bioLabel}
+                  name="bio"
                   placeholder={bioPlaceholder}
+                  type="textarea"
                 />
                 <p className={css.bioInfo}>
                   <FormattedMessage id="ProfileSettingsForm.bioInfo" />
@@ -295,10 +294,10 @@ class ProfileSettingsFormComponent extends Component {
               {submitError}
               <Button
                 className={css.submitButton}
-                type="submit"
-                inProgress={submitInProgress}
                 disabled={submitDisabled}
+                inProgress={submitInProgress}
                 ready={pristineSinceLastSubmit}
+                type="submit"
               >
                 <FormattedMessage id="ProfileSettingsForm.saveChanges" />
               </Button>

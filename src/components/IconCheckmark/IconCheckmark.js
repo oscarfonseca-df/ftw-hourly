@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import css from './IconCheckMark.module.css';
 
 const SIZE_SMALL = 'small';
@@ -12,14 +11,14 @@ const IconCheckmark = props => {
   const classes = classNames(rootClassName || css.root, className);
   if (size === SIZE_SMALL) {
     return (
-      <svg className={classes} width="16" height="12" xmlns="http://www.w3.org/2000/svg">
+      <svg className={classes} height="12" width="16" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M14 2l-8 8-4-4"
-          strokeWidth="2.5"
           fill="none"
           fillRule="evenodd"
           strokeLinecap="round"
           strokeLinejoin="round"
+          strokeWidth="2.5"
         />
       </svg>
     );

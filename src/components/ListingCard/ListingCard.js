@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { array, string, func } from 'prop-types';
-import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage, intlShape, injectIntl } from '../../util/reactIntl';
 import { lazyLoadWithDimensions } from '../../util/contextHelpers';
 import { LINE_ITEM_DAY, LINE_ITEM_NIGHT, propTypes } from '../../util/types';
 import { formatMoney } from '../../util/currency';
@@ -10,8 +10,7 @@ import { richText } from '../../util/richText';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { createSlug } from '../../util/urlHelpers';
 import config from '../../config';
-import { NamedLink, ResponsiveImage } from '../../components';
-
+import { NamedLink, ResponsiveImage } from "..";
 import css from './ListingCard.module.css';
 
 const MIN_LENGTH_FOR_LONG_WORDS = 10;
@@ -35,9 +34,7 @@ const priceData = (price, intl) => {
   return {};
 };
 
-const getCertificateInfo = (certificateOptions, key) => {
-  return certificateOptions.find(c => c.key === key);
-};
+const getCertificateInfo = (certificateOptions, key) => certificateOptions.find(c => c.key === key);
 
 class ListingImage extends Component {
   render() {
@@ -89,11 +86,11 @@ export const ListingCardComponent = props => {
       >
         <div className={css.aspectWrapper}>
           <LazyImage
-            rootClassName={css.rootForImage}
             alt={title}
             image={firstImage}
-            variants={['landscape-crop', 'landscape-crop2x']}
+            rootClassName={css.rootForImage}
             sizes={renderSizes}
+            variants={['landscape-crop', 'landscape-crop2x']}
           />
         </div>
       </div>

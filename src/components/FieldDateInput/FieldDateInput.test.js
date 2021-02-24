@@ -9,8 +9,8 @@ import { DateInput } from './FieldDateInput';
 
 const noop = () => null;
 
-describe('DateInput', () => {
-  it('TODO, wait react-dates to work with React 16.9 without warnings', () => {
+describe('dateInput', () => {
+  it('tODO, wait react-dates to work with React 16.9 without warnings', () => {
     expect('todo').toEqual('todo');
   });
   // it('matches snapshot', () => {

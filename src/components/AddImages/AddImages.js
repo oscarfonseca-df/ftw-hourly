@@ -10,8 +10,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { ImageFromFile, ResponsiveImage, IconSpinner } from '../../components';
-
+import { ImageFromFile, ResponsiveImage, IconSpinner } from "..";
 import css from './AddImages.module.css';
 import RemoveImageButton from './RemoveImageButton';
 
@@ -35,10 +34,10 @@ const ThumbnailWrapper = props => {
 
     return (
       <ImageFromFile
-        id={image.id}
         className={className}
-        rootClassName={css.thumbnail}
         file={image.file}
+        id={image.id}
+        rootClassName={css.thumbnail}
       >
         {removeButton}
         {uploadingOverlay}
@@ -51,9 +50,9 @@ const ThumbnailWrapper = props => {
         <div className={css.threeToTwoWrapper}>
           <div className={css.aspectWrapper}>
             <ResponsiveImage
-              rootClassName={css.rootForImage}
-              image={image}
               alt={savedImageAltText}
+              image={image}
+              rootClassName={css.rootForImage}
               variants={['landscape-crop', 'landscape-crop2x']}
             />
           </div>
@@ -87,18 +86,16 @@ const AddImages = props => {
   const classes = classNames(css.root, className);
   return (
     <div className={classes}>
-      {images.map((image, index) => {
-        return (
+      {images.map((image, index) => (
           <ThumbnailWrapper
-            image={image}
-            index={index}
             key={image.id.uuid || image.id}
             className={thumbnailClassName}
-            savedImageAltText={savedImageAltText}
+            image={image}
+            index={index}
             onRemoveImage={onRemoveImage}
+            savedImageAltText={savedImageAltText}
           />
-        );
-      })}
+        ))}
       {children}
     </div>
   );

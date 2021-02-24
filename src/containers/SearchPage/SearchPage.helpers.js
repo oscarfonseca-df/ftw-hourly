@@ -40,9 +40,7 @@ export const validURLParamForExtendedData = (queryParamName, paramValueRaw, filt
     } else if (filterConfig.type === 'PriceFilter') {
       // Restrict price range to correct min & max
       const valueArray = paramValue ? paramValue.split(',') : [];
-      const validValues = valueArray.map(v => {
-        return v < min ? min : v > max ? max : v;
-      });
+      const validValues = valueArray.map(v => v < min ? min : v > max ? max : v);
       return validValues.length === 2 ? { [queryParamName]: validValues.join(',') } : {};
     } else if (filterConfig) {
       // Generic filter - remove empty params

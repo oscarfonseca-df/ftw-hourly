@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { propTypes } from '../../util/types';
 import * as validators from '../../util/validators';
 import { ensureCurrentUser } from '../../util/data';
@@ -14,7 +14,6 @@ import {
   isTooManyEmailVerificationRequestsError,
 } from '../../util/errors';
 import { FieldPhoneNumberInput, Form, PrimaryButton, FieldTextInput } from '../../components';
-
 import css from './ContactDetailsForm.module.css';
 
 const SHOW_EMAIL_SENT_TIMEOUT = 2000;
@@ -308,20 +307,20 @@ class ContactDetailsFormComponent extends Component {
             >
               <div className={css.contactDetailsSection}>
                 <FieldTextInput
-                  type="email"
-                  name="email"
+                  customErrorText={emailTouched ? null : emailTakenErrorText}
                   id={formId ? `${formId}.email` : 'email'}
                   label={emailLabel}
+                  name="email"
                   placeholder={emailPlaceholder}
+                  type="email"
                   validate={validators.composeValidators(emailRequired, emailValid)}
-                  customErrorText={emailTouched ? null : emailTakenErrorText}
                 />
                 {emailVerifiedInfo}
                 <FieldPhoneNumberInput
                   className={css.phone}
-                  name="phoneNumber"
                   id={formId ? `${formId}.phoneNumber` : 'phoneNumber'}
                   label={phoneLabel}
+                  name="phoneNumber"
                   placeholder={phonePlaceholder}
                 />
               </div>
@@ -340,24 +339,24 @@ class ContactDetailsFormComponent extends Component {
                 </p>
 
                 <FieldTextInput
-                  className={css.password}
-                  type="password"
-                  name="currentPassword"
-                  id={formId ? `${formId}.currentPassword` : 'currentPassword'}
                   autoComplete="current-password"
-                  label={passwordLabel}
-                  placeholder={passwordPlaceholder}
-                  validate={passwordValidators}
+                  className={css.password}
                   customErrorText={passwordTouched ? null : passwordErrorText}
+                  id={formId ? `${formId}.currentPassword` : 'currentPassword'}
+                  label={passwordLabel}
+                  name="currentPassword"
+                  placeholder={passwordPlaceholder}
+                  type="password"
+                  validate={passwordValidators}
                 />
               </div>
               <div className={css.bottomWrapper}>
                 {genericError}
                 <PrimaryButton
-                  type="submit"
+                  disabled={submitDisabled}
                   inProgress={inProgress}
                   ready={pristineSinceLastSubmit}
-                  disabled={submitDisabled}
+                  type="submit"
                 >
                   <FormattedMessage id="ContactDetailsForm.saveChanges" />
                 </PrimaryButton>

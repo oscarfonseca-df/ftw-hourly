@@ -68,14 +68,14 @@ describe('urlHelpers', () => {
     });
   });
 
-  describe('LatLng serialisation', () => {
+  describe('latLng serialisation', () => {
     it('encodes and decodes', () => {
       const location = new LatLng(40, 60);
       expect(decodeLatLng(encodeLatLng(location))).toEqual(location);
     });
   });
 
-  describe('LatLngBounds serialisation', () => {
+  describe('latLngBounds serialisation', () => {
     it('encodes and decodes', () => {
       const bounds = new LatLngBounds(new LatLng(50, 70), new LatLng(30, 50));
       expect(decodeLatLngBounds(encodeLatLngBounds(bounds))).toEqual(bounds);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-
 import css from './SearchMapGroupLabel.module.css';
 
 class SearchMapGroupLabel extends Component {

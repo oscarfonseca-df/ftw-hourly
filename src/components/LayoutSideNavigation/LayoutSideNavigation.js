@@ -13,8 +13,7 @@ import {
   LayoutWrapperAccountSettingsSideNav,
   LayoutWrapperMain,
   LayoutWrapperFooter,
-} from '../../components';
-
+} from "..";
 import css from './LayoutSideNavigation.module.css';
 
 const prepareChildren = children => {

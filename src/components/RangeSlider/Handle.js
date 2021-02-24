@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { func, number, string } from 'prop-types';
 import classNames from 'classnames';
-
 import css from './Handle.module.css';
 
 class Handle extends Component {
@@ -43,11 +42,13 @@ class Handle extends Component {
 
     this.onStart(e.pageX);
   }
+
   onMouseMove(e) {
     if (!this.state.dragging) return;
 
     this.onMove(e.pageX);
   }
+
   onMouseUp(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -62,11 +63,13 @@ class Handle extends Component {
     const touchpageX = e.touches[0].pageX;
     this.onStart(touchpageX);
   }
+
   onTouchMove(e) {
     if (!this.state.dragging) return;
 
     this.onMove(e.touches[0].pageX);
   }
+
   onTouchEnd(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -79,6 +82,7 @@ class Handle extends Component {
     this.setState({ dragging: true, relativePos: pagePosition - offsetLeft - offsetWidth / 2 });
     this.props.changeActive();
   }
+
   onMove(pagePosition) {
     const { min, max, positionToValue } = this.props;
     const position = pagePosition - this.state.relativePos;
@@ -88,6 +92,7 @@ class Handle extends Component {
 
     this.props.onChange(value);
   }
+
   onEnd() {
     // Ensuring that setState doesn't get called.
     // This a strange behaviour since window.removeEventListener is called in componentWillUnmount
@@ -103,16 +108,16 @@ class Handle extends Component {
 
     return (
       <div
-        className={classes}
         ref={this.handleRef}
-        style={{ left: `${position}px` }}
+        className={classes}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}
-        onTouchStart={this.onTouchStart}
-        onTouchMove={this.onTouchMove}
         onTouchEnd={this.onTouchEnd}
+        onTouchMove={this.onTouchMove}
+        onTouchStart={this.onTouchStart}
         role="button"
+        style={{ left: `${position}px` }}
       >
         <div
           className={classNames(css.visibleHandle, {

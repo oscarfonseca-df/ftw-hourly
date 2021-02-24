@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
-import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form as FinalForm } from 'react-final-form';
 import classNames from 'classnames';
+import { FormattedMessage, injectIntl, intlShape } from '../../util/reactIntl';
 import { Form, PrimaryButton, FieldTextInput, NamedLink } from '../../components';
 import * as validators from '../../util/validators';
-
 import css from './LoginForm.module.css';
 
 const LoginFormComponent = props => (
@@ -56,7 +55,7 @@ const LoginFormComponent = props => (
       const submitDisabled = invalid || submitInProgress;
 
       const passwordRecoveryLink = (
-        <NamedLink name="PasswordRecoveryPage" className={css.recoveryLink}>
+        <NamedLink className={css.recoveryLink} name="PasswordRecoveryPage">
           <FormattedMessage id="LoginForm.forgotPassword" />
         </NamedLink>
       );
@@ -65,22 +64,22 @@ const LoginFormComponent = props => (
         <Form className={classes} onSubmit={handleSubmit}>
           <div>
             <FieldTextInput
-              type="email"
-              id={formId ? `${formId}.email` : 'email'}
-              name="email"
               autoComplete="email"
+              id={formId ? `${formId}.email` : 'email'}
               label={emailLabel}
+              name="email"
               placeholder={emailPlaceholder}
+              type="email"
               validate={validators.composeValidators(emailRequired, emailValid)}
             />
             <FieldTextInput
-              className={css.password}
-              type="password"
-              id={formId ? `${formId}.password` : 'password'}
-              name="password"
               autoComplete="current-password"
+              className={css.password}
+              id={formId ? `${formId}.password` : 'password'}
               label={passwordLabel}
+              name="password"
               placeholder={passwordPlaceholder}
+              type="password"
               validate={passwordRequired}
             />
           </div>
@@ -93,7 +92,7 @@ const LoginFormComponent = props => (
                 />
               </span>
             </p>
-            <PrimaryButton type="submit" inProgress={submitInProgress} disabled={submitDisabled}>
+            <PrimaryButton disabled={submitDisabled} inProgress={submitInProgress} type="submit">
               <FormattedMessage id="LoginForm.logIn" />
             </PrimaryButton>
           </div>

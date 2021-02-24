@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { arrayOf, bool, func, node, object, shape, string } from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage } from '../../util/reactIntl';
-
 import css from './SelectSingleFilterPlain.module.css';
 
-const getQueryParamName = queryParamNames => {
-  return Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
-};
+const getQueryParamName = queryParamNames => Array.isArray(queryParamNames) ? queryParamNames[0] : queryParamNames;
 
 class SelectSingleFilterPlain extends Component {
   constructor(props) {
@@ -66,7 +63,7 @@ class SelectSingleFilterPlain extends Component {
             <span className={labelClass}>{label}</span>
           </button>
           <button className={css.clearButton} onClick={e => this.selectOption(null, e)}>
-            <FormattedMessage id={'SelectSingleFilter.plainClear'} />
+            <FormattedMessage id="SelectSingleFilter.plainClear" />
           </button>
         </div>
         <div className={optionsContainerClass}>

@@ -32,7 +32,6 @@ import { TRANSITION_REQUEST_PAYMENT, TX_TRANSITION_ACTOR_CUSTOMER } from '../../
 import { unitDivisor, convertMoneyToNumber, convertUnitToSubUnit } from '../../util/currency';
 import config from '../../config';
 import { BookingBreakdown } from '../../components';
-
 import css from './BookingTimeForm.module.css';
 
 const { Money, UUID } = sdkTypes;
@@ -115,12 +114,12 @@ const EstimatedBreakdownMaybe = props => {
 
   return tx ? (
     <BookingBreakdown
-      className={css.receipt}
-      userRole={userRole}
-      unitType={unitType}
-      transaction={tx}
       booking={tx.booking}
+      className={css.receipt}
       timeZone={timeZone}
+      transaction={tx}
+      unitType={unitType}
+      userRole={userRole}
     />
   ) : null;
 };

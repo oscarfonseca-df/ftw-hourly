@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { bool, func, string } from 'prop-types';
-import { FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
+import { FormattedMessage } from '../../util/reactIntl';
 import routeConfiguration from '../../routeConfiguration';
 import { ensureCurrentUser } from '../../util/data';
 import { propTypes } from '../../util/types';
 import { pathByRouteName } from '../../util/routes';
-import { Modal } from '../../components';
-
+import { Modal } from "..";
 import EmailReminder from './EmailReminder';
 import StripeAccountReminder from './StripeAccountReminder';
 import css from './ModalMissingInformation.module.css';
@@ -113,10 +112,10 @@ class ModalMissingInformation extends Component {
         content = (
           <EmailReminder
             className={classes}
-            user={user}
             onResendVerificationEmail={onResendVerificationEmail}
-            sendVerificationEmailInProgress={sendVerificationEmailInProgress}
             sendVerificationEmailError={sendVerificationEmailError}
+            sendVerificationEmailInProgress={sendVerificationEmailInProgress}
+            user={user}
           />
         );
       } else if (this.state.showMissingInformationReminder === STRIPE_ACCOUNT) {
@@ -130,8 +129,9 @@ class ModalMissingInformation extends Component {
 
     return (
       <Modal
-        id="MissingInformationReminder"
+        closeButtonMessage={closeButtonMessage}
         containerClassName={containerClassName}
+        id="MissingInformationReminder"
         isOpen={!!this.state.showMissingInformationReminder}
         onClose={() => {
           this.setState({
@@ -139,9 +139,8 @@ class ModalMissingInformation extends Component {
             hasSeenMissingInformationReminder: true,
           });
         }}
-        usePortal
         onManageDisableScrolling={onManageDisableScrolling}
-        closeButtonMessage={closeButtonMessage}
+        usePortal
       >
         {content}
       </Modal>

@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { getPlacePredictions, getPlaceDetails, locationBounds } from '../../util/googleMaps';
 import { userLocation } from '../../util/maps';
 import config from '../../config';
-
 import css from './LocationAutocompleteInput.module.css';
 
 export const CURRENT_LOCATION_ID = 'current-location';
@@ -25,6 +24,7 @@ class GeocoderGoogleMaps {
   constructor() {
     this.sessionToken = null;
   }
+
   getSessionToken() {
     this.sessionToken =
       this.sessionToken || new window.google.maps.places.AutocompleteSessionToken();
@@ -54,12 +54,10 @@ class GeocoderGoogleMaps {
       : {};
 
     return getPlacePredictions(search, this.getSessionToken(), limitCountriesMaybe).then(
-      results => {
-        return {
+      results => ({
           search,
           predictions: results.predictions,
-        };
-      }
+        })
     );
   }
 
@@ -96,13 +94,11 @@ class GeocoderGoogleMaps {
    */
   getPlaceDetails(prediction) {
     if (this.getPredictionId(prediction) === CURRENT_LOCATION_ID) {
-      return userLocation().then(latlng => {
-        return {
+      return userLocation().then(latlng => ({
           address: '',
           origin: latlng,
           bounds: locationBounds(latlng, config.maps.search.currentLocationBoundsDistance),
-        };
-      });
+        }));
     }
 
     if (prediction.predictionPlace) {

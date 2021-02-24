@@ -5,8 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { MenuItem } from '../../components';
-
+import { MenuItem } from "..";
 import css from './MenuContent.module.css';
 
 const MenuContent = props => {
@@ -48,7 +47,7 @@ const MenuContent = props => {
   });
 
   return (
-    <div className={classes} ref={contentRef} style={style}>
+    <div ref={contentRef} className={classes} style={style}>
       {arrow}
       <ul className={contentClasses}>{children}</ul>
     </div>
