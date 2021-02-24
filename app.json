@@ -5,7 +5,7 @@
     "node",
     "react"
   ],
-  "repository": "https://github.com/sharetribe/ftw-hourly/",
+  "repository": "https://github.com/oscarfonseca-df/lemongrass/",
   "env": {
     "REACT_APP_MAPBOX_ACCESS_TOKEN": {
       "description": "See: Integrating to map providers documentation https://github.com/sharetribe/ftw-hourly/blob/master/docs/map-providers.md"
